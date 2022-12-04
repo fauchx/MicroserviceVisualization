@@ -1,0 +1,56 @@
+{
+  "title": "User Stories",
+  "description": "Schema for validating user stories from a microservices backlog",
+  "type": "array",
+  "uniqueItems": true,
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "pattern": "^[A-Za-z][A-Za-z]-[1-9][0-9]*$"
+      },
+      "name": {
+        "type": "string"
+      },
+      "actor": {
+        "type": "string"
+      },
+      "points": {
+        "type": "number",
+        "minimum": 0
+      },
+      "project": {
+        "type": "string"
+      },
+      "priority": {
+        "type": "string"
+      },
+      "dependencies": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z]-[1-9][0-9]*$"
+            },
+            "name": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "required": [
+      "id",
+      "name",
+      "actor",
+      "points",
+      "project",
+      "priority",
+      "dependencies"
+    ],
+    "additionalProperties": true
+  }
+}

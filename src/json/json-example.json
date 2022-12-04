@@ -1,0 +1,1102 @@
+{
+  "diagramId": "34",
+  "userStories": [
+    {
+      "id": "US-1",
+      "name": "Iniciar sesión",
+      "actor": "User",
+      "points": 1,
+      "element": {
+        "x": 530,
+        "y": 510,
+        "di": {
+          "id": "Activity_0lg6o4g_di",
+          "$type": "bpmndi:BPMNShape",
+          "label": {
+            "$type": "bpmndi:BPMNLabel"
+          },
+          "bounds": {
+            "x": 530,
+            "y": 510,
+            "$type": "dc:Bounds",
+            "width": 100,
+            "height": 80
+          }
+        },
+        "id": "US-1",
+        "type": "bpmn:Task",
+        "width": 100,
+        "height": 80,
+        "hidden": false,
+        "labels": [],
+        "isFrame": false,
+        "children": [],
+        "collapsed": false
+      },
+      "project": "Old project",
+      "purpose": "",
+      "priority": "Baja",
+      "dependencies": [
+        {
+          "id": "US-21",
+          "name": "Verificar si esta autenticado"
+        }
+      ],
+      "restrictions": "",
+      "acceptanceCriteria": ""
+    },
+    {
+      "id": "US-2",
+      "name": "Registrarse en el sistema",
+      "actor": "User",
+      "points": 1,
+      "element": {
+        "x": 530,
+        "y": 370,
+        "di": {
+          "id": "Activity_1f5w89f_di",
+          "$type": "bpmndi:BPMNShape",
+          "label": {
+            "$type": "bpmndi:BPMNLabel"
+          },
+          "bounds": {
+            "x": 530,
+            "y": 370,
+            "$type": "dc:Bounds",
+            "width": 100,
+            "height": 80
+          }
+        },
+        "id": "US-2",
+        "type": "bpmn:Task",
+        "width": 100,
+        "height": 80,
+        "hidden": false,
+        "labels": [],
+        "isFrame": false,
+        "children": [],
+        "collapsed": false
+      },
+      "project": "Old project",
+      "purpose": "",
+      "priority": "Baja",
+      "dependencies": [],
+      "restrictions": "",
+      "acceptanceCriteria": ""
+    },
+    {
+      "id": "US-3",
+      "name": "Buscar productos",
+      "actor": "User",
+      "points": 1,
+      "element": {
+        "x": 530,
+        "y": 250,
+        "di": {
+          "id": "Activity_0l5jusf_di",
+          "$type": "bpmndi:BPMNShape",
+          "label": {
+            "$type": "bpmndi:BPMNLabel"
+          },
+          "bounds": {
+            "x": 530,
+            "y": 250,
+            "$type": "dc:Bounds",
+            "width": 100,
+            "height": 80
+          }
+        },
+        "id": "US-3",
+        "type": "bpmn:Task",
+        "width": 100,
+        "height": 80,
+        "hidden": false,
+        "labels": [],
+        "isFrame": false,
+        "children": [],
+        "collapsed": false
+      },
+      "project": "Old project",
+      "purpose": "",
+      "priority": "Baja",
+      "dependencies": [],
+      "restrictions": "",
+      "acceptanceCriteria": ""
+    },
+    {
+      "id": "US-4",
+      "name": "Listar categorias",
+      "actor": "User",
+      "points": 1,
+      "element": {
+        "x": 530,
+        "y": 100,
+        "di": {
+          "id": "Activity_00ivn26_di",
+          "$type": "bpmndi:BPMNShape",
+          "label": {
+            "$type": "bpmndi:BPMNLabel"
+          },
+          "bounds": {
+            "x": 530,
+            "y": 100,
+            "$type": "dc:Bounds",
+            "width": 100,
+            "height": 80
+          }
+        },
+        "id": "US-4",
+        "type": "bpmn:Task",
+        "width": 100,
+        "height": 80,
+        "hidden": false,
+        "labels": [],
+        "isFrame": false,
+        "children": [],
+        "collapsed": false
+      },
+      "project": "Old project",
+      "purpose": "",
+      "priority": "Baja",
+      "dependencies": [],
+      "restrictions": "",
+      "acceptanceCriteria": ""
+    },
+    {
+      "id": "US-5",
+      "name": "Ver detalles categoría",
+      "actor": "User",
+      "points": 1,
+      "element": {
+        "x": 770,
+        "y": 100,
+        "di": {
+          "id": "Activity_0jej327_di",
+          "$type": "bpmndi:BPMNShape",
+          "label": {
+            "$type": "bpmndi:BPMNLabel"
+          },
+          "bounds": {
+            "x": 770,
+            "y": 100,
+            "$type": "dc:Bounds",
+            "width": 100,
+            "height": 80
+          }
+        },
+        "id": "US-5",
+        "type": "bpmn:Task",
+        "width": 100,
+        "height": 80,
+        "hidden": false,
+        "labels": [],
+        "isFrame": false,
+        "children": [],
+        "collapsed": false
+      },
+      "project": "Old project",
+      "purpose": "",
+      "priority": "Baja",
+      "dependencies": [
+        {
+          "id": "US-4",
+          "name": "Listar categorias"
+        }
+      ],
+      "restrictions": "",
+      "acceptanceCriteria": ""
+    },
+    {
+      "id": "US-6",
+      "name": "Obtener categoría",
+      "actor": "User",
+      "points": 1,
+      "element": {
+        "x": 1010,
+        "y": 100,
+        "di": {
+          "id": "Activity_0a6voqf_di",
+          "$type": "bpmndi:BPMNShape",
+          "label": {
+            "$type": "bpmndi:BPMNLabel"
+          },
+          "bounds": {
+            "x": 1010,
+            "y": 100,
+            "$type": "dc:Bounds",
+            "width": 100,
+            "height": 80
+          }
+        },
+        "id": "US-6",
+        "type": "bpmn:Task",
+        "width": 100,
+        "height": 80,
+        "hidden": false,
+        "labels": [],
+        "isFrame": false,
+        "children": [],
+        "collapsed": false
+      },
+      "project": "Old project",
+      "purpose": "",
+      "priority": "Baja",
+      "dependencies": [
+        {
+          "id": "US-5",
+          "name": "Ver detalles categoría"
+        }
+      ],
+      "restrictions": "",
+      "acceptanceCriteria": ""
+    },
+    {
+      "id": "US-7",
+      "name": "Listar productos",
+      "actor": "User",
+      "points": 1,
+      "element": {
+        "x": 1250,
+        "y": 100,
+        "di": {
+          "id": "Activity_1tsgye1_di",
+          "$type": "bpmndi:BPMNShape",
+          "label": {
+            "$type": "bpmndi:BPMNLabel"
+          },
+          "bounds": {
+            "x": 1250,
+            "y": 100,
+            "$type": "dc:Bounds",
+            "width": 100,
+            "height": 80
+          }
+        },
+        "id": "US-7",
+        "type": "bpmn:Task",
+        "width": 100,
+        "height": 80,
+        "hidden": false,
+        "labels": [],
+        "isFrame": false,
+        "children": [],
+        "collapsed": false
+      },
+      "project": "Old project",
+      "purpose": "",
+      "priority": "Baja",
+      "dependencies": [
+        {
+          "id": "US-6",
+          "name": "Obtener categoría"
+        },
+        {
+          "id": "US-3",
+          "name": "Buscar productos"
+        }
+      ],
+      "restrictions": "",
+      "acceptanceCriteria": ""
+    },
+    {
+      "id": "US-8",
+      "name": "Obtener producto",
+      "actor": "User",
+      "points": 1,
+      "element": {
+        "x": 1490,
+        "y": 100,
+        "di": {
+          "id": "Activity_0xe0l4f_di",
+          "$type": "bpmndi:BPMNShape",
+          "label": {
+            "$type": "bpmndi:BPMNLabel"
+          },
+          "bounds": {
+            "x": 1490,
+            "y": 100,
+            "$type": "dc:Bounds",
+            "width": 100,
+            "height": 80
+          }
+        },
+        "id": "US-8",
+        "type": "bpmn:Task",
+        "width": 100,
+        "height": 80,
+        "hidden": false,
+        "labels": [],
+        "isFrame": false,
+        "children": [],
+        "collapsed": false
+      },
+      "project": "Old project",
+      "purpose": "",
+      "priority": "Baja",
+      "dependencies": [
+        {
+          "id": "US-7",
+          "name": "Listar productos"
+        }
+      ],
+      "restrictions": "",
+      "acceptanceCriteria": ""
+    },
+    {
+      "id": "US-9",
+      "name": "Ver Items o artículos del producto",
+      "actor": "User",
+      "points": 1,
+      "element": {
+        "x": 1730,
+        "y": 100,
+        "di": {
+          "id": "Activity_0tf21ud_di",
+          "$type": "bpmndi:BPMNShape",
+          "label": {
+            "$type": "bpmndi:BPMNLabel"
+          },
+          "bounds": {
+            "x": 1730,
+            "y": 100,
+            "$type": "dc:Bounds",
+            "width": 100,
+            "height": 80
+          }
+        },
+        "id": "US-9",
+        "type": "bpmn:Task",
+        "width": 100,
+        "height": 80,
+        "hidden": false,
+        "labels": [],
+        "isFrame": false,
+        "children": [],
+        "collapsed": false
+      },
+      "project": "Old project",
+      "purpose": "",
+      "priority": "Baja",
+      "dependencies": [
+        {
+          "id": "US-8",
+          "name": "Obtener producto"
+        },
+        {
+          "id": "US-11",
+          "name": "Verificar inventario del artículo"
+        }
+      ],
+      "restrictions": "",
+      "acceptanceCriteria": ""
+    },
+    {
+      "id": "US-10",
+      "name": "Ver detalle del artículo",
+      "actor": "User",
+      "points": 1,
+      "element": {
+        "x": 1970,
+        "y": 100,
+        "di": {
+          "id": "Activity_0ijfwer_di",
+          "$type": "bpmndi:BPMNShape",
+          "label": {
+            "$type": "bpmndi:BPMNLabel"
+          },
+          "bounds": {
+            "x": 1970,
+            "y": 100,
+            "$type": "dc:Bounds",
+            "width": 100,
+            "height": 80
+          }
+        },
+        "id": "US-10",
+        "type": "bpmn:Task",
+        "width": 100,
+        "height": 80,
+        "hidden": false,
+        "labels": [],
+        "isFrame": false,
+        "children": [],
+        "collapsed": false
+      },
+      "project": "Old project",
+      "purpose": "",
+      "priority": "Baja",
+      "dependencies": [
+        {
+          "id": "US-9",
+          "name": "Ver Items o artículos del producto"
+        }
+      ],
+      "restrictions": "",
+      "acceptanceCriteria": ""
+    },
+    {
+      "id": "US-11",
+      "name": "Verificar inventario del artículo",
+      "actor": "User",
+      "points": 1,
+      "element": {
+        "x": 2210,
+        "y": 100,
+        "di": {
+          "id": "Activity_0a7isqj_di",
+          "$type": "bpmndi:BPMNShape",
+          "label": {
+            "$type": "bpmndi:BPMNLabel"
+          },
+          "bounds": {
+            "x": 2210,
+            "y": 100,
+            "$type": "dc:Bounds",
+            "width": 100,
+            "height": 80
+          }
+        },
+        "id": "US-11",
+        "type": "bpmn:Task",
+        "width": 100,
+        "height": 80,
+        "hidden": false,
+        "labels": [],
+        "isFrame": false,
+        "children": [],
+        "collapsed": false
+      },
+      "project": "Old project",
+      "purpose": "",
+      "priority": "Baja",
+      "dependencies": [
+        {
+          "id": "US-10",
+          "name": "Ver detalle del artículo"
+        }
+      ],
+      "restrictions": "",
+      "acceptanceCriteria": ""
+    },
+    {
+      "id": "US-12",
+      "name": "Cerrar sesión",
+      "actor": "User",
+      "points": 1,
+      "element": {
+        "x": 950,
+        "y": 510,
+        "di": {
+          "id": "Activity_0nx9kra_di",
+          "$type": "bpmndi:BPMNShape",
+          "label": {
+            "$type": "bpmndi:BPMNLabel"
+          },
+          "bounds": {
+            "x": 950,
+            "y": 510,
+            "$type": "dc:Bounds",
+            "width": 100,
+            "height": 80
+          }
+        },
+        "id": "US-12",
+        "type": "bpmn:Task",
+        "width": 100,
+        "height": 80,
+        "hidden": false,
+        "labels": [],
+        "isFrame": false,
+        "children": [],
+        "collapsed": false
+      },
+      "project": "Old project",
+      "purpose": "",
+      "priority": "Baja",
+      "dependencies": [
+        {
+          "id": "US-1",
+          "name": "Iniciar sesión"
+        }
+      ],
+      "restrictions": "",
+      "acceptanceCriteria": ""
+    },
+    {
+      "id": "US-13",
+      "name": "Obtener cuenta de usuario",
+      "actor": "User",
+      "points": 1,
+      "element": {
+        "x": 950,
+        "y": 660,
+        "di": {
+          "id": "Activity_1seomv4_di",
+          "$type": "bpmndi:BPMNShape",
+          "label": {
+            "$type": "bpmndi:BPMNLabel"
+          },
+          "bounds": {
+            "x": 950,
+            "y": 660,
+            "$type": "dc:Bounds",
+            "width": 100,
+            "height": 80
+          }
+        },
+        "id": "US-13",
+        "type": "bpmn:Task",
+        "width": 100,
+        "height": 80,
+        "hidden": false,
+        "labels": [],
+        "isFrame": false,
+        "children": [],
+        "collapsed": false
+      },
+      "project": "Old project",
+      "purpose": "",
+      "priority": "Baja",
+      "dependencies": [
+        {
+          "id": "US-1",
+          "name": "Iniciar sesión"
+        }
+      ],
+      "restrictions": "",
+      "acceptanceCriteria": ""
+    },
+    {
+      "id": "US-14",
+      "name": "Actualizar cuenta de usuario",
+      "actor": "User",
+      "points": 1,
+      "element": {
+        "x": 950,
+        "y": 370,
+        "di": {
+          "id": "Activity_1nkkh5l_di",
+          "$type": "bpmndi:BPMNShape",
+          "label": {
+            "$type": "bpmndi:BPMNLabel"
+          },
+          "bounds": {
+            "x": 950,
+            "y": 370,
+            "$type": "dc:Bounds",
+            "width": 100,
+            "height": 80
+          }
+        },
+        "id": "US-14",
+        "type": "bpmn:Task",
+        "width": 100,
+        "height": 80,
+        "hidden": false,
+        "labels": [],
+        "isFrame": false,
+        "children": [],
+        "collapsed": false
+      },
+      "project": "Old project",
+      "purpose": "",
+      "priority": "Baja",
+      "dependencies": [
+        {
+          "id": "US-1",
+          "name": "Iniciar sesión"
+        }
+      ],
+      "restrictions": "",
+      "acceptanceCriteria": ""
+    },
+    {
+      "id": "US-15",
+      "name": "Obtener los artículos agregados al carrito",
+      "actor": "User",
+      "points": 1,
+      "element": {
+        "x": 1190,
+        "y": 660,
+        "di": {
+          "id": "Activity_0gjvpac_di",
+          "$type": "bpmndi:BPMNShape",
+          "label": {
+            "$type": "bpmndi:BPMNLabel"
+          },
+          "bounds": {
+            "x": 1190,
+            "y": 660,
+            "$type": "dc:Bounds",
+            "width": 100,
+            "height": 80
+          }
+        },
+        "id": "US-15",
+        "type": "bpmn:Task",
+        "width": 100,
+        "height": 80,
+        "hidden": false,
+        "labels": [],
+        "isFrame": false,
+        "children": [],
+        "collapsed": false
+      },
+      "project": "Old project",
+      "purpose": "",
+      "priority": "Baja",
+      "dependencies": [
+        {
+          "id": "US-13",
+          "name": "Obtener cuenta de usuario"
+        },
+        {
+          "id": "US-16",
+          "name": "Agregar artículo"
+        }
+      ],
+      "restrictions": "",
+      "acceptanceCriteria": ""
+    },
+    {
+      "id": "US-16",
+      "name": "Agregar artículo",
+      "actor": "User",
+      "points": 1,
+      "element": {
+        "x": 2210,
+        "y": 660,
+        "di": {
+          "id": "Activity_178shc5_di",
+          "$type": "bpmndi:BPMNShape",
+          "label": {
+            "$type": "bpmndi:BPMNLabel"
+          },
+          "bounds": {
+            "x": 2210,
+            "y": 660,
+            "$type": "dc:Bounds",
+            "width": 100,
+            "height": 80
+          }
+        },
+        "id": "US-16",
+        "type": "bpmn:Task",
+        "width": 100,
+        "height": 80,
+        "hidden": false,
+        "labels": [],
+        "isFrame": false,
+        "children": [],
+        "collapsed": false
+      },
+      "project": "Old project",
+      "purpose": "",
+      "priority": "Baja",
+      "dependencies": [
+        {
+          "id": "US-11",
+          "name": "Verificar inventario del artículo"
+        }
+      ],
+      "restrictions": "",
+      "acceptanceCriteria": ""
+    },
+    {
+      "id": "US-17",
+      "name": "Actualizar cantidad de un artículo en el carrito",
+      "actor": "User",
+      "points": 1,
+      "element": {
+        "x": 1320,
+        "y": 790,
+        "di": {
+          "id": "Activity_11ri977_di",
+          "$type": "bpmndi:BPMNShape",
+          "label": {
+            "$type": "bpmndi:BPMNLabel"
+          },
+          "bounds": {
+            "x": 1320,
+            "y": 790,
+            "$type": "dc:Bounds",
+            "width": 100,
+            "height": 80
+          }
+        },
+        "id": "US-17",
+        "type": "bpmn:Task",
+        "width": 100,
+        "height": 80,
+        "hidden": false,
+        "labels": [],
+        "isFrame": false,
+        "children": [],
+        "collapsed": false
+      },
+      "project": "Old project",
+      "purpose": "",
+      "priority": "Baja",
+      "dependencies": [
+        {
+          "id": "US-15",
+          "name": "Obtener los artículos agregados al carrito"
+        }
+      ],
+      "restrictions": "",
+      "acceptanceCriteria": ""
+    },
+    {
+      "id": "US-18",
+      "name": "Eliminar artículo del carrito",
+      "actor": "User",
+      "points": 1,
+      "element": {
+        "x": 1320,
+        "y": 900,
+        "di": {
+          "id": "Activity_1geccvd_di",
+          "$type": "bpmndi:BPMNShape",
+          "label": {
+            "$type": "bpmndi:BPMNLabel"
+          },
+          "bounds": {
+            "x": 1320,
+            "y": 900,
+            "$type": "dc:Bounds",
+            "width": 100,
+            "height": 80
+          }
+        },
+        "id": "US-18",
+        "type": "bpmn:Task",
+        "width": 100,
+        "height": 80,
+        "hidden": false,
+        "labels": [],
+        "isFrame": false,
+        "children": [],
+        "collapsed": false
+      },
+      "project": "Old project",
+      "purpose": "",
+      "priority": "Baja",
+      "dependencies": [
+        {
+          "id": "US-15",
+          "name": "Obtener los artículos agregados al carrito"
+        }
+      ],
+      "restrictions": "",
+      "acceptanceCriteria": ""
+    },
+    {
+      "id": "US-19",
+      "name": "Listar ordenes de compra",
+      "actor": "User",
+      "points": 1,
+      "element": {
+        "x": 1320,
+        "y": 1010,
+        "di": {
+          "id": "Activity_1ablw75_di",
+          "$type": "bpmndi:BPMNShape",
+          "label": {
+            "$type": "bpmndi:BPMNLabel"
+          },
+          "bounds": {
+            "x": 1320,
+            "y": 1010,
+            "$type": "dc:Bounds",
+            "width": 100,
+            "height": 80
+          }
+        },
+        "id": "US-19",
+        "type": "bpmn:Task",
+        "width": 100,
+        "height": 80,
+        "hidden": false,
+        "labels": [],
+        "isFrame": false,
+        "children": [],
+        "collapsed": false
+      },
+      "project": "Old project",
+      "purpose": "",
+      "priority": "Baja",
+      "dependencies": [
+        {
+          "id": "US-15",
+          "name": "Obtener los artículos agregados al carrito"
+        }
+      ],
+      "restrictions": "",
+      "acceptanceCriteria": ""
+    },
+    {
+      "id": "US-20",
+      "name": "Crear orden de compra",
+      "actor": "User",
+      "points": 1,
+      "element": {
+        "x": 980,
+        "y": 890,
+        "di": {
+          "id": "Activity_1q1gm0w_di",
+          "$type": "bpmndi:BPMNShape",
+          "label": {
+            "$type": "bpmndi:BPMNLabel"
+          },
+          "bounds": {
+            "x": 980,
+            "y": 890,
+            "$type": "dc:Bounds",
+            "width": 100,
+            "height": 80
+          }
+        },
+        "id": "US-20",
+        "type": "bpmn:Task",
+        "width": 100,
+        "height": 80,
+        "hidden": false,
+        "labels": [],
+        "isFrame": false,
+        "children": [],
+        "collapsed": false
+      },
+      "project": "Old project",
+      "purpose": "",
+      "priority": "Baja",
+      "dependencies": [
+        {
+          "id": "US-15",
+          "name": "Obtener los artículos agregados al carrito"
+        }
+      ],
+      "restrictions": "",
+      "acceptanceCriteria": ""
+    },
+    {
+      "id": "US-21",
+      "name": "Verificar si esta autenticado",
+      "actor": "User",
+      "points": 1,
+      "element": {
+        "x": 760,
+        "y": 890,
+        "di": {
+          "id": "Activity_065srt2_di",
+          "$type": "bpmndi:BPMNShape",
+          "label": {
+            "$type": "bpmndi:BPMNLabel"
+          },
+          "bounds": {
+            "x": 760,
+            "y": 890,
+            "$type": "dc:Bounds",
+            "width": 100,
+            "height": 80
+          }
+        },
+        "id": "US-21",
+        "type": "bpmn:Task",
+        "width": 100,
+        "height": 80,
+        "hidden": false,
+        "labels": [],
+        "isFrame": false,
+        "children": [],
+        "collapsed": false
+      },
+      "project": "Old project",
+      "purpose": "",
+      "priority": "Baja",
+      "dependencies": [
+        {
+          "id": "US-20",
+          "name": "Crear orden de compra"
+        }
+      ],
+      "restrictions": "",
+      "acceptanceCriteria": ""
+    },
+    {
+      "id": "US-22",
+      "name": "Asignar número ID de orden",
+      "actor": "User",
+      "points": 1,
+      "element": {
+        "x": 350,
+        "y": 740,
+        "di": {
+          "id": "Activity_1wo2t01_di",
+          "$type": "bpmndi:BPMNShape",
+          "label": {
+            "$type": "bpmndi:BPMNLabel"
+          },
+          "bounds": {
+            "x": 350,
+            "y": 740,
+            "$type": "dc:Bounds",
+            "width": 100,
+            "height": 80
+          }
+        },
+        "id": "US-22",
+        "type": "bpmn:Task",
+        "width": 100,
+        "height": 80,
+        "hidden": false,
+        "labels": [],
+        "isFrame": false,
+        "children": [],
+        "collapsed": false
+      },
+      "project": "Old project",
+      "purpose": "",
+      "priority": "Baja",
+      "dependencies": [
+        {
+          "id": "US-21",
+          "name": "Verificar si esta autenticado"
+        }
+      ],
+      "restrictions": "",
+      "acceptanceCriteria": ""
+    },
+    {
+      "id": "US-23",
+      "name": "Registrar información de pago y envío",
+      "actor": "User",
+      "points": 1,
+      "element": {
+        "x": 350,
+        "y": 970,
+        "di": {
+          "id": "Activity_190hf7z_di",
+          "$type": "bpmndi:BPMNShape",
+          "label": {
+            "$type": "bpmndi:BPMNLabel"
+          },
+          "bounds": {
+            "x": 350,
+            "y": 970,
+            "$type": "dc:Bounds",
+            "width": 100,
+            "height": 80
+          }
+        },
+        "id": "US-23",
+        "type": "bpmn:Task",
+        "width": 100,
+        "height": 80,
+        "hidden": false,
+        "labels": [],
+        "isFrame": false,
+        "children": [],
+        "collapsed": false
+      },
+      "project": "Old project",
+      "purpose": "",
+      "priority": "Baja",
+      "dependencies": [
+        {
+          "id": "US-22",
+          "name": "Asignar número ID de orden"
+        }
+      ],
+      "restrictions": "",
+      "acceptanceCriteria": ""
+    },
+    {
+      "id": "US-24",
+      "name": "Enviar confirmación del pedido al correo",
+      "actor": "User",
+      "points": 1,
+      "element": {
+        "x": 500,
+        "y": 1120,
+        "di": {
+          "id": "Activity_1bwjx7k_di",
+          "$type": "bpmndi:BPMNShape",
+          "label": {
+            "$type": "bpmndi:BPMNLabel"
+          },
+          "bounds": {
+            "x": 500,
+            "y": 1120,
+            "$type": "dc:Bounds",
+            "width": 100,
+            "height": 80
+          }
+        },
+        "id": "US-24",
+        "type": "bpmn:Task",
+        "width": 100,
+        "height": 80,
+        "hidden": false,
+        "labels": [],
+        "isFrame": false,
+        "children": [],
+        "collapsed": false
+      },
+      "project": "Old project",
+      "purpose": "",
+      "priority": "Baja",
+      "dependencies": [
+        {
+          "id": "US-25",
+          "name": "Enviar orden de compra"
+        }
+      ],
+      "restrictions": "",
+      "acceptanceCriteria": ""
+    },
+    {
+      "id": "US-25",
+      "name": "Enviar orden de compra",
+      "actor": "User",
+      "points": 1,
+      "element": {
+        "x": 500,
+        "y": 970,
+        "di": {
+          "id": "Activity_1gjtsgj_di",
+          "$type": "bpmndi:BPMNShape",
+          "label": {
+            "$type": "bpmndi:BPMNLabel"
+          },
+          "bounds": {
+            "x": 500,
+            "y": 970,
+            "$type": "dc:Bounds",
+            "width": 100,
+            "height": 80
+          }
+        },
+        "id": "US-25",
+        "type": "bpmn:Task",
+        "width": 100,
+        "height": 80,
+        "hidden": false,
+        "labels": [],
+        "isFrame": false,
+        "children": [],
+        "collapsed": false
+      },
+      "project": "Old project",
+      "purpose": "",
+      "priority": "Baja",
+      "dependencies": [
+        {
+          "id": "US-23",
+          "name": "Registrar información de pago y envío"
+        }
+      ],
+      "restrictions": "",
+      "acceptanceCriteria": ""
+    }
+  ]
+}

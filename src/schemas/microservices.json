@@ -1,0 +1,77 @@
+{
+  "title": "Microservices",
+  "description": "Schema for validating a microservices backlog",
+  "type": "array",
+  "uniqueItems": true,
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "pattern": "^[A-Za-z][A-Za-z][1-9][0-9]*$"
+      },
+      "points": {
+        "type": "number",
+        "minimum": 0
+      },
+      "complexity": {
+        "type": "number",
+        "minimum": 0
+      },
+      "userStories": {
+        "type": "array",
+        "uniqueItems": true,
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z][1-9][0-9]*$"
+            },
+            "name": {
+              "type": "string"
+            },
+            "actor": {
+              "type": "string"
+            },
+            "points": {
+              "type": "number",
+              "minimum": 0
+            },
+            "project": {
+              "type": "string"
+            },
+            "priority": {
+              "type": "string"
+            },
+            "dependencies": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z][1-9][0-9]*$"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "actor",
+            "points",
+            "project",
+            "priority",
+            "dependencies"
+          ],
+          "additionalProperties": true
+        }
+      }
+    },
+    "required": [
+      "id",
+      "points",
+      "complexity",
+      "userStories"
+    ],
+    "additionalProperties": true
+  }
+}

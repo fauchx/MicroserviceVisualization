@@ -1,0 +1,57 @@
+{
+    "diagramId": "34",
+    "userStories": [
+        {
+            "id": "US-5",
+            "name": "Register product",
+            "actor": "User",
+            "points": 1,
+            "element": {
+                "x": 530,
+                "y": 510,
+                "di": {
+                    "id": "Activity_0lg6o4g_di",
+                    "$type": "bpmndi:BPMNShape",
+                    "label": {
+                        "$type": "bpmndi:BPMNLabel"
+                    },
+                    "bounds": {
+                        "x": 530,
+                        "y": 510,
+                        "$type": "dc:Bounds",
+                        "width": 100,
+                        "height": 80
+                    }
+                },
+                "id": "US-1",
+                "type": "bpmn:Task",
+                "width": 100,
+                "height": 80,
+                "hidden": false,
+                "labels": [],
+                "isFrame": false,
+                "children": [],
+                "collapsed": false
+            },
+            "project": "Old project",
+            "purpose": "",
+            "priority": "Baja",
+            "dependencies": [
+                {
+                    "id": "US-1",
+                    "name": "Verificar si esta autenticado"
+                },
+                {
+                    "id": "US-4",
+                    "name": "Verificar si esta autenticado"
+                },
+                {
+                    "id": "US-3",
+                    "name": "Verificar si esta autenticado"
+                }
+            ],
+            "restrictions": "",
+            "acceptanceCriteria": ""
+        }
+    ]
+}
