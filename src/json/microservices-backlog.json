@@ -84,8 +84,6 @@
     },
     {
         "id": "MS2",
-        "points": 9,
-        "complexity": 9.00,
         "userStories": [
             {
                 "id": "US3",
@@ -130,8 +128,6 @@
     },
     {
         "id": "MS3",
-        "points": 23,
-        "complexity": 23.00,
         "userStories": [
             {
                 "id": "US4",
