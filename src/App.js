@@ -26,7 +26,7 @@ var Coh = 0;  // Cohesion grade total
 var CohT = 0; // Cohesión total de la aplicación
 
 var WsicT = 0;// mayor número de historias de usuario asociadas a un microservicio
-//var CxT = 0;  // Complejidad cognitiva total de la aplicación
+var CxT = 0;  // Complejidad cognitiva total de la aplicación
 var SsT = 0;  // Similitud semántica total de la aplicación
 /*
 𝑀𝑆𝐵𝐴=(𝑀𝑆, 𝑀𝑇 ⃗) 
@@ -46,11 +46,52 @@ SsT es la similitud semántica; Las cuales son métricas calculadas para MSBA
 
 /* Cx = (sum(c𝑔)) + maxMSpoints + (CantidadMSs*WsicT) + (sum(Pf)) + (sum(SIY)) */
 var maxMSpoints = 0;
-//var Pf = 0; // Número (máximo?) de llamadas secuenciales entre microservicios
+var Cx = 0;
+var sumCg = 0;
+var sumPf = 0; // Número (máximo?) de llamadas secuenciales entre microservicios
+var sumSIY = 0;
 
 /* CxT = Cx / Cxo */
 
 //************ Funciones ****************/
+
+function complejidad(nodos2, nombreMS) {
+  var matriz = [[nombreMS]];
+  var prof = [0]; // ïndice de profundidad del nodo a expandir
+  var padre = [];
+  var resultado = 0; // Variable para retornar la complejidad cognitiva
+  while (matriz.length > 0) { // Algoritmo de búsqueda por Amplitud
+    padre = matriz[0]; // padre = arreglo de MS's
+    nombreMS = padre[prof[0]] // Nombre del MS a buscar las dependencias
+    for (let i = 0; i < nodos2.length; i++) { // Recorre todos los nodos
+      if (nodos2[i].id === nombreMS) { // Encuentra el MS a expandir sus dependencias
+        var depend = nodos[i].dependencies; // Arreglo de dependencias
+        for (let k = 0; k < depend.length; k++) { // Recorre las dependencias
+          if (padre[prof[0]] !== depend[k]) { // Si el MS a expandir es diferente de las dependencias
+            var noEsta = true;
+            // for para comparar los MSs de padre y evitar devolverse a un nodo anterior
+            for (let l = 0; l < padre.length; l++) { 
+              if (padre[l] === depend[k]) {
+                noEsta = false;
+              }
+            }
+            if (noEsta) {
+              var hijo = padre; // Clona el array de MSs padre
+              hijo = hijo.concat(depend[k]); // Le agrega el MSs que no está en el arreglo
+              matriz = matriz.concat(new Array(hijo)); // Agregar un nuevo arreglo (nodo) a la matriz
+              prof = prof.concat(prof[0] + 1) // Agrega la profundidad del nuevo nodo
+            }
+          }
+        }
+        break;
+      }
+    }
+    resultado = matriz[0].length - 1; // Cambia su valor hasta quedarse con el máximo
+    matriz.shift(); // Quita el primer elemento (expandido) de la matriz
+    prof.shift(); // Quita la profundidad del elemento recién quitado de la matriz
+  }
+  return resultado;
+}
 
 async function similitud_semantica(nombres_HU) {
   var resultado = "";
@@ -103,6 +144,11 @@ async function convertir_jsonAnodos() {
   SsT = 0;
   CantidadMSs = 0;
   maxMSpoints = 0;
+  CxT = 0;
+  Cx = 0;
+  sumCg = 0;
+  sumPf = 0;
+  sumSIY = 0;
   nodos = [];
   aristas = [];
 
@@ -166,7 +212,7 @@ async function convertir_jsonAnodos() {
         cohesion_lack: 0,
         cohesion_grade: 0,
         columnas: Math.ceil(Math.sqrt(json[i].userStories.length)),
-        complexity: json[i].complexity,
+        complexity: 0,
         componente: "microservicio",
         dependencies: MSdependencias, // o 'MScalls' si quiere mostrar repetidos 
         isGroup: true,
@@ -252,6 +298,10 @@ async function convertir_jsonAnodos() {
 
       // Cálculo de la similitud semántica
       SsT = SsT + nodos[i].semantic_similarity // Sumatoria previa
+      
+      // Cálculo de la complejidad cognitiva CxT
+      // Cx = (sum(c𝑔)) + maxMSpoints + (CantidadMSs*WsicT) + (sum(Pf)) + (sum(SIY)) 
+      nodos[i].complexity = complejidad(nodos, nodos[i].id);
 
       /*        Otros         */
       rendimiento = rendimiento + nodos[i].calls;
@@ -261,7 +311,14 @@ async function convertir_jsonAnodos() {
       //
       if (nodos[i].points > maxMSpoints) {
         maxMSpoints = nodos[i].points;
-      }
+      }      
+
+      sumPf = sumPf + nodos[i].complexity;
+      sumCg = sumCg + nodos[i].cg;
+      sumSIY = sumSIY + SIY;
+
+      Cx = sumCg + maxMSpoints + (CantidadMSs * WsicT) + sumPf + sumSIY
+      CxT = Cx / 2;
     }
   }
   AIST = Math.sqrt(AIST);
@@ -273,8 +330,14 @@ async function convertir_jsonAnodos() {
 
   /*          Otros           */
   rendimiento = rendimiento / CantidadMSs;
+  console.log("  *** OTRAS MÉTRICAS DE LA APLICACIÓN ***")
   console.log("Rendimiento: " + rendimiento.toFixed(2));
   console.log("Max ponits: " + maxMSpoints.toFixed(2));
+  console.log("Cx: " + Cx.toFixed(2));
+  console.log("CxT: " + CxT.toFixed(2));
+  // console.log("sumCg: " + sumCg);
+  // console.log("sumPf: " + sumPf);
+  // console.log("sumSIY: " + sumSIY);
 
   diagramaCargado = true;
   init();

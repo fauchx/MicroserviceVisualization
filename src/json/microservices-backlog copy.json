@@ -1,0 +1,48 @@
+[
+    {
+        "id": "MS1",
+        "points": 10,
+        "complexity": 19.00,
+        "userStories": [
+            {
+                "id": "US1",
+                "name": "Login",
+                "actor": "User",
+                "points": 10,
+                "element": {
+                    "x": 530,
+                    "y": 510,
+                    "di": {
+                        "id": "Activity_0lg6o4g_di",
+                        "$type": "bpmndi:BPMNShape",
+                        "label": {
+                            "$type": "bpmndi:BPMNLabel"
+                        },
+                        "bounds": {
+                            "x": 530,
+                            "y": 510,
+                            "$type": "dc:Bounds",
+                            "width": 100,
+                            "height": 80
+                        }
+                    },
+                    "id": "SI-1",
+                    "type": "bpmn:Task",
+                    "width": 100,
+                    "height": 80,
+                    "hidden": false,
+                    "labels": [],
+                    "isFrame": false,
+                    "children": [],
+                    "collapsed": false
+                },
+                "project": "Old project",
+                "purpose": "",
+                "priority": "Baja",
+                "dependencies": ["US3","US4"],
+                "restrictions": "",
+                "acceptanceCriteria": ""
+            }
+        ]
+    }
+]

@@ -10,14 +10,6 @@
         "type": "string",
         "pattern": "^[A-Za-z][A-Za-z][1-9][0-9]*$"
       },
-      "points": {
-        "type": "number",
-        "minimum": 0
-      },
-      "complexity": {
-        "type": "number",
-        "minimum": 0
-      },
       "userStories": {
         "type": "array",
         "uniqueItems": true,
@@ -68,8 +60,6 @@
     },
     "required": [
       "id",
-      "points",
-      "complexity",
       "userStories"
     ],
     "additionalProperties": true

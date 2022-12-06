@@ -1,8 +1,6 @@
 [
     {
         "id": "MS1",
-        "points": 19,
-        "complexity": 19.00,
         "userStories": [
             {
                 "id": "US1",
