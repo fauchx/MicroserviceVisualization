@@ -3,7 +3,7 @@
         "id": "MS1",
         "userStories": [
             {
-                "id": "US1",
+                "id": "US-1",
                 "name": "Login",
                 "actor": "User",
                 "points": 10,
@@ -37,7 +37,16 @@
                 "project": "Old project",
                 "purpose": "",
                 "priority": "Baja",
-                "dependencies": ["US3","US4"],
+                "dependencies": [
+                    {
+                        "id": "US-3",
+                        "nombre": ""
+                    },
+                    {
+                        "id": "US-4",
+                        "nombre": ""
+                    }
+                ],
                 "restrictions": "",
                 "acceptanceCriteria": ""
             }

@@ -55,6 +55,23 @@ var sumSIY = 0;
 
 //************ Funciones ****************/
 
+function recibe_parametro(props) {
+  const query = new URLSearchParams(props.target.location.search);
+  var diagrama = query.get('diagrama')
+  if (diagrama !== null) {
+    try {
+      json = JSON.parse(diagrama);
+      var schema = require('./schemas/microservices.json');
+      var esValido = validarJson(schema, json);
+      if (esValido) {
+        nuevoDiagrama();
+      }
+    } catch {
+      //
+    }
+  }
+}
+
 function complejidad(nodos2, nombreMS) {
   var matriz = [[nombreMS]];
   var prof = [0]; // ïndice de profundidad del nodo a expandir
@@ -70,7 +87,7 @@ function complejidad(nodos2, nombreMS) {
           if (padre[prof[0]] !== depend[k]) { // Si el MS a expandir es diferente de las dependencias
             var noEsta = true;
             // for para comparar los MSs de padre y evitar devolverse a un nodo anterior
-            for (let l = 0; l < padre.length; l++) { 
+            for (let l = 0; l < padre.length; l++) {
               if (padre[l] === depend[k]) {
                 noEsta = false;
               }
@@ -158,6 +175,7 @@ async function convertir_jsonAnodos() {
     var MSpuntos = 0;
     var nombresHU = [];
     for (let j = 0; j < Object(json[i].userStories).length; j++) {
+      json[i].userStories[j].id = json[i].userStories[j].id.replace("-", "");
       nombresHU = nombresHU.concat(json[i].userStories[j].name);
       MSpuntos = MSpuntos + json[i].userStories[j].points;
       if (Object(json[i].userStories).length > WsicT) {
@@ -176,13 +194,15 @@ async function convertir_jsonAnodos() {
         points: json[i].userStories[j].points
       });
       for (let k = 0; k < Object(json[i].userStories[j].dependencies).length; k++) {
+        json[i].userStories[j].dependencies[k].id = json[i].userStories[j].dependencies[k].id.replace("-", "");
         aristas = aristas.concat({
           from: json[i].id,
           // eslint-disable-next-line
           to: (function () {
             for (let l = 0; l < Object(json).length; l++) {
               for (let m = 0; m < Object(json[l].userStories).length; m++) {
-                if (json[i].userStories[j].dependencies[k] === json[l].userStories[m].id) {
+                json[l].userStories[m].id = json[l].userStories[m].id.replace("-", "");
+                if (json[i].userStories[j].dependencies[k].id === json[l].userStories[m].id) {
                   if (json[i].id !== json[l].id) { // Si son diferentes MS's se asigna el valor a 'to'.
                     MScalls = MScalls.concat(json[l].id);
                     return json[l].id;
@@ -298,7 +318,7 @@ async function convertir_jsonAnodos() {
 
       // Cálculo de la similitud semántica
       SsT = SsT + nodos[i].semantic_similarity // Sumatoria previa
-      
+
       // Cálculo de la complejidad cognitiva CxT
       // Cx = (sum(c𝑔)) + maxMSpoints + (CantidadMSs*WsicT) + (sum(Pf)) + (sum(SIY)) 
       nodos[i].complexity = complejidad(nodos, nodos[i].id);
@@ -311,7 +331,7 @@ async function convertir_jsonAnodos() {
       //
       if (nodos[i].points > maxMSpoints) {
         maxMSpoints = nodos[i].points;
-      }      
+      }
 
       sumPf = sumPf + nodos[i].complexity;
       sumCg = sumCg + nodos[i].cg;
@@ -335,6 +355,7 @@ async function convertir_jsonAnodos() {
   console.log("Max ponits: " + maxMSpoints.toFixed(2));
   console.log("Cx: " + Cx.toFixed(2));
   console.log("CxT: " + CxT.toFixed(2));
+
   // console.log("sumCg: " + sumCg);
   // console.log("sumPf: " + sumPf);
   // console.log("sumSIY: " + sumSIY);
@@ -794,17 +815,6 @@ export function leerArchivo(e) {
   document.getElementById("miInput").value = null;
 }
 
-function formatearDependencias() { // Quita los nombres de las dependencias y las
-  var dependencias = [];           // deja como un arreglo de strings (historias)
-  for (let i = 0; i < userStory.length; i++) {
-    dependencias = [];
-    for (let j = 0; j < userStory[i].dependencies.length; j++) {
-      dependencias = dependencias.concat(userStory[i].dependencies[j].id);
-    }
-    userStory[i].dependencies = dependencias;
-  }
-}
-
 function verificarHistoria() {   // Verifica la existencia de una historia de usuario 
   // en un diagrama de microservicios
   for (let h = 0; h < userStory.length; h++) {
@@ -821,23 +831,12 @@ function verificarHistoria() {   // Verifica la existencia de una historia de us
       }
     }
   }
-  formatearDependencias();
   swal({
     title: "Stories included succesfully",
     icon: "success",
     timer: 1500
   })
   return false;
-}
-
-function quitarGuionesMedios(us) {
-  for (let i = 0; i < us.length; i++) {
-    us[i].id = us[i].id.replace("-", "");
-    for (let j = 0; j < us[i].dependencies.length; j++) {
-      us[i].dependencies[j].id = us[i].dependencies[j].id.replace("-", "");
-    }
-  }
-  return us;
 }
 
 function agregarHistoria(e) {
@@ -854,7 +853,6 @@ function agregarHistoria(e) {
       var schema = require('./schemas/userStories.json');
       var esValido = validarJson(schema, userStory);
       if (esValido) {
-        userStory = quitarGuionesMedios(userStory);
         var existeHistoria = verificarHistoria();
         if (!existeHistoria) {
           var micro_servicio = nuevoMSid();
@@ -950,6 +948,10 @@ export function App() {
     </div>
   );
 }
+
+// Si se habilita esta línea, se ejecuta la función Init cuando el HTML carga el script
+window.addEventListener('DOMContentLoaded', recibe_parametro);
+
 /*        Código pregunta en SweetAlert
 swal({
   title: "Título de la pregunta",
@@ -976,6 +978,3 @@ swal({
 //</script>
 
 //export default App
-
-// Si se habilita esta línea, se ejecuta la función Init cuando el HTML carga el script
-//window.addEventListener('DOMContentLoaded', Init);

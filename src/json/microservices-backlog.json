@@ -3,7 +3,7 @@
         "id": "MS1",
         "userStories": [
             {
-                "id": "US1",
+                "id": "US-1",
                 "name": "Login",
                 "actor": "User",
                 "points": 1,
@@ -37,12 +37,21 @@
                 "project": "Old project",
                 "purpose": "",
                 "priority": "Baja",
-                "dependencies": ["US3","US4"],
+                "dependencies": [
+                    {
+                        "id": "US-3",
+                        "nombre": ""
+                    },
+                    {
+                        "id": "US-4",
+                        "nombre": ""
+                    }
+                ],
                 "restrictions": "",
                 "acceptanceCriteria": ""
             },
             {
-                "id": "US2",
+                "id": "US-2",
                 "name": "Register",
                 "actor": "User",
                 "points": 2,
@@ -76,7 +85,12 @@
                 "project": "Old project",
                 "purpose": "",
                 "priority": "Baja",
-                "dependencies": ["US4"],
+                "dependencies": [
+                    {
+                        "id": "US-4",
+                        "nombre": ""
+                    }
+                ],
                 "restrictions": "",
                 "acceptanceCriteria": ""
             }
@@ -86,7 +100,7 @@
         "id": "MS2",
         "userStories": [
             {
-                "id": "US3",
+                "id": "US-3",
                 "name": "Search products",
                 "actor": "User",
                 "points": 3,
@@ -120,7 +134,12 @@
                 "project": "Old project",
                 "purpose": "",
                 "priority": "Baja",
-                "dependencies": ["US1"],
+                "dependencies": [
+                    {
+                        "id": "US-1",
+                        "nombre": ""
+                    }
+                ],
                 "restrictions": "",
                 "acceptanceCriteria": ""
             }
@@ -130,7 +149,7 @@
         "id": "MS3",
         "userStories": [
             {
-                "id": "US4",
+                "id": "US-4",
                 "name": "List categories",
                 "actor": "User",
                 "points": 4,
@@ -164,7 +183,9 @@
                 "project": "Old project",
                 "purpose": "",
                 "priority": "Baja",
-                "dependencies": [],
+                "dependencies": [
+                    
+                ],
                 "restrictions": "",
                 "acceptanceCriteria": ""
             }
