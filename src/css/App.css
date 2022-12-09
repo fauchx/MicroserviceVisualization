@@ -68,6 +68,13 @@
   min-width: 100px;
   border: 5px solid rgb(30,144,255);
   min-height: 100px;
+  visibility: hidden
+}
+
+#myInspectorDiv2 {
+  background-color: rgb(61, 61, 61);
+  min-width: 130px;
+  min-height: 170px;
 }
 
 .inspector {
@@ -267,4 +274,8 @@
 	height: 8px;
 	border-radius: 50%;
 	background: white;
+}
+
+#MSsize {
+  padding-top: 20px;  
 }

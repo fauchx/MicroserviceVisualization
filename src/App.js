@@ -60,6 +60,7 @@ function recibe_parametro(props) {
   var diagrama = query.get('diagrama')
   if (diagrama !== null) {
     try {
+      //window.location.href = './';
       json = JSON.parse(diagrama);
       var schema = require('./schemas/microservices.json');
       var esValido = validarJson(schema, json);
@@ -175,24 +176,14 @@ async function convertir_jsonAnodos() {
     var MSpuntos = 0;
     var nombresHU = [];
     for (let j = 0; j < Object(json[i].userStories).length; j++) {
+      var USdependencias = [];
+      var UScalls = [];
       json[i].userStories[j].id = json[i].userStories[j].id.replace("-", "");
       nombresHU = nombresHU.concat(json[i].userStories[j].name);
       MSpuntos = MSpuntos + json[i].userStories[j].points;
       if (Object(json[i].userStories).length > WsicT) {
         WsicT = Object(json[i].userStories).length;
       };
-      nodos = nodos.concat({
-        actor: json[i].userStories[j].actor,
-        componente: "historia",
-        dependencies: json[i].userStories[j].dependencies,
-        group: json[i].id,
-        id: json[i].userStories[j].id,
-        key: json[i].userStories[j].id,
-        name: json[i].userStories[j].name,
-        priority: json[i].userStories[j].priority,
-        project: json[i].userStories[j].project,
-        points: json[i].userStories[j].points
-      });
       for (let k = 0; k < Object(json[i].userStories[j].dependencies).length; k++) {
         json[i].userStories[j].dependencies[k].id = json[i].userStories[j].dependencies[k].id.replace("-", "");
         aristas = aristas.concat({
@@ -203,6 +194,7 @@ async function convertir_jsonAnodos() {
               for (let m = 0; m < Object(json[l].userStories).length; m++) {
                 json[l].userStories[m].id = json[l].userStories[m].id.replace("-", "");
                 if (json[i].userStories[j].dependencies[k].id === json[l].userStories[m].id) {
+                  UScalls = UScalls.concat(json[i].userStories[j].dependencies[k].id);/////////////////////
                   if (json[i].id !== json[l].id) { // Si son diferentes MS's se asigna el valor a 'to'.
                     MScalls = MScalls.concat(json[l].id);
                     return json[l].id;
@@ -213,6 +205,23 @@ async function convertir_jsonAnodos() {
           })()
         });
       }
+      /* Hacer este filter abajo si se quieren mostrar las dependencias repetidas en el Inspector*/
+      // eslint-disable-next-line
+      USdependencias = UScalls.filter((item, index) => {// Quita las dependencias repetidas
+        return UScalls.indexOf(item) === index;
+      })
+      nodos = nodos.concat({
+        actor: json[i].userStories[j].actor,
+        componente: "historia",
+        dependencies: USdependencias,
+        group: json[i].id,
+        id: json[i].userStories[j].id,
+        key: json[i].userStories[j].id,
+        name: json[i].userStories[j].name,
+        priority: json[i].userStories[j].priority,
+        project: json[i].userStories[j].project,
+        points: json[i].userStories[j].points
+      });
     }
 
     /* Hacer este filter abajo si se quieren mostrar las dependencias repetidas en el Inspector*/
@@ -320,7 +329,6 @@ async function convertir_jsonAnodos() {
       SsT = SsT + nodos[i].semantic_similarity // Sumatoria previa
 
       // Cálculo de la complejidad cognitiva CxT
-      // Cx = (sum(c𝑔)) + maxMSpoints + (CantidadMSs*WsicT) + (sum(Pf)) + (sum(SIY)) 
       nodos[i].complexity = complejidad(nodos, nodos[i].id);
 
       /*        Otros         */
@@ -337,6 +345,7 @@ async function convertir_jsonAnodos() {
       sumCg = sumCg + nodos[i].cg;
       sumSIY = sumSIY + SIY;
 
+      // Cx = (sum(c𝑔)) + maxMSpoints + (CantidadMSs*WsicT) + (sum(Pf)) + (sum(SIY)) 
       Cx = sumCg + maxMSpoints + (CantidadMSs * WsicT) + sumPf + sumSIY
       CxT = Cx / 2;
     }
@@ -374,6 +383,15 @@ function convertir_nodosAjson(nodosAjson) {
     hu = nodosAjson.filter((item) => (
       item.componente === 'historia' && item.group === microservicios[i].key
     ))
+    for (let i = 0; i < hu.length; i++) {
+      var dependenciasFormateadas = [];
+      for (let j = 0; j < hu[i].dependencies.length; j++) {
+        dependenciasFormateadas = dependenciasFormateadas.concat({
+          id: hu[i].dependencies[j]
+        });
+      }
+      hu[i].dependencies = dependenciasFormateadas;
+    }
     json = json.concat({
       "cohesion_lack": microservicios[i].cohesion_lack,
       "cohesion_grade": microservicios[i].cohesion_grade,
@@ -419,6 +437,12 @@ function crearMicroservicio(ms, us) {
 }
 
 function formatearUS(historia) {
+  var dependenciasFormateadas = [];
+  for (let i = 0; i < historia.dependencies.length; i++) {
+    dependenciasFormateadas = dependenciasFormateadas.concat({
+      id: historia.dependencies[i]
+    });
+  }
   var historiaFormateada = [
     {
       "id": historia.id,
@@ -427,7 +451,7 @@ function formatearUS(historia) {
       "points": historia.points,
       "project": historia.project,
       "priority": historia.priority,
-      "dependencies": historia.dependencies
+      "dependencies": dependenciasFormateadas
     }
   ]
   return historiaFormateada;
@@ -453,6 +477,11 @@ function init() {
   myDiagram = $(go.Diagram, "myDiagramDiv", { // create a Diagram for the DIV HTML element       
     "animationManager.initialAnimationStyle": go.AnimationManager.AnimateLocations,
     //autoScale: go.Diagram.Uniform,  // scale always has all content fitting in the viewport
+
+    "BackgroundSingleClicked": () => {
+      document.getElementById('myInspectorDiv').style.visibility = 'hidden';      
+      document.getElementById('titulo').innerHTML = '';
+    },
 
     // decide what kinds of Parts can be added to a Group or to top-level
     "commandHandler.memberValidation": (grp, node) => {
@@ -518,6 +547,7 @@ function init() {
         microservicio.fill = "rgba(125, 200, 120, .6)";
       },
       click: function (e, node) {
+        document.getElementById('myInspectorDiv').style.visibility = 'visible';
         document.getElementById('titulo').innerHTML = 'MICROSERVICE METRICS';
         var diagram = node.diagram;
         // remove any previous highlighting
@@ -622,6 +652,7 @@ function init() {
         microservicio.fill = "white";
       },
       click: function (e, node) {
+        document.getElementById('myInspectorDiv').style.visibility = 'visible';
         document.getElementById('titulo').innerHTML = 'STORY METRICS';
         var diagram = node.diagram;
         // remove any previous highlighting
@@ -659,17 +690,6 @@ function init() {
 
   // Crea el modelo del diagrama a mostrar
   myDiagram.model = new go.GraphLinksModel(nodos, aristas);
-
-  // some shared model data
-  myDiagram.model.modelData = {
-    "AIST": AIST.toFixed(2),
-    "ADST": ADST.toFixed(2),
-    "SIYT": SIYT.toFixed(2),
-    "CpT": CpT.toFixed(2),
-    "CohT": CohT.toFixed(2),
-    "SsT": SsT.toFixed(2),
-    "WsicT": WsicT
-  };
 
   // Show the primary selection's data, or blanks if no Part is selected:
   // eslint-disable-next-line
@@ -741,6 +761,17 @@ function init() {
     }
   });
 
+  // some shared model data
+  myDiagram.model.modelData = {
+    "AIST": AIST.toFixed(2),
+    "ADST": ADST.toFixed(2),
+    "SIYT": SIYT.toFixed(2),
+    "CpT": CpT.toFixed(2),
+    "CohT": CohT.toFixed(2),
+    "SsT": SsT.toFixed(2),
+    "WsicT": WsicT
+  };
+
   // Siempre muestra el model.modelData:
   var inspector2 = new Inspector('myInspectorDiv2', myDiagram, {
     inspectSelection: false,
@@ -769,8 +800,7 @@ function init() {
     }
   });
   inspector2.inspectObject(myDiagram.model.modelData);
-
-
+  document.getElementById('myInspectorDiv2').style.visibility = 'visible';
 } // fin del Init()
 
 function validarJson(schema, jsonCargado) {
@@ -809,6 +839,18 @@ export function leerArchivo(e) {
     var esValido = validarJson(schema, json);
     if (esValido) {
       convertir_jsonAnodos();
+    } else {
+      diagramaCargado = false;
+      AIST = 0;
+      ADST = 0;
+      SIYT = 0;
+      CpT = 0;
+      CohT = 0;
+      WsicT = 0;
+      SsT = 0;
+      nodos = [];
+      aristas = [];
+      document.getElementById('myInspectorDiv2').style.visibility = 'hidden';      
     }
   };
   lector.readAsText(archivo);
@@ -820,6 +862,7 @@ function verificarHistoria() {   // Verifica la existencia de una historia de us
   for (let h = 0; h < userStory.length; h++) {
     for (let i = 0; i < json.length; i++) {
       for (let j = 0; j < json[i].userStories.length; j++) {
+        userStory[h].id = userStory[h].id.replace("-", "");
         if (json[i].userStories[j].id === userStory[h].id) {
           swal({
             title: "The story " + userStory[h].id + " is already in the project",
@@ -840,8 +883,8 @@ function verificarHistoria() {   // Verifica la existencia de una historia de us
 }
 
 function agregarHistoria(e) {
+  var archivo = e.target.files[0];
   if (diagramaCargado) {
-    var archivo = e.target.files[0];
     if (!archivo) {
       return;
     }
@@ -865,8 +908,32 @@ function agregarHistoria(e) {
   } else {
     swal({
       title: "Cargue un diagrama primero",
+      text: "Desea crear un diagrama?",
       icon: "error",
-      timer: 2000
+      buttons: ['Cancel', 'Accept']
+    }).then(respuesta => {
+      if (respuesta) {
+        if (!archivo) {
+          console.log("No hay archivo");
+          return;
+        }
+        var lector = new FileReader();
+        lector.onload = function (e) {
+          var userStoryData = e.target.result;
+          var file = JSON.parse(userStoryData)
+          userStory = file.userStories;
+          var schema = require('./schemas/userStories.json');
+          var esValido = validarJson(schema, userStory);
+          if (esValido) {
+            json = [];
+            nodos = [];
+            var micro_servicio = nuevoMSid();
+            crearMicroservicio(micro_servicio, userStory);
+            nuevoDiagrama();
+          }
+        };
+        lector.readAsText(archivo);
+      }
     })
   }
   document.getElementById("miInput2").value = null;
@@ -901,6 +968,12 @@ function nuevoDiagrama() {
   diagramaCargado = true;
 }
 
+function diagrama_cargado() {
+  if (diagramaCargado === true) {
+    nuevoDiagrama();
+  }
+}
+
 // render function...
 export function App() {
   return (
@@ -921,7 +994,7 @@ export function App() {
               <button onClick={exportarJson} className='boton' type="button" id='miInput3' />
             </div>
           </div>
-          <h3 id='titulo' className="informacion">METRICS</h3>
+          <h3 id='titulo' className="informacion"> </h3>
           <div id="myInspectorDiv" className="inspector"></div>
         </div>
       </span>
@@ -932,14 +1005,14 @@ export function App() {
         <div className="fondoInspector">
           <h3 className="informacion">APP METRICS:</h3>
           <div id="myInspectorDiv2" className="inspector"></div>
-          <div>
+          <div id='MSsize'>
             <h3 className="informacion">MICROSERVICE SIZE:</h3>
             <label className="container">STORIES
-              <input id="stories" onClick={nuevoDiagrama} type="radio" defaultChecked="checked" name="radio" />
+              <input id="stories" onClick={diagrama_cargado} type="radio" defaultChecked="checked" name="radio" />
               <span className="checkmark"></span>
             </label>
             <label className="container">POINTS
-              <input id="points" onClick={nuevoDiagrama} type="radio" name="radio" />
+              <input id="points" onClick={diagrama_cargado} type="radio" name="radio" />
               <span className="checkmark"></span>
             </label>
           </div>
