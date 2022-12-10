@@ -800,6 +800,7 @@ function init() {
     }
   });
   inspector2.inspectObject(myDiagram.model.modelData);
+  document.getElementById('myInspectorDiv').style.visibility = 'visible';
   document.getElementById('myInspectorDiv2').style.visibility = 'visible';
 } // fin del Init()
 
@@ -850,7 +851,8 @@ export function leerArchivo(e) {
       SsT = 0;
       nodos = [];
       aristas = [];
-      document.getElementById('myInspectorDiv2').style.visibility = 'hidden';      
+      document.getElementById('myInspectorDiv').style.visibility = 'hidden';
+      document.getElementById('myInspectorDiv2').style.visibility = 'hidden';
     }
   };
   lector.readAsText(archivo);
