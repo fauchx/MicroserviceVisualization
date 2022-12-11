@@ -2,9 +2,9 @@ version: '3.9'
 
 services:
 
-  frontend:
+  visualization_frontend:
     restart: always
-    image: frontend
+    image: visualization_frontend
     build:
       context: ../
       dockerfile: ./deployment/frontend/Dockerfile
