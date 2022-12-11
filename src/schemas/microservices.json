@@ -7,8 +7,7 @@
     "type": "object",
     "properties": {
       "id": {
-        "type": "string",
-        "pattern": "^[A-Za-z][A-Za-z][1-9][0-9]*$"
+        "type": "string"
       },
       "userStories": {
         "type": "array",
@@ -17,8 +16,7 @@
           "type": "object",
           "properties": {
             "id": {
-              "type": "string",
-              "pattern": "^[A-Za-z][A-Za-z]-[1-9][0-9]*$"
+              "type": "string"
             },
             "name": {
               "type": "string"
@@ -35,21 +33,6 @@
             },
             "priority": {
               "type": "string"
-            },
-            "dependencies": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string",
-                    "pattern": "^[A-Za-z][A-Za-z]-[1-9][0-9]*$"
-                  },
-                  "name": {
-                    "type": "string"
-                  }
-                }
-              }
             }
           },
           "required": [
@@ -58,8 +41,7 @@
             "actor",
             "points",
             "project",
-            "priority",
-            "dependencies"
+            "priority"
           ],
           "additionalProperties": true
         }

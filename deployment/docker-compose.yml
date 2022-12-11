@@ -1,0 +1,12 @@
+version: '3.9'
+
+services:
+
+  frontend:
+    restart: always
+    image: frontend
+    build:
+      context: ../
+      dockerfile: ./deployment/frontend/Dockerfile
+    ports:
+      - "8001:80"

@@ -5,6 +5,8 @@ import '../node_modules/gojs/extensions/Figures'
 import { Inspector } from '../node_modules/gojs/extensionsJSM/DataInspector.js'
 import './css/App.css';  // contains .diagram-component CSS
 import swal from 'sweetalert'
+import schema from "./schemas/microservices.json";
+import {API_URL} from "./utils";
 
 //************ Variables ****************/
 
@@ -58,15 +60,21 @@ var sumSIY = 0;
 function recibe_parametro(props) {
   const query = new URLSearchParams(props.target.location.search);
   var diagrama = query.get('diagrama')
+  console.log(diagrama)
   if (diagrama !== null) {
     try {
-      //window.location.href = './';
-      json = JSON.parse(diagrama);
-      var schema = require('./schemas/microservices.json');
-      var esValido = validarJson(schema, json);
-      if (esValido) {
-        nuevoDiagrama();
-      }
+      fetch(diagrama)
+        .then(response => response.json())
+        .then(data => {
+          console.log(data)
+          json = data;
+          var schema = require('./schemas/microservices.json');
+          var esValido = validarJson(schema, data);
+          if (esValido) {
+            nuevoDiagrama();
+          }
+        });
+
     } catch {
       //
     }
@@ -120,8 +128,12 @@ async function similitud_semantica(nombres_HU) {
       cadena = cadena + "/" + nombres_HU[i];
     }
     const encodedValue = encodeURIComponent(cadena);
+    swal({
+      title: "Loading stories",
+      icon: "success",
+    })
     await new Promise((resolve, reject) => {
-      fetch(`http://localhost:8000/api/?user_stories=${encodedValue}`, {
+      fetch(`${API_URL}/?user_stories=${encodedValue}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json"
@@ -134,6 +146,11 @@ async function similitud_semantica(nombres_HU) {
       }).then(json => {
         resultado = json;
         similitudSemantica = parseFloat(resultado.semantic_similarity)
+        swal({
+          title: "Loading stories",
+          icon: "success",
+          timer: 100
+        })
       }).catch(function (err) {
         swal({
           title: "" + err,
