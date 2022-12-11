@@ -691,7 +691,11 @@ function init() {
   // Crea el modelo del diagrama a mostrar
   myDiagram.model = new go.GraphLinksModel(nodos, aristas);
 
-  // Show the primary selection's data, or blanks if no Part is selected:
+  inspectors();
+  
+} // fin del Init()
+
+function inspectors() {
   // eslint-disable-next-line
   var inspector = new Inspector('myInspectorDiv', myDiagram, {
     //showAllProperties: true,
@@ -800,9 +804,8 @@ function init() {
     }
   });
   inspector2.inspectObject(myDiagram.model.modelData);
-  document.getElementById('myInspectorDiv').style.visibility = 'visible';
   document.getElementById('myInspectorDiv2').style.visibility = 'visible';
-} // fin del Init()
+}
 
 function validarJson(schema, jsonCargado) {
   const Ajv = require("ajv")
@@ -970,7 +973,9 @@ function nuevoDiagrama() {
   diagramaCargado = true;
 }
 
-function diagrama_cargado() {
+function cambiar_tamano() {    
+  document.getElementById('titulo').innerHTML = '';
+  document.getElementById('myInspectorDiv').style.visibility = 'hidden';
   if (diagramaCargado === true) {
     nuevoDiagrama();
   }
@@ -1010,11 +1015,11 @@ export function App() {
           <div id='MSsize'>
             <h3 className="informacion">MICROSERVICE SIZE:</h3>
             <label className="container">STORIES
-              <input id="stories" onClick={diagrama_cargado} type="radio" defaultChecked="checked" name="radio" />
+              <input id="stories" onClick={cambiar_tamano} type="radio" defaultChecked="checked" name="radio" />
               <span className="checkmark"></span>
             </label>
             <label className="container">POINTS
-              <input id="points" onClick={diagrama_cargado} type="radio" name="radio" />
+              <input id="points" onClick={cambiar_tamano} type="radio" name="radio" />
               <span className="checkmark"></span>
             </label>
           </div>
