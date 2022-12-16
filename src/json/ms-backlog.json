@@ -5,15 +5,19 @@
         "complexity": 19.00,
         "userStories": [
             {
-                "id": "US1",
+                "id": "US-1",
                 "name": "Iniciar sesión",
                 "actor": "User",
                 "points": 1,
                 "project": "Old project",
                 "priority": "Baja",
                 "dependencies": [
-                    "US3",
-                    "US6"
+                    {
+                        "id": "US-3"
+                    },
+                    {
+                        "id": "US-6"
+                    }
                 ]
             }
         ]
@@ -24,14 +28,16 @@
         "complexity": 19.00,
         "userStories": [
             {
-                "id": "US2",
+                "id": "US-2",
                 "name": "Iniciar sesión",
                 "actor": "User",
                 "points": 1,
                 "project": "Old project",
                 "priority": "Baja",
                 "dependencies": [
-                    "US4"
+                    {
+                        "id": "US-4"
+                    }
                 ]
             }
         ]
@@ -42,16 +48,22 @@
         "complexity": 19.00,
         "userStories": [
             {
-                "id": "US3",
+                "id": "US-3",
                 "name": "Iniciar sesión",
                 "actor": "User",
                 "points": 1,
                 "project": "Old project",
                 "priority": "Baja",
                 "dependencies": [
-                    "US4",
-                    "US5",
-                    "US6"
+                    {
+                        "id": "US-4"
+                    },
+                    {
+                        "id": "US-5"
+                    },
+                    {
+                        "id": "US-6"
+                    }
                 ]
             }
         ]
@@ -62,14 +74,16 @@
         "complexity": 19.00,
         "userStories": [
             {
-                "id": "US4",
+                "id": "US-4",
                 "name": "Iniciar sesión",
                 "actor": "User",
                 "points": 1,
                 "project": "Old project",
                 "priority": "Baja",
                 "dependencies": [
-                    "US1"
+                    {
+                        "id": "US-1"
+                    }
                 ]
             }
         ]
@@ -80,14 +94,16 @@
         "complexity": 19.00,
         "userStories": [
             {
-                "id": "US5",
+                "id": "US-5",
                 "name": "Iniciar sesión",
                 "actor": "User",
                 "points": 1,
                 "project": "Old project",
                 "priority": "Baja",
                 "dependencies": [
-                    "US3"
+                    {
+                        "id": "US-3"
+                    }
                 ]
             }
         ]
@@ -98,14 +114,16 @@
         "complexity": 19.00,
         "userStories": [
             {
-                "id": "US6",
+                "id": "US-6",
                 "name": "Iniciar sesión",
                 "actor": "User",
                 "points": 1,
                 "project": "Old project",
                 "priority": "Baja",
                 "dependencies": [
-                    "US5"
+                    {
+                        "id": "US-5"
+                    }
                 ]
             }
         ]
