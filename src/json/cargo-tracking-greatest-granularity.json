@@ -1,0 +1,213 @@
+[
+    {
+        "cohesion_lack": 0,
+        "cohesion_grade": 0,
+        "complexity": 0,
+        "id": "MS1",
+        "points": 0,
+        "semantic_similarity": 0,
+        "userStories": [
+            {
+                "id": "US-1",
+                "name": "Create cargo trip",
+                "actor": "User",
+                "points": 3,
+                "project": "Cargo Tracking",
+                "priority": "Baja",
+                "dependencies": [
+                    {
+                        "id": "US-12",
+                        "name": "Get locations"
+                    },
+                    {
+                        "id": "US-3",
+                        "name": "Add Carrier Movement"
+                    }
+                ]
+            },
+            {
+                "id": "US-2",
+                "name": "Manage cargo event",
+                "actor": "User",
+                "points": 3,
+                "project": "Cargo Tracking",
+                "priority": "Baja",
+                "dependencies": [
+                    {
+                        "id": "US-12",
+                        "name": "Get locations"
+                    }
+                ]
+            },
+            {
+                "id": "US-3",
+                "name": "Add Carrier Movement",
+                "actor": "User",
+                "points": 5,
+                "project": "Cargo Tracking",
+                "priority": "Baja",
+                "dependencies": [
+                    {
+                        "id": "US-12",
+                        "name": "Get locations"
+                    }
+                ]
+            },
+            {
+                "id": "US-4",
+                "name": "Create location",
+                "actor": "User",
+                "points": 2,
+                "project": "Cargo Tracking",
+                "priority": "Baja",
+                "dependencies": []
+            },
+            {
+                "id": "US-5",
+                "name": "View trip tracking",
+                "actor": "User",
+                "points": 3,
+                "project": "Cargo Tracking",
+                "priority": "Baja",
+                "dependencies": []
+            },
+            {
+                "id": "US-6",
+                "name": "Create cargo",
+                "actor": "User",
+                "points": 7,
+                "project": "Cargo Tracking",
+                "priority": "Baja",
+                "dependencies": [
+                    {
+                        "id": "US-7",
+                        "name": "Create cargo itinerary"
+                    },
+                    {
+                        "id": "US-9",
+                        "name": "Schedule cargo – create route specification"
+                    },
+                    {
+                        "id": "US-11",
+                        "name": "Create delivery"
+                    }
+                ]
+            },
+            {
+                "id": "US-7",
+                "name": "Create cargo itinerary",
+                "actor": "User",
+                "points": 5,
+                "project": "Cargo Tracking",
+                "priority": "Baja",
+                "dependencies": [
+                    {
+                        "id": "US-8",
+                        "name": "Create stop"
+                    }
+                ]
+            },
+            {
+                "id": "US-8",
+                "name": "Create stop",
+                "actor": "User",
+                "points": 2,
+                "project": "Cargo Tracking",
+                "priority": "Baja",
+                "dependencies": [
+                    {
+                        "id": "US-12",
+                        "name": "Get locations"
+                    }
+                ]
+            },
+            {
+                "id": "US-9",
+                "name": "Schedule cargo – create route specification",
+                "actor": "User",
+                "points": 5,
+                "project": "Cargo Tracking",
+                "priority": "Baja",
+                "dependencies": [
+                    {
+                        "id": "US-12",
+                        "name": "Get locations"
+                    }
+                ]
+            },
+            {
+                "id": "US-10",
+                "name": "Change cargo destination",
+                "actor": "User",
+                "points": 1,
+                "project": "Cargo Tracking",
+                "priority": "Baja",
+                "dependencies": [
+                    {
+                        "id": "US-12",
+                        "name": "Get locations"
+                    }
+                ]
+            },
+            {
+                "id": "US-11",
+                "name": "Create delivery",
+                "actor": "User",
+                "points": 7,
+                "project": "Cargo Tracking",
+                "priority": "Baja",
+                "dependencies": [
+                    {
+                        "id": "US-6",
+                        "name": "Create cargo"
+                    },
+                    {
+                        "id": "US-13",
+                        "name": "Check carrier status"
+                    },
+                    {
+                        "id": "US-14",
+                        "name": "Check route status"
+                    }
+                ]
+            },
+            {
+                "id": "US-12",
+                "name": "Get locations",
+                "actor": "User",
+                "points": 2,
+                "project": "Cargo Tracking",
+                "priority": "Baja",
+                "dependencies": []
+            },
+            {
+                "id": "US-13",
+                "name": "Check carrier status",
+                "actor": "User",
+                "points": 3,
+                "project": "Cargo Tracking",
+                "priority": "Baja",
+                "dependencies": [
+                    {
+                        "id": "US-5",
+                        "name": "View trip tracking"
+                    }
+                ]
+            },
+            {
+                "id": "US-14",
+                "name": "Check route status",
+                "actor": "User",
+                "points": 3,
+                "project": "Cargo Tracking",
+                "priority": "Baja",
+                "dependencies": [
+                    {
+                        "id": "US-5",
+                        "name": "View trip tracking"
+                    }
+                ]
+            }
+        ]
+    }
+]

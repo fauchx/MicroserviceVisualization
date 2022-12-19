@@ -7,33 +7,6 @@
                 "name": "Login",
                 "actor": "User",
                 "points": 1,
-                "element": {
-                    "x": 530,
-                    "y": 510,
-                    "di": {
-                        "id": "Activity_0lg6o4g_di",
-                        "$type": "bpmndi:BPMNShape",
-                        "label": {
-                            "$type": "bpmndi:BPMNLabel"
-                        },
-                        "bounds": {
-                            "x": 530,
-                            "y": 510,
-                            "$type": "dc:Bounds",
-                            "width": 100,
-                            "height": 80
-                        }
-                    },
-                    "id": "SI-1",
-                    "type": "bpmn:Task",
-                    "width": 100,
-                    "height": 80,
-                    "hidden": false,
-                    "labels": [],
-                    "isFrame": false,
-                    "children": [],
-                    "collapsed": false
-                },
                 "project": "Old project",
                 "purpose": "",
                 "priority": "Baja",
@@ -46,42 +19,13 @@
                         "id": "US-4",
                         "nombre": ""
                     }
-                ],
-                "restrictions": "",
-                "acceptanceCriteria": ""
+                ]
             },
             {
                 "id": "US-2",
                 "name": "Register",
                 "actor": "User",
                 "points": 2,
-                "element": {
-                    "x": 530,
-                    "y": 370,
-                    "di": {
-                        "id": "Activity_1f5w89f_di",
-                        "$type": "bpmndi:BPMNShape",
-                        "label": {
-                            "$type": "bpmndi:BPMNLabel"
-                        },
-                        "bounds": {
-                            "x": 530,
-                            "y": 370,
-                            "$type": "dc:Bounds",
-                            "width": 100,
-                            "height": 80
-                        }
-                    },
-                    "id": "SI-2",
-                    "type": "bpmn:Task",
-                    "width": 100,
-                    "height": 80,
-                    "hidden": false,
-                    "labels": [],
-                    "isFrame": false,
-                    "children": [],
-                    "collapsed": false
-                },
                 "project": "Old project",
                 "purpose": "",
                 "priority": "Baja",
@@ -90,9 +34,7 @@
                         "id": "US-4",
                         "nombre": ""
                     }
-                ],
-                "restrictions": "",
-                "acceptanceCriteria": ""
+                ]
             }
         ]
     },
@@ -104,33 +46,6 @@
                 "name": "Search products",
                 "actor": "User",
                 "points": 3,
-                "element": {
-                    "x": 530,
-                    "y": 250,
-                    "di": {
-                        "id": "Activity_0l5jusf_di",
-                        "$type": "bpmndi:BPMNShape",
-                        "label": {
-                            "$type": "bpmndi:BPMNLabel"
-                        },
-                        "bounds": {
-                            "x": 530,
-                            "y": 250,
-                            "$type": "dc:Bounds",
-                            "width": 100,
-                            "height": 80
-                        }
-                    },
-                    "id": "SI-3",
-                    "type": "bpmn:Task",
-                    "width": 100,
-                    "height": 80,
-                    "hidden": false,
-                    "labels": [],
-                    "isFrame": false,
-                    "children": [],
-                    "collapsed": false
-                },
                 "project": "Old project",
                 "purpose": "",
                 "priority": "Baja",
@@ -139,9 +54,7 @@
                         "id": "US-1",
                         "nombre": ""
                     }
-                ],
-                "restrictions": "",
-                "acceptanceCriteria": ""
+                ]
             }
         ]
     },
@@ -153,41 +66,10 @@
                 "name": "List categories",
                 "actor": "User",
                 "points": 4,
-                "element": {
-                    "x": 530,
-                    "y": 100,
-                    "di": {
-                        "id": "Activity_00ivn26_di",
-                        "$type": "bpmndi:BPMNShape",
-                        "label": {
-                            "$type": "bpmndi:BPMNLabel"
-                        },
-                        "bounds": {
-                            "x": 530,
-                            "y": 100,
-                            "$type": "dc:Bounds",
-                            "width": 100,
-                            "height": 80
-                        }
-                    },
-                    "id": "SI-4",
-                    "type": "bpmn:Task",
-                    "width": 100,
-                    "height": 80,
-                    "hidden": false,
-                    "labels": [],
-                    "isFrame": false,
-                    "children": [],
-                    "collapsed": false
-                },
                 "project": "Old project",
                 "purpose": "",
                 "priority": "Baja",
-                "dependencies": [
-                    
-                ],
-                "restrictions": "",
-                "acceptanceCriteria": ""
+                "dependencies": []
             }
         ]
     }

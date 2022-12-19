@@ -30,6 +30,14 @@ var CohT = 0; // Cohesión total de la aplicación
 var WsicT = 0;// mayor número de historias de usuario asociadas a un microservicio
 var CxT = 0;  // Complejidad cognitiva total de la aplicación
 var SsT = 0;  // Similitud semántica total de la aplicación
+
+/* Cx = (sum(c𝑔)) + maxMSpoints + (CantidadMSs*WsicT) + (sum(Pf)) + (sum(SIY)) */
+var maxMSpoints = 0;
+var Cx = 0;
+var sumCg = 0;
+var sumPf = 0; // Número (máximo?) de llamadas secuenciales entre microservicios
+var sumSIY = 0;
+
 /*
 𝑀𝑆𝐵𝐴=(𝑀𝑆, 𝑀𝑇 ⃗) 
 Donde:
@@ -44,14 +52,10 @@ CohT es la cohesión,
 WsicT es el mayor número de historias de usuario asociadas a un microservicio, 
 CxT son los puntos de complejidad cognitiva, y 
 SsT es la similitud semántica; Las cuales son métricas calculadas para MSBA
-*/
 
-/* Cx = (sum(c𝑔)) + maxMSpoints + (CantidadMSs*WsicT) + (sum(Pf)) + (sum(SIY)) */
-var maxMSpoints = 0;
-var Cx = 0;
-var sumCg = 0;
-var sumPf = 0; // Número (máximo?) de llamadas secuenciales entre microservicios
-var sumSIY = 0;
+Gm = /𝑀𝑇 ⃗/
+*/
+var Gm = 0;
 
 /* CxT = Cx / Cxo */
 
@@ -81,7 +85,7 @@ function recibe_parametro(props) {
   }
 }
 
-function complejidad(nodos2, nombreMS) {
+function profundidadMax(nodos2, nombreMS) {
   var matriz = [[nombreMS]];
   var prof = [0]; // ïndice de profundidad del nodo a expandir
   var padre = [];
@@ -258,7 +262,7 @@ async function convertir_jsonAnodos() {
         cohesion_lack: 0,
         cohesion_grade: 0,
         columnas: Math.ceil(Math.sqrt(json[i].userStories.length)),
-        complexity: 0,
+        complexity: MSpuntos.toFixed(2),
         componente: "microservicio",
         dependencies: MSdependencias, // o 'MScalls' si quiere mostrar repetidos 
         isGroup: true,
@@ -344,9 +348,8 @@ async function convertir_jsonAnodos() {
 
       // Cálculo de la similitud semántica
       SsT = SsT + nodos[i].semantic_similarity // Sumatoria previa
-
-      // Cálculo de la complejidad cognitiva CxT
-      nodos[i].complexity = complejidad(nodos, nodos[i].id);
+      // Se formatea el valor de la similitud semántica para expresarle en términos porcentuales
+      nodos[i].semantic_similarity = "" + (100 * nodos[i].semantic_similarity).toFixed(2) + "%";
 
       /*        Otros         */
       rendimiento = rendimiento + nodos[i].calls;
@@ -358,15 +361,18 @@ async function convertir_jsonAnodos() {
         maxMSpoints = nodos[i].points;
       }
 
-      sumPf = sumPf + nodos[i].complexity;
+      // Cálculo de las variables para calcular la complejidad cognitiva CxT
+      sumPf = sumPf + profundidadMax(nodos, nodos[i].id);
       sumCg = sumCg + nodos[i].cg;
-      sumSIY = sumSIY + SIY;
-
-      // Cx = (sum(c𝑔)) + maxMSpoints + (CantidadMSs*WsicT) + (sum(Pf)) + (sum(SIY)) 
-      Cx = sumCg + maxMSpoints + (CantidadMSs * WsicT) + sumPf + sumSIY
-      CxT = Cx / 2;
+      sumSIY = sumSIY + SIY;      
     }
   }
+
+  // Cx = (sum(c𝑔)) + maxMSpoints + (CantidadMSs*WsicT) + (sum(Pf)) + (sum(SIY)) 
+  Cx = sumCg + maxMSpoints + (CantidadMSs * WsicT) + sumPf + sumSIY
+  CxT = Cx / 2;
+
+  // Sacar las raíces de las sumatorias
   AIST = Math.sqrt(AIST);
   ADST = Math.sqrt(ADST);
   SIYT = Math.sqrt(SIYT);
@@ -374,13 +380,19 @@ async function convertir_jsonAnodos() {
   CohT = Math.sqrt(CohT);
   SsT = SsT * (100 / CantidadMSs);
 
+  // 𝑀𝑇 ⃗=[𝐶𝑝𝑇, 𝐶𝑜ℎ𝑇, 𝑊𝑠𝑖𝑐𝑇, 𝐶𝑥𝑇,(100 − 𝑆𝑠𝑇)]
+  // Gm = /𝑀𝑇 ⃗/
+  Gm = Math.sqrt(Math.pow(CpT, 2) + Math.pow(CohT, 2) + Math.pow(WsicT, 2) + Math.pow(CxT, 2) + Math.pow((100 - SsT), 2));
+
   /*          Otros           */
   rendimiento = rendimiento / CantidadMSs;
-  console.log("  *** OTRAS MÉTRICAS DE LA APLICACIÓN ***")
+  // console.log("  *** OTRAS MÉTRICAS DE LA APLICACIÓN ***")
   console.log("Rendimiento: " + rendimiento.toFixed(2));
-  console.log("Max ponits: " + maxMSpoints.toFixed(2));
+  console.log("Max MS points: " + maxMSpoints.toFixed(2));
+  console.log("Suma de profundidades: " + sumPf.toFixed(2));
+  console.log("Suma de Cg: " + sumCg.toFixed(2));
+  console.log("Suma de SIY: " + sumSIY.toFixed(2));
   console.log("Cx: " + Cx.toFixed(2));
-  console.log("CxT: " + CxT.toFixed(2));
 
   // console.log("sumCg: " + sumCg);
   // console.log("sumPf: " + sumPf);
@@ -429,9 +441,11 @@ function nuevoMSid() { // Retorna un nuevo ID no usado en el diagrama
   var nombres = MSs.map((nodo) => {
     return nodo.id.replace("MS", "");
   })
-  nombres.sort();
   var nums = nombres.map(function (str) {
     return parseInt(str);
+  });
+  nums = nums.sort(function(a, b) {
+    return a - b;
   });
   for (let i = 1; i < nums.length + 2; i++) {
     if (i !== nums[i - 1]) {
@@ -789,8 +803,10 @@ function inspectors() {
     "SIYT": SIYT.toFixed(2),
     "CpT": CpT.toFixed(2),
     "CohT": CohT.toFixed(2),
-    "SsT": SsT.toFixed(2),
-    "WsicT": WsicT
+    "SsT": "" + SsT.toFixed(2) + "%",
+    "WsicT": WsicT,
+    "CxT": CxT.toFixed(2),
+    "Gm": Gm.toFixed(2)
   };
 
   // Siempre muestra el model.modelData:
@@ -1027,8 +1043,6 @@ export function App() {
       </span>
       <span className='spanInspector'>
         <div className="fondoInspector">
-          <h3 className="informacion">APP METRICS:</h3>
-          <div id="myInspectorDiv2" className="inspector"></div>
           <div id='MSsize'>
             <h3 className="informacion">MICROSERVICE SIZE:</h3>
             <label className="container">STORIES
@@ -1040,6 +1054,8 @@ export function App() {
               <span className="checkmark"></span>
             </label>
           </div>
+          <h3 className="informacion">APP METRICS:</h3>
+          <div id="myInspectorDiv2" className="inspector"></div>
         </div>
       </span>
     </div>
