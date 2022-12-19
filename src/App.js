@@ -64,7 +64,6 @@ var Gm = 0;
 function recibe_parametro(props) {
   const query = new URLSearchParams(props.target.location.search);
   var diagrama = query.get('diagrama')
-  console.log(diagrama)
   if (diagrama !== null) {
     try {
       fetch(diagrama)
@@ -79,8 +78,12 @@ function recibe_parametro(props) {
           }
         });
 
-    } catch {
-      //
+    } catch(err) {
+      swal({
+        title: "" + err,
+        text: "Error",
+        icon: "error",
+      })
     }
   }
 }
@@ -469,10 +472,12 @@ function crearMicroservicio(ms, us) {
 
 function formatearUS(historia) {
   var dependenciasFormateadas = [];
-  for (let i = 0; i < historia.dependencies.length; i++) {
-    dependenciasFormateadas = dependenciasFormateadas.concat({
-      id: historia.dependencies[i]
-    });
+  if (historia.dependencies){
+    for (let i = 0; i < historia.dependencies.length; i++) {
+      dependenciasFormateadas = dependenciasFormateadas.concat({
+        id: historia.dependencies[i]
+      });
+    }
   }
   var historiaFormateada = [
     {
