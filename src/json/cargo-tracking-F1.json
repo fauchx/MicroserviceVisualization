@@ -1,31 +1,27 @@
 [
     {
         "cohesion_lack": 2,
-        "cohesion_grade": "0.67",
+        "cohesion_grade": 0.67,
         "complexity": 2,
         "couplingADS": 2,
         "couplingAIS": 0,
         "couplingSIY": 0,
         "id": "MS1",
         "points": 23,
-        "semantic_similarity": 0.41517358429739304,
+        "semantic_similarity": 0.41,
         "userStories": [
             {
                 "actor": "User",
-                "componente": "historia",
                 "dependencies": [],
                 "group": "MS1",
                 "id": "US-5",
-                "key": "US-5",
                 "name": "View trip tracking",
                 "priority": "Baja",
                 "project": "Cargo Tracking",
-                "points": 3,
-                "__gohashid": 296469
+                "points": 3
             },
             {
                 "actor": "User",
-                "componente": "historia",
                 "dependencies": [
                     {
                         "id": "US-7"
@@ -39,16 +35,13 @@
                 ],
                 "group": "MS1",
                 "id": "US-6",
-                "key": "US-6",
                 "name": "Create cargo",
                 "priority": "Baja",
                 "project": "Cargo Tracking",
-                "points": 7,
-                "__gohashid": 296470
+                "points": 7
             },
             {
                 "actor": "User",
-                "componente": "historia",
                 "dependencies": [
                     {
                         "id": "US-6"
@@ -62,16 +55,13 @@
                 ],
                 "group": "MS1",
                 "id": "US-11",
-                "key": "US-11",
                 "name": "Create delivery",
                 "priority": "Baja",
                 "project": "Cargo Tracking",
-                "points": 7,
-                "__gohashid": 296471
+                "points": 7
             },
             {
                 "actor": "User",
-                "componente": "historia",
                 "dependencies": [
                     {
                         "id": "US-5"
@@ -79,16 +69,13 @@
                 ],
                 "group": "MS1",
                 "id": "US-13",
-                "key": "US-13",
                 "name": "Check carrier status",
                 "priority": "Baja",
                 "project": "Cargo Tracking",
-                "points": 3,
-                "__gohashid": 296472
+                "points": 3
             },
             {
                 "actor": "User",
-                "componente": "historia",
                 "dependencies": [
                     {
                         "id": "US-5"
@@ -96,12 +83,10 @@
                 ],
                 "group": "MS1",
                 "id": "US-14",
-                "key": "US-14",
                 "name": "Check route status",
                 "priority": "Baja",
                 "project": "Cargo Tracking",
-                "points": 3,
-                "__gohashid": 296473
+                "points": 3
             }
         ]
     },
@@ -118,20 +103,16 @@
         "userStories": [
             {
                 "actor": "User",
-                "componente": "historia",
                 "dependencies": [],
                 "group": "MS2",
                 "id": "US-4",
-                "key": "US-4",
                 "name": "Create location",
                 "priority": "Baja",
                 "project": "Cargo Tracking",
-                "points": 2,
-                "__gohashid": 296475
+                "points": 2
             },
             {
                 "actor": "User",
-                "componente": "historia",
                 "dependencies": [
                     {
                         "id": "US-8"
@@ -139,16 +120,13 @@
                 ],
                 "group": "MS2",
                 "id": "US-7",
-                "key": "US-7",
                 "name": "Create cargo itinerary",
                 "priority": "Baja",
                 "project": "Cargo Tracking",
-                "points": 5,
-                "__gohashid": 296476
+                "points": 5
             },
             {
                 "actor": "User",
-                "componente": "historia",
                 "dependencies": [
                     {
                         "id": "US-12"
@@ -156,12 +134,10 @@
                 ],
                 "group": "MS2",
                 "id": "US-8",
-                "key": "US-8",
                 "name": "Create stop",
                 "priority": "Baja",
                 "project": "Cargo Tracking",
-                "points": 2,
-                "__gohashid": 296477
+                "points": 2
             }
         ]
     },
@@ -178,7 +154,6 @@
         "userStories": [
             {
                 "actor": "User",
-                "componente": "historia",
                 "dependencies": [
                     {
                         "id": "US-12"
@@ -189,16 +164,13 @@
                 ],
                 "group": "MS3",
                 "id": "US-1",
-                "key": "US-1",
                 "name": "Create cargo trip",
                 "priority": "Baja",
                 "project": "Cargo Tracking",
-                "points": 3,
-                "__gohashid": 296479
+                "points": 3
             },
             {
                 "actor": "User",
-                "componente": "historia",
                 "dependencies": [
                     {
                         "id": "US-12"
@@ -206,16 +178,13 @@
                 ],
                 "group": "MS3",
                 "id": "US-2",
-                "key": "US-2",
                 "name": "Manage cargo event",
                 "priority": "Baja",
                 "project": "Cargo Tracking",
-                "points": 3,
-                "__gohashid": 296480
+                "points": 3
             },
             {
                 "actor": "User",
-                "componente": "historia",
                 "dependencies": [
                     {
                         "id": "US-12"
@@ -223,16 +192,13 @@
                 ],
                 "group": "MS3",
                 "id": "US-3",
-                "key": "US-3",
                 "name": "Add Carrier Movement",
                 "priority": "Baja",
                 "project": "Cargo Tracking",
-                "points": 5,
-                "__gohashid": 296481
+                "points": 5
             },
             {
                 "actor": "User",
-                "componente": "historia",
                 "dependencies": [
                     {
                         "id": "US-12"
@@ -240,16 +206,13 @@
                 ],
                 "group": "MS3",
                 "id": "US-9",
-                "key": "US-9",
-                "name": "Schedule cargo – create route specification",
+                "name": "Schedule cargo - create route specification",
                 "priority": "Baja",
                 "project": "Cargo Tracking",
-                "points": 5,
-                "__gohashid": 296482
+                "points": 5
             },
             {
                 "actor": "User",
-                "componente": "historia",
                 "dependencies": [
                     {
                         "id": "US-12"
@@ -257,25 +220,20 @@
                 ],
                 "group": "MS3",
                 "id": "US-10",
-                "key": "US-10",
                 "name": "Change cargo destination",
                 "priority": "Baja",
                 "project": "Cargo Tracking",
-                "points": 1,
-                "__gohashid": 296483
+                "points": 1
             },
             {
                 "actor": "User",
-                "componente": "historia",
                 "dependencies": [],
                 "group": "MS3",
                 "id": "US-12",
-                "key": "US-12",
                 "name": "Get locations",
                 "priority": "Baja",
                 "project": "Cargo Tracking",
-                "points": 2,
-                "__gohashid": 296484
+                "points": 2
             }
         ]
     }

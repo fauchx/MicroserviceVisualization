@@ -259,7 +259,7 @@ async function convertir_jsonAnodos() {
           if (document.getElementById('stories').checked) {
             return 45 + (json[i].userStories.length * 12);
           } else {
-            return 45 + (MSpuntos * 12);
+            return (MSpuntos * 8);
           }
         })(),
         textoID: 0.23 - ((((45 + (json[i].userStories.length * 12)) - 57) * 0.12) / 100),
