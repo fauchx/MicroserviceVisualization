@@ -1,27 +1,31 @@
 [
     {
-        "cohesion_lack": 2,
-        "cohesion_grade": 0.67,
-        "complexity": 2,
+        "cohesionLack": 2,
+        "cohesionGrade": 0.67,
         "couplingADS": 2,
         "couplingAIS": 0,
         "couplingSIY": 0,
-        "id": "MS1",
+        "complexity": 23,
+        "id": "MS-1",
         "points": 23,
-        "semantic_similarity": 0.41,
+        "semanticSimilarity": 41.52,
         "userStories": [
             {
                 "actor": "User",
+                "componente": "historia",
                 "dependencies": [],
                 "group": "MS1",
                 "id": "US-5",
+                "key": "US5",
                 "name": "View trip tracking",
                 "priority": "Baja",
                 "project": "Cargo Tracking",
-                "points": 3
+                "points": 3,
+                "__gohashid": 20634
             },
             {
                 "actor": "User",
+                "componente": "historia",
                 "dependencies": [
                     {
                         "id": "US-7"
@@ -35,13 +39,16 @@
                 ],
                 "group": "MS1",
                 "id": "US-6",
+                "key": "US6",
                 "name": "Create cargo",
                 "priority": "Baja",
                 "project": "Cargo Tracking",
-                "points": 7
+                "points": 7,
+                "__gohashid": 20635
             },
             {
                 "actor": "User",
+                "componente": "historia",
                 "dependencies": [
                     {
                         "id": "US-6"
@@ -55,13 +62,16 @@
                 ],
                 "group": "MS1",
                 "id": "US-11",
+                "key": "US11",
                 "name": "Create delivery",
                 "priority": "Baja",
                 "project": "Cargo Tracking",
-                "points": 7
+                "points": 7,
+                "__gohashid": 20636
             },
             {
                 "actor": "User",
+                "componente": "historia",
                 "dependencies": [
                     {
                         "id": "US-5"
@@ -69,13 +79,16 @@
                 ],
                 "group": "MS1",
                 "id": "US-13",
+                "key": "US13",
                 "name": "Check carrier status",
                 "priority": "Baja",
                 "project": "Cargo Tracking",
-                "points": 3
+                "points": 3,
+                "__gohashid": 20637
             },
             {
                 "actor": "User",
+                "componente": "historia",
                 "dependencies": [
                     {
                         "id": "US-5"
@@ -83,50 +96,29 @@
                 ],
                 "group": "MS1",
                 "id": "US-14",
+                "key": "US14",
                 "name": "Check route status",
                 "priority": "Baja",
                 "project": "Cargo Tracking",
-                "points": 3
+                "points": 3,
+                "__gohashid": 20638
             }
         ]
     },
     {
-        "cohesion_lack": 2,
-        "cohesion_grade": "0.67",
-        "complexity": 1,
+        "cohesionLack": 2,
+        "cohesionGrade": 0.67,
         "couplingADS": 1,
         "couplingAIS": 1,
         "couplingSIY": 0,
-        "id": "MS2",
+        "complexity": 9,
+        "id": "MS-2",
         "points": 9,
-        "semantic_similarity": 0.6403644674270368,
+        "semanticSimilarity": 49.62,
         "userStories": [
             {
                 "actor": "User",
-                "dependencies": [],
-                "group": "MS2",
-                "id": "US-4",
-                "name": "Create location",
-                "priority": "Baja",
-                "project": "Cargo Tracking",
-                "points": 2
-            },
-            {
-                "actor": "User",
-                "dependencies": [
-                    {
-                        "id": "US-8"
-                    }
-                ],
-                "group": "MS2",
-                "id": "US-7",
-                "name": "Create cargo itinerary",
-                "priority": "Baja",
-                "project": "Cargo Tracking",
-                "points": 5
-            },
-            {
-                "actor": "User",
+                "componente": "historia",
                 "dependencies": [
                     {
                         "id": "US-12"
@@ -134,26 +126,140 @@
                 ],
                 "group": "MS2",
                 "id": "US-8",
+                "key": "US8",
                 "name": "Create stop",
                 "priority": "Baja",
                 "project": "Cargo Tracking",
-                "points": 2
+                "points": 2,
+                "__gohashid": 20640
+            },
+            {
+                "actor": "User",
+                "componente": "historia",
+                "dependencies": [
+                    {
+                        "id": "US-8"
+                    }
+                ],
+                "group": "MS2",
+                "id": "US-7",
+                "key": "US7",
+                "name": "Create cargo itinerary",
+                "priority": "Baja",
+                "project": "Cargo Tracking",
+                "points": 5,
+                "__gohashid": 20641
+            },
+            {
+                "actor": "User",
+                "componente": "historia",
+                "dependencies": [],
+                "group": "MS2",
+                "id": "US-4",
+                "key": "US4",
+                "name": "Create location",
+                "priority": "Baja",
+                "project": "Cargo Tracking",
+                "points": 2,
+                "__gohashid": 20642
             }
         ]
     },
     {
-        "cohesion_lack": 2,
-        "cohesion_grade": "0.67",
-        "complexity": 0,
+        "cohesionLack": 2,
+        "cohesionGrade": 0.67,
         "couplingADS": 0,
         "couplingAIS": 2,
         "couplingSIY": 0,
-        "id": "MS3",
+        "complexity": 19,
+        "id": "MS-3",
         "points": 19,
-        "semantic_similarity": 0.6034043710448341,
+        "semanticSimilarity": 43.39,
         "userStories": [
             {
                 "actor": "User",
+                "componente": "historia",
+                "dependencies": [],
+                "group": "MS3",
+                "id": "US-12",
+                "key": "US12",
+                "name": "Get locations",
+                "priority": "Baja",
+                "project": "Cargo Tracking",
+                "points": 2,
+                "__gohashid": 20644
+            },
+            {
+                "actor": "User",
+                "componente": "historia",
+                "dependencies": [
+                    {
+                        "id": "US-12"
+                    }
+                ],
+                "group": "MS3",
+                "id": "US-10",
+                "key": "US10",
+                "name": "Change cargo destination",
+                "priority": "Baja",
+                "project": "Cargo Tracking",
+                "points": 1,
+                "__gohashid": 20645
+            },
+            {
+                "actor": "User",
+                "componente": "historia",
+                "dependencies": [
+                    {
+                        "id": "US-12"
+                    }
+                ],
+                "group": "MS3",
+                "id": "US-9",
+                "key": "US9",
+                "name": "Schedule cargo – create route specification",
+                "priority": "Baja",
+                "project": "Cargo Tracking",
+                "points": 5,
+                "__gohashid": 20646
+            },
+            {
+                "actor": "User",
+                "componente": "historia",
+                "dependencies": [
+                    {
+                        "id": "US-12"
+                    }
+                ],
+                "group": "MS3",
+                "id": "US-3",
+                "key": "US3",
+                "name": "Add Carrier Movement",
+                "priority": "Baja",
+                "project": "Cargo Tracking",
+                "points": 5,
+                "__gohashid": 20647
+            },
+            {
+                "actor": "User",
+                "componente": "historia",
+                "dependencies": [
+                    {
+                        "id": "US-12"
+                    }
+                ],
+                "group": "MS3",
+                "id": "US-2",
+                "key": "US2",
+                "name": "Manage cargo event",
+                "priority": "Baja",
+                "project": "Cargo Tracking",
+                "points": 3,
+                "__gohashid": 20648
+            },
+            {
+                "actor": "User",
+                "componente": "historia",
                 "dependencies": [
                     {
                         "id": "US-12"
@@ -164,76 +270,12 @@
                 ],
                 "group": "MS3",
                 "id": "US-1",
+                "key": "US1",
                 "name": "Create cargo trip",
                 "priority": "Baja",
                 "project": "Cargo Tracking",
-                "points": 3
-            },
-            {
-                "actor": "User",
-                "dependencies": [
-                    {
-                        "id": "US-12"
-                    }
-                ],
-                "group": "MS3",
-                "id": "US-2",
-                "name": "Manage cargo event",
-                "priority": "Baja",
-                "project": "Cargo Tracking",
-                "points": 3
-            },
-            {
-                "actor": "User",
-                "dependencies": [
-                    {
-                        "id": "US-12"
-                    }
-                ],
-                "group": "MS3",
-                "id": "US-3",
-                "name": "Add Carrier Movement",
-                "priority": "Baja",
-                "project": "Cargo Tracking",
-                "points": 5
-            },
-            {
-                "actor": "User",
-                "dependencies": [
-                    {
-                        "id": "US-12"
-                    }
-                ],
-                "group": "MS3",
-                "id": "US-9",
-                "name": "Schedule cargo - create route specification",
-                "priority": "Baja",
-                "project": "Cargo Tracking",
-                "points": 5
-            },
-            {
-                "actor": "User",
-                "dependencies": [
-                    {
-                        "id": "US-12"
-                    }
-                ],
-                "group": "MS3",
-                "id": "US-10",
-                "name": "Change cargo destination",
-                "priority": "Baja",
-                "project": "Cargo Tracking",
-                "points": 1
-            },
-            {
-                "actor": "User",
-                "dependencies": [],
-                "group": "MS3",
-                "id": "US-12",
-                "name": "Get locations",
-                "priority": "Baja",
-                "project": "Cargo Tracking",
-                "points": 2
+                "points": 3,
+                "__gohashid": 20649
             }
         ]
     }

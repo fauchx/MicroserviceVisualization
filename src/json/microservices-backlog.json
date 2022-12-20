@@ -1,6 +1,14 @@
 [
     {
-        "id": "MS1",
+        "cohesionLack": 1,
+        "cohesionGrade": 0.33,
+        "couplingADS": 2,
+        "couplingAIS": 1,
+        "couplingSIY": 1,
+        "complexity": 3,
+        "id": "MS-1",
+        "points": 3,
+        "semanticSimilarity": 41.52,
         "userStories": [
             {
                 "id": "US-1",
@@ -39,7 +47,15 @@
         ]
     },
     {
-        "id": "MS2",
+        "cohesionLack": 1,
+        "cohesionGrade": 0.33,
+        "couplingADS": 1,
+        "couplingAIS": 1,
+        "couplingSIY": 1,
+        "complexity": 3,
+        "id": "MS-2",
+        "points": 3,
+        "semanticSimilarity": 100,
         "userStories": [
             {
                 "id": "US-3",
@@ -59,7 +75,15 @@
         ]
     },
     {
-        "id": "MS3",
+        "cohesionLack": 2,
+        "cohesionGrade": 0.67,
+        "couplingADS": 0,
+        "couplingAIS": 2,
+        "couplingSIY": 0,
+        "complexity": 4,
+        "id": "MS-3",
+        "points": 4,
+        "semanticSimilarity": 100,
         "userStories": [
             {
                 "id": "US-4",

@@ -1,12 +1,20 @@
 [
     {
-        "id": "MS1",
+        "cohesionLack": 0,
+        "cohesionGrade": 0,
+        "couplingADS": 0,
+        "couplingAIS": 0,
+        "couplingSIY": 0,
+        "complexity": 1,
+        "id": "MS-1",
+        "points": 1,
+        "semanticSimilarity": 100,
         "userStories": [
             {
                 "id": "US-1",
                 "name": "Login",
                 "actor": "User",
-                "points": 10,
+                "points": 1,
                 "element": {
                     "x": 530,
                     "y": 510,
@@ -37,16 +45,7 @@
                 "project": "Old project",
                 "purpose": "",
                 "priority": "Baja",
-                "dependencies": [
-                    {
-                        "id": "US-3",
-                        "nombre": ""
-                    },
-                    {
-                        "id": "US-4",
-                        "nombre": ""
-                    }
-                ],
+                "dependencies": [],
                 "restrictions": "",
                 "acceptanceCriteria": ""
             }

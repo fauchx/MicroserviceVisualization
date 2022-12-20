@@ -8,7 +8,39 @@
     "properties": {
       "id": {
         "type": "string",
-        "pattern": "^[A-Za-z][A-Za-z][1-9][0-9]*$"
+        "pattern": "^[A-Za-z][A-Za-z]-[1-9][0-9]*$"
+      },
+      "points": {
+        "type": "number",
+        "minimum": 0
+      },
+      "complexity": {
+        "type": "number",
+        "minimum": 0
+      },
+      "cohesionLack": {
+        "type": "number",
+        "minimum": 0
+      },
+      "cohesionGrade": {
+        "type": "number",
+        "minimum": 0
+      },
+      "couplingADS": {
+        "type": "number",
+        "minimum": 0
+      },
+      "couplingAIS": {
+        "type": "number",
+        "minimum": 0
+      },
+      "couplingSIY": {
+        "type": "number",
+        "minimum": 0
+      },
+      "semanticSimilarity": {
+        "type": "number",
+        "minimum": 0
       },
       "userStories": {
         "type": "array",
@@ -67,6 +99,14 @@
     },
     "required": [
       "id",
+      "points",
+      "complexity",
+      "cohesionLack",
+      "cohesionGrade",
+      "couplingADS",
+      "couplingAIS",
+      "couplingSIY",
+      "semanticSimilarity",
       "userStories"
     ],
     "additionalProperties": true

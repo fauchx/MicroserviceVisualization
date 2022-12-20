@@ -69,7 +69,7 @@ function recibe_parametro(props) {
       var schema = require('./schemas/microservices.json');
       var esValido = validarJson(schema, json);
       if (esValido) {
-        nuevoDiagrama();
+        nuevoDiagrama2();
       }
     } catch {
       //
@@ -154,6 +154,7 @@ async function similitud_semantica(nombres_HU) {
   return similitudSemantica;
 }
 
+// eslint-disable-next-line
 async function convertir_jsonAnodos() {
 
   AIST = 0;
@@ -175,6 +176,7 @@ async function convertir_jsonAnodos() {
   aristas = [];
 
   for (let i = 0; i < Object(json).length; i++) {
+    json[i].id = json[i].id.replace("-", "");
     var MSdependencias = [];
     var MScalls = [];
     var MSpuntos = 0;
@@ -201,6 +203,7 @@ async function convertir_jsonAnodos() {
                   UScalls = UScalls.concat(json[i].userStories[j].dependencies[k].id);/////////////////////
                   if (json[i].id !== json[l].id) { // Si son diferentes MS's se asigna el valor a 'to'.
                     MScalls = MScalls.concat(json[l].id);
+                    json[l].id = json[l].id.replace("-", "");
                     return json[l].id;
                   }
                 }
@@ -259,7 +262,7 @@ async function convertir_jsonAnodos() {
           if (document.getElementById('stories').checked) {
             return 45 + (json[i].userStories.length * 12);
           } else {
-            return (MSpuntos * 8);
+            return 45 + (MSpuntos * 12);
           }
         })(),
         textoID: 0.23 - ((((45 + (json[i].userStories.length * 12)) - 57) * 0.12) / 100),
@@ -338,7 +341,7 @@ async function convertir_jsonAnodos() {
       rendimiento = rendimiento + nodos[i].calls;
       // cg = MSpuntos * (MScalls + MSrequests)
       nodos[i].cg = nodos[i].points * (nodos[i].calls + MSrequests.length);
-      console.log(nodos[i].id + ".cg: " + nodos[i].cg.toFixed(2));
+      /////////////////console.log(nodos[i].id + ".cg: " + nodos[i].cg.toFixed(2));
       //
       if (nodos[i].points > maxMSpoints) {
         maxMSpoints = nodos[i].points;
@@ -370,12 +373,213 @@ async function convertir_jsonAnodos() {
   /*          Otros           */
   rendimiento = rendimiento / CantidadMSs;
   // console.log("  *** OTRAS MÉTRICAS DE LA APLICACIÓN ***")
-  console.log("Rendimiento: " + rendimiento.toFixed(2));
-  console.log("Max MS points: " + maxMSpoints.toFixed(2));
-  console.log("Suma de profundidades: " + sumPf.toFixed(2));
-  console.log("Suma de Cg: " + sumCg.toFixed(2));
-  console.log("Suma de SIY: " + sumSIY.toFixed(2));
-  console.log("Cx: " + Cx.toFixed(2));
+  // console.log("Rendimiento: " + rendimiento.toFixed(2));
+  // console.log("Max MS points: " + maxMSpoints.toFixed(2));
+  // console.log("Suma de profundidades: " + sumPf.toFixed(2));
+  // console.log("Suma de Cg: " + sumCg.toFixed(2));
+  // console.log("Suma de SIY: " + sumSIY.toFixed(2));
+  // console.log("Cx: " + Cx.toFixed(2));
+
+  // console.log("sumCg: " + sumCg);
+  // console.log("sumPf: " + sumPf);
+  // console.log("sumSIY: " + sumSIY);
+
+  diagramaCargado = true;
+  init();
+}
+
+function convertir_jsonAnodos2() {
+
+  AIST = 0;
+  ADST = 0;
+  SIYT = 0;
+  CpT = 0;
+  Coh = 0;
+  CohT = 0;
+  WsicT = 0;
+  SsT = 0;
+  CantidadMSs = 0;
+  maxMSpoints = 0;
+  CxT = 0;
+  Cx = 0;
+  sumCg = 0;
+  sumPf = 0;
+  sumSIY = 0;
+  Gm = 0;
+  nodos = [];
+  aristas = [];
+
+  for (let i = 0; i < Object(json).length; i++) {
+    json[i].id = json[i].id.replace("-", "");
+    var MSdependencias = [];
+    var MScalls = [];
+    var MSpuntos = 0;
+    var nombresHU = [];
+    for (let j = 0; j < Object(json[i].userStories).length; j++) {
+      var USdependencias = [];
+      var UScalls = [];
+      json[i].userStories[j].id = json[i].userStories[j].id.replace("-", "");
+      nombresHU = nombresHU.concat(json[i].userStories[j].name);
+      MSpuntos = MSpuntos + json[i].userStories[j].points;
+      if (Object(json[i].userStories).length > WsicT) {
+        WsicT = Object(json[i].userStories).length;
+      };
+      for (let k = 0; k < Object(json[i].userStories[j].dependencies).length; k++) {
+        json[i].userStories[j].dependencies[k].id = json[i].userStories[j].dependencies[k].id.replace("-", "");
+        aristas = aristas.concat({
+          from: json[i].id,
+          // eslint-disable-next-line
+          to: (function () {
+            for (let l = 0; l < Object(json).length; l++) {
+              for (let m = 0; m < Object(json[l].userStories).length; m++) {
+                json[l].userStories[m].id = json[l].userStories[m].id.replace("-", "");
+                if (json[i].userStories[j].dependencies[k].id === json[l].userStories[m].id) {
+                  UScalls = UScalls.concat(json[i].userStories[j].dependencies[k].id);/////////////////////
+                  if (json[i].id !== json[l].id) { // Si son diferentes MS's se asigna el valor a 'to'.
+                    MScalls = MScalls.concat(json[l].id);
+                    json[l].id = json[l].id.replace("-", "");
+                    return json[l].id;
+                  }
+                }
+              }
+            }
+          })()
+        });
+      }
+      /* Hacer este filter abajo si se quieren mostrar las dependencias repetidas en el Inspector*/
+      // eslint-disable-next-line
+      USdependencias = UScalls.filter((item, index) => {// Quita las dependencias repetidas
+        return UScalls.indexOf(item) === index;
+      })
+      nodos = nodos.concat({
+        actor: json[i].userStories[j].actor,
+        componente: "historia",
+        dependencies: USdependencias,
+        group: json[i].id,
+        id: json[i].userStories[j].id,
+        key: json[i].userStories[j].id,
+        name: json[i].userStories[j].name,
+        priority: json[i].userStories[j].priority,
+        project: json[i].userStories[j].project,
+        points: json[i].userStories[j].points
+      });
+    }
+
+    /* Hacer este filter abajo si se quieren mostrar las dependencias repetidas en el Inspector*/
+    // eslint-disable-next-line
+    MSdependencias = MScalls.filter((item, index) => {// Quita las dependencias repetidas
+      return MScalls.indexOf(item) === index;
+    })
+
+    if (json[i].userStories.length !== 0) {
+      CantidadMSs++;
+      nodos = nodos.concat({
+        calls: MScalls.length,
+        cg: 0,
+        coupling_ADS: json[i].couplingADS,
+        coupling_AIS: json[i].couplingAIS,
+        coupling_SIY: json[i].couplingSIY,
+        cohesion_lack: json[i].cohesionLack,
+        cohesion_grade: json[i].cohesionGrade,
+        columnas: Math.ceil(Math.sqrt(json[i].userStories.length)),
+        complexity: json[i].complexity,
+        componente: "microservicio",
+        dependencies: MSdependencias, // o 'MScalls' si quiere mostrar repetidos 
+        isGroup: true,
+        id: json[i].id,
+        key: json[i].id,
+        points: json[i].points,
+        requests: 0,
+        semantic_similarity: json[i].semanticSimilarity,
+        // eslint-disable-next-line
+        size: (function () {
+          if (document.getElementById('stories').checked) {
+            return 45 + (json[i].userStories.length * 12);
+          } else {
+            return 45 + (MSpuntos * 12);
+          }
+        })(),
+        textoID: 0.23 - ((((45 + (json[i].userStories.length * 12)) - 57) * 0.12) / 100),
+        userStories: json[i].userStories.length
+      });
+    }
+    ADST = ADST + Math.pow(MSdependencias.length, 2) // Sumatoria de los cuadrados
+  };
+
+  // Quitar las aristas con 'to' undefined
+  aristas = aristas.filter((item) => item.to !== undefined);
+
+  var rendimiento = 0;
+
+  // Cálculo de las métricas de la aplicación
+  for (let i = 0; i < nodos.length; i++) {
+    if (nodos[i].componente === "microservicio") {
+
+      // Cálculo de los requests (Cantidad de aristas que le entran)
+      var MSrequests = [];      
+      for (let j = 0; j < aristas.length; j++) {
+        if (nodos[i].id === aristas[j].to) {
+          MSrequests = MSrequests.concat(aristas[j].from);
+        }
+      }      
+      nodos[i].requests = MSrequests.length;
+      AIST = AIST + Math.pow(nodos[i].coupling_AIS, 2); // Sumatoria de los cuadrados
+
+      // Cálculo del acomplamiento SIYT       
+      var SIY = (nodos[i].coupling_SIY / CantidadMSs)
+      SIYT = SIYT + Math.pow(SIY, 2); // Sumatoria de los cuadrados
+
+      // Cálculo de CohT
+      Coh = nodos[i].cohesion_lack / CantidadMSs;
+      CohT = CohT + Math.pow(Coh, 2); // Sumatoria de los cuadrados
+
+      // Cálculo de la similitud semántica
+      SsT = SsT + nodos[i].semantic_similarity // Sumatoria previa
+      // Se formatea el valor de la similitud semántica para expresarle en términos porcentuales
+      nodos[i].semantic_similarity = nodos[i].semantic_similarity.toFixed(2) + "%";
+
+      /*        Otros         */
+      rendimiento = rendimiento + nodos[i].calls;
+      // cg = MSpuntos * (MScalls + MSrequests)
+      nodos[i].cg = nodos[i].points * (nodos[i].calls + MSrequests.length);
+      /////////////////console.log(nodos[i].id + ".cg: " + nodos[i].cg.toFixed(2));
+      //
+      if (nodos[i].points > maxMSpoints) {
+        maxMSpoints = nodos[i].points;
+      }
+
+      // Cálculo de las variables para calcular la complejidad cognitiva CxT
+      sumPf = sumPf + profundidadMax(nodos, nodos[i].id);
+      sumCg = sumCg + nodos[i].cg;
+      sumSIY = sumSIY + SIY;      
+    }
+  }
+
+  // Cx = (sum(c𝑔)) + maxMSpoints + (CantidadMSs*WsicT) + (sum(Pf)) + (sum(SIY)) 
+  Cx = sumCg + maxMSpoints + (CantidadMSs * WsicT) + sumPf + sumSIY
+  CxT = Cx / 2;
+
+  // Sacar las raíces de las sumatorias
+  AIST = Math.sqrt(AIST);
+  ADST = Math.sqrt(ADST);
+  SIYT = Math.sqrt(SIYT);
+  CpT = Math.sqrt(Math.pow(AIST, 2) + Math.pow(ADST, 2) + Math.pow(SIYT, 2));
+  CohT = Math.sqrt(CohT);
+  SsT = SsT * (1 / CantidadMSs);
+
+  // 𝑀𝑇 ⃗=[𝐶𝑝𝑇, 𝐶𝑜ℎ𝑇, 𝑊𝑠𝑖𝑐𝑇, 𝐶𝑥𝑇,(100 − 𝑆𝑠𝑇)]
+  // Gm = /𝑀𝑇 ⃗/
+  Gm = Math.sqrt(Math.pow(CpT, 2) + Math.pow(CohT, 2) + Math.pow(WsicT, 2) + Math.pow(CxT, 2) + Math.pow((100 - SsT), 2));
+
+  /*          Otros           */
+  rendimiento = rendimiento / CantidadMSs;
+  // console.log("  *** OTRAS MÉTRICAS DE LA APLICACIÓN ***")
+  // console.log("Rendimiento: " + rendimiento.toFixed(2));
+  // console.log("Max MS points: " + maxMSpoints.toFixed(2));
+  // console.log("Suma de profundidades: " + sumPf.toFixed(2));
+  // console.log("Suma de Cg: " + sumCg.toFixed(2));
+  // console.log("Suma de SIY: " + sumSIY.toFixed(2));
+  // console.log("Cx: " + Cx.toFixed(2));
 
   // console.log("sumCg: " + sumCg);
   // console.log("sumPf: " + sumPf);
@@ -391,10 +595,11 @@ function convertir_nodosAjson(nodosAjson) {
   var microservicios = [];
   microservicios = nodosAjson.filter((item) => item.componente === 'microservicio')
 
-  for (let i = 0; i < Object(microservicios).length; i++) {
+  for (let h = 0; h < microservicios.length; h++) {
     hu = nodosAjson.filter((item) => (
-      item.componente === 'historia' && item.group === microservicios[i].key
+      item.componente === 'historia' && item.group === microservicios[h].key
     ))
+    // Convertir el array de dependencias de tipo string a tipo objeto
     for (let i = 0; i < hu.length; i++) {
       var dependenciasFormateadas = [];
       for (let j = 0; j < hu[i].dependencies.length; j++) {
@@ -404,13 +609,17 @@ function convertir_nodosAjson(nodosAjson) {
       }
       hu[i].dependencies = dependenciasFormateadas;
     }
+    microservicios[h].semantic_similarity = microservicios[h].semantic_similarity.replace("%", "");
     json = json.concat({
-      "cohesion_lack": microservicios[i].cohesion_lack,
-      "cohesion_grade": microservicios[i].cohesion_grade,
-      "complexity": microservicios[i].complexity,
-      "id": microservicios[i].key,
-      "points": microservicios[i].points,
-      "semantic_similarity": microservicios[i].semantic_similarity,
+      "cohesionLack": microservicios[h].cohesion_lack,
+      "cohesionGrade": Number(microservicios[h].cohesion_grade),
+      "couplingADS": microservicios[h].coupling_ADS,
+      "couplingAIS": microservicios[h].coupling_AIS,
+      "couplingSIY": Number(microservicios[h].coupling_SIY),
+      "complexity": Number(microservicios[h].complexity),
+      "id": microservicios[h].key,
+      "points": microservicios[h].points,
+      "semanticSimilarity": Number(microservicios[h].semantic_similarity),
       "userStories": hu
     });
   }
@@ -442,6 +651,9 @@ function crearMicroservicio(ms, us) {
   json = json.concat({
     "cohesion_lack": 0,
     "cohesion_grade": 0,
+    "coupling_ADS": 0,
+    "coupling_AIS": 0,
+    "coupling_SIY": 0,
     "complexity": 0,
     "id": ms,
     "points": 0,
@@ -858,7 +1070,7 @@ export function leerArchivo(e) {
     var schema = require('./schemas/microservices.json');
     var esValido = validarJson(schema, json);
     if (esValido) {
-      convertir_jsonAnodos();
+      convertir_jsonAnodos2();
     } else {
       diagramaCargado = false;
       AIST = 0;
@@ -961,8 +1173,22 @@ function agregarHistoria(e) {
 }
 
 function exportarJson() {
-  if (diagramaCargado) {
-    var dataStr = JSON.stringify(json);
+  if (diagramaCargado) {    
+    convertir_nodosAjson(nodos);
+    var copiaJson = [];
+    for (let i = 0; i < Object(json).length; i++) {
+      if (json[i].userStories.length > 0) {
+        json[i].id = json[i].id.replace("MS", "MS-");
+        for (let j = 0; j < Object(json[i].userStories).length; j++) {
+          json[i].userStories[j].id = json[i].userStories[j].id.replace("US", "US-");
+          for (let k = 0; k < Object(json[i].userStories[j].dependencies).length; k++) {
+            json[i].userStories[j].dependencies[k].id = json[i].userStories[j].dependencies[k].id.replace("US", "US-");
+          }
+        }
+        copiaJson = copiaJson.concat(json[i]);
+      }
+    }
+    var dataStr = JSON.stringify(copiaJson);
     var dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
 
     var exportFileDefaultName = 'data.json'; // Asigna un nombre al archivo
@@ -986,6 +1212,15 @@ function nuevoDiagrama() {
     myDiagram = null;
   }
   convertir_jsonAnodos();
+  diagramaCargado = true;
+}
+
+function nuevoDiagrama2() {
+  if (diagramaCargado === true) {
+    myDiagram.div = null;
+    myDiagram = null;
+  }
+  convertir_jsonAnodos2();
   diagramaCargado = true;
 }
 
