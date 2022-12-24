@@ -118,39 +118,37 @@ function profundidadMax(nodos2, nombreMS) {
 async function similitud_semantica(nombres_HU) {
   var resultado = "";
   var cadena = nombres_HU[0];
-  var similitudSemantica = 0;
-  if (nombres_HU.length > 1) {
-    for (let i = 1; i < nombres_HU.length; i++) {
-      cadena = cadena + "/" + nombres_HU[i];
-    }
-    const encodedValue = encodeURIComponent(cadena);
-    await new Promise((resolve, reject) => {
-      fetch(`http://localhost:8000/api/?user_stories=${encodedValue}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json"
-        },
-      }).then(function (response) {
-        setTimeout(() => {
-          resolve(response)
-        }, 50);
-        return response.json();
-      }).then(json => {
-        resultado = json;
-        similitudSemantica = parseFloat(resultado.semantic_similarity)
-      }).catch(function (err) {
-        swal({
-          title: "" + err,
-          text: "Error",
-          icon: "error",
-          timer: 5000
-        })
-        diagramaCargado = false;
-      })
-    });
-  } else {
-    similitudSemantica = 1;
+  var similitudSemantica = [];
+  for (let i = 1; i < nombres_HU.length; i++) {
+    cadena = cadena + "*" + nombres_HU[i];
   }
+  const encodedValue = encodeURIComponent(cadena);
+  await new Promise((resolve, reject) => {
+    fetch(`http://localhost:8000/api/?user_stories=${encodedValue}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    }).then(function (response) {
+      setTimeout(() => {
+        resolve(response)
+      }, 50);
+      return response.json();
+    }).then(json => {
+      resultado = json;
+      //similitudSemantica = parseFloat(resultado.semantic_similarity)
+      similitudSemantica = resultado.semantic_similarity
+      console.log(similitudSemantica);
+    }).catch(function (err) {
+      swal({
+        title: "" + err,
+        text: "Error",
+        icon: "error",
+        timer: 5000
+      })
+      diagramaCargado = false;
+    })
+  });
   return similitudSemantica;
 }
 
@@ -174,18 +172,19 @@ async function convertir_jsonAnodos() {
   sumSIY = 0;
   nodos = [];
   aristas = [];
+  var arrayNombresHU = [];
 
   for (let i = 0; i < Object(json).length; i++) {
     json[i].id = json[i].id.replace("-", "");
     var MSdependencias = [];
     var MScalls = [];
     var MSpuntos = 0;
-    var nombresHU = [];
+    var nombresHU = "";
     for (let j = 0; j < Object(json[i].userStories).length; j++) {
       var USdependencias = [];
       var UScalls = [];
       json[i].userStories[j].id = json[i].userStories[j].id.replace("-", "");
-      nombresHU = nombresHU.concat(json[i].userStories[j].name);
+      nombresHU = nombresHU + json[i].userStories[j].name + "/";
       MSpuntos = MSpuntos + json[i].userStories[j].points;
       if (Object(json[i].userStories).length > WsicT) {
         WsicT = Object(json[i].userStories).length;
@@ -231,6 +230,9 @@ async function convertir_jsonAnodos() {
       });
     }
 
+    nombresHU = nombresHU.substring(0, nombresHU.length - 1);
+    arrayNombresHU = arrayNombresHU.concat([nombresHU]);
+
     /* Hacer este filter abajo si se quieren mostrar las dependencias repetidas en el Inspector*/
     // eslint-disable-next-line
     MSdependencias = MScalls.filter((item, index) => {// Quita las dependencias repetidas
@@ -256,7 +258,8 @@ async function convertir_jsonAnodos() {
         key: json[i].id,
         points: MSpuntos,
         requests: 0,
-        semantic_similarity: await similitud_semantica(nombresHU),
+        //semantic_similarity: await similitud_semantica(nombresHU),
+        semantic_similarity: 0,
         // eslint-disable-next-line
         size: (function () {
           if (document.getElementById('stories').checked) {
@@ -272,10 +275,13 @@ async function convertir_jsonAnodos() {
     ADST = ADST + Math.pow(MSdependencias.length, 2) // Sumatoria de los cuadrados
   };
 
+  var arraySSs = await similitud_semantica(arrayNombresHU);
+
   // Quitar las aristas con 'to' undefined
   aristas = aristas.filter((item) => item.to !== undefined);
 
   var rendimiento = 0;
+  var contadorSS = 0;
 
   // Cálculo de los acomplamientos AIS y SIY
   for (let i = 0; i < nodos.length; i++) {
@@ -333,6 +339,8 @@ async function convertir_jsonAnodos() {
       CohT = CohT + Math.pow(Coh, 2); // Sumatoria de los cuadrados
 
       // Cálculo de la similitud semántica
+      nodos[i].semantic_similarity = arraySSs[contadorSS];
+      contadorSS++;
       SsT = SsT + nodos[i].semantic_similarity // Sumatoria previa
       // Se formatea el valor de la similitud semántica para expresarle en términos porcentuales
       nodos[i].semantic_similarity = "" + (100 * nodos[i].semantic_similarity).toFixed(2) + "%";
