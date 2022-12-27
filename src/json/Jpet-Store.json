@@ -1,0 +1,928 @@
+{
+    "diagramId": "3",
+    "userStories": [
+        {
+            "id": "US-1",
+            "name": "View category",
+            "actor": "user",
+            "points": 3,
+            "element": {
+                "x": 590,
+                "y": 170,
+                "di": {
+                    "id": "Activity_0v8g3yn_di",
+                    "$type": "bpmndi:BPMNShape",
+                    "label": {
+                        "$type": "bpmndi:BPMNLabel"
+                    },
+                    "bounds": {
+                        "x": 590,
+                        "y": 170,
+                        "$type": "dc:Bounds",
+                        "width": 100,
+                        "height": 80
+                    }
+                },
+                "id": "US-1",
+                "type": "bpmn:Task",
+                "order": {
+                    "level": 5
+                },
+                "width": 100,
+                "height": 80,
+                "labels": [],
+                "children": []
+            },
+            "project": "Jpet Store",
+            "purpose": "",
+            "priority": "Low",
+            "dependencies": [
+                {
+                    "id": "US-2",
+                    "name": "List category"
+                },
+                {
+                    "id": "US-19",
+                    "name": "Get category"
+                }
+            ],
+            "restrictions": "",
+            "acceptanceCriteria": ""
+        },
+        {
+            "id": "US-2",
+            "name": "List category",
+            "actor": "user",
+            "points": 1,
+            "element": {
+                "x": 320,
+                "y": 120,
+                "di": {
+                    "id": "Activity_0fmqb6l_di",
+                    "$type": "bpmndi:BPMNShape",
+                    "label": {
+                        "$type": "bpmndi:BPMNLabel"
+                    },
+                    "bounds": {
+                        "x": 320,
+                        "y": 120,
+                        "$type": "dc:Bounds",
+                        "width": 100,
+                        "height": 80
+                    }
+                },
+                "id": "US-2",
+                "type": "bpmn:Task",
+                "order": {
+                    "level": 5
+                },
+                "width": 100,
+                "height": 80,
+                "labels": [],
+                "children": []
+            },
+            "project": "Jpet Store",
+            "purpose": "",
+            "priority": "Low",
+            "dependencies": [],
+            "restrictions": "",
+            "acceptanceCriteria": ""
+        },
+        {
+            "id": "US-3",
+            "name": "Search product",
+            "actor": "user",
+            "points": 5,
+            "element": {
+                "x": 1000,
+                "y": 240,
+                "di": {
+                    "id": "Activity_1g7i2gg_di",
+                    "$type": "bpmndi:BPMNShape",
+                    "label": {
+                        "$type": "bpmndi:BPMNLabel"
+                    },
+                    "bounds": {
+                        "x": 1000,
+                        "y": 240,
+                        "$type": "dc:Bounds",
+                        "width": 100,
+                        "height": 80
+                    }
+                },
+                "id": "US-3",
+                "type": "bpmn:Task",
+                "order": {
+                    "level": 5
+                },
+                "width": 100,
+                "height": 80,
+                "labels": [],
+                "children": []
+            },
+            "project": "Jpet Store",
+            "purpose": "",
+            "priority": "Low",
+            "dependencies": [],
+            "restrictions": "",
+            "acceptanceCriteria": ""
+        },
+        {
+            "id": "US-4",
+            "name": "View product",
+            "actor": "user",
+            "points": 3,
+            "element": {
+                "x": 580,
+                "y": 360,
+                "di": {
+                    "id": "Activity_0a1cawc_di",
+                    "$type": "bpmndi:BPMNShape",
+                    "label": {
+                        "$type": "bpmndi:BPMNLabel"
+                    },
+                    "bounds": {
+                        "x": 580,
+                        "y": 360,
+                        "$type": "dc:Bounds",
+                        "width": 100,
+                        "height": 80
+                    }
+                },
+                "id": "US-4",
+                "type": "bpmn:Task",
+                "order": {
+                    "level": 5
+                },
+                "width": 100,
+                "height": 80,
+                "labels": [],
+                "children": []
+            },
+            "project": "Jpet Store",
+            "purpose": "",
+            "priority": "Low",
+            "dependencies": [
+                {
+                    "id": "US-20",
+                    "name": "Get product"
+                }
+            ],
+            "restrictions": "",
+            "acceptanceCriteria": ""
+        },
+        {
+            "id": "US-5",
+            "name": "View item",
+            "actor": "user",
+            "points": 3,
+            "element": {
+                "x": 320,
+                "y": 480,
+                "di": {
+                    "id": "Activity_0iuxrl6_di",
+                    "$type": "bpmndi:BPMNShape",
+                    "label": {
+                        "$type": "bpmndi:BPMNLabel"
+                    },
+                    "bounds": {
+                        "x": 320,
+                        "y": 480,
+                        "$type": "dc:Bounds",
+                        "width": 100,
+                        "height": 80
+                    }
+                },
+                "id": "US-5",
+                "type": "bpmn:Task",
+                "order": {
+                    "level": 5
+                },
+                "width": 100,
+                "height": 80,
+                "labels": [],
+                "children": []
+            },
+            "project": "Jpet Store",
+            "purpose": "",
+            "priority": "Low",
+            "dependencies": [],
+            "restrictions": "",
+            "acceptanceCriteria": ""
+        },
+        {
+            "id": "US-6",
+            "name": "Add item to cart",
+            "actor": "user",
+            "points": 5,
+            "element": {
+                "x": 580,
+                "y": 550,
+                "di": {
+                    "id": "Activity_1t3tsd6_di",
+                    "$type": "bpmndi:BPMNShape",
+                    "label": {
+                        "$type": "bpmndi:BPMNLabel"
+                    },
+                    "bounds": {
+                        "x": 580,
+                        "y": 550,
+                        "$type": "dc:Bounds",
+                        "width": 100,
+                        "height": 80
+                    }
+                },
+                "id": "US-6",
+                "type": "bpmn:Task",
+                "order": {
+                    "level": 5
+                },
+                "width": 100,
+                "height": 80,
+                "labels": [],
+                "children": []
+            },
+            "project": "Jpet Store",
+            "purpose": "",
+            "priority": "Low",
+            "dependencies": [
+                {
+                    "id": "US-5",
+                    "name": "View item"
+                },
+                {
+                    "id": "US-21",
+                    "name": "Is item in stock?"
+                }
+            ],
+            "restrictions": "",
+            "acceptanceCriteria": ""
+        },
+        {
+            "id": "US-7",
+            "name": "Remove item from cart",
+            "actor": "user",
+            "points": 3,
+            "element": {
+                "x": 1000,
+                "y": 670,
+                "di": {
+                    "id": "Activity_0tk0uq0_di",
+                    "$type": "bpmndi:BPMNShape",
+                    "label": {
+                        "$type": "bpmndi:BPMNLabel"
+                    },
+                    "bounds": {
+                        "x": 1000,
+                        "y": 670,
+                        "$type": "dc:Bounds",
+                        "width": 100,
+                        "height": 80
+                    }
+                },
+                "id": "US-7",
+                "type": "bpmn:Task",
+                "order": {
+                    "level": 5
+                },
+                "width": 100,
+                "height": 80,
+                "labels": [],
+                "children": []
+            },
+            "project": "Jpet Store",
+            "purpose": "",
+            "priority": "Low",
+            "dependencies": [],
+            "restrictions": "",
+            "acceptanceCriteria": ""
+        },
+        {
+            "id": "US-8",
+            "name": "Update cart",
+            "actor": "user",
+            "points": 3,
+            "element": {
+                "x": 1000,
+                "y": 530,
+                "di": {
+                    "id": "Activity_0w7sfme_di",
+                    "$type": "bpmndi:BPMNShape",
+                    "label": {
+                        "$type": "bpmndi:BPMNLabel"
+                    },
+                    "bounds": {
+                        "x": 1000,
+                        "y": 530,
+                        "$type": "dc:Bounds",
+                        "width": 100,
+                        "height": 80
+                    }
+                },
+                "id": "US-8",
+                "type": "bpmn:Task",
+                "order": {
+                    "level": 5
+                },
+                "width": 100,
+                "height": 80,
+                "labels": [],
+                "children": []
+            },
+            "project": "Jpet Store",
+            "purpose": "",
+            "priority": "Low",
+            "dependencies": [],
+            "restrictions": "",
+            "acceptanceCriteria": ""
+        },
+        {
+            "id": "US-9",
+            "name": "Get cart",
+            "actor": "user",
+            "points": 3,
+            "element": {
+                "x": 320,
+                "y": 740,
+                "di": {
+                    "id": "Activity_0oiffy3_di",
+                    "$type": "bpmndi:BPMNShape",
+                    "label": {
+                        "$type": "bpmndi:BPMNLabel"
+                    },
+                    "bounds": {
+                        "x": 320,
+                        "y": 740,
+                        "$type": "dc:Bounds",
+                        "width": 100,
+                        "height": 80
+                    }
+                },
+                "id": "US-9",
+                "type": "bpmn:Task",
+                "order": {
+                    "level": 5
+                },
+                "width": 100,
+                "height": 80,
+                "labels": [],
+                "children": []
+            },
+            "project": "Jpet Store",
+            "purpose": "",
+            "priority": "Low",
+            "dependencies": [],
+            "restrictions": "",
+            "acceptanceCriteria": ""
+        },
+        {
+            "id": "US-10",
+            "name": "New order",
+            "actor": "user",
+            "points": 8,
+            "element": {
+                "x": 580,
+                "y": 650,
+                "di": {
+                    "id": "Activity_03hg61f_di",
+                    "$type": "bpmndi:BPMNShape",
+                    "label": {
+                        "$type": "bpmndi:BPMNLabel"
+                    },
+                    "bounds": {
+                        "x": 580,
+                        "y": 650,
+                        "$type": "dc:Bounds",
+                        "width": 100,
+                        "height": 80
+                    }
+                },
+                "id": "US-10",
+                "type": "bpmn:Task",
+                "order": {
+                    "level": 5
+                },
+                "width": 100,
+                "height": 80,
+                "labels": [],
+                "children": []
+            },
+            "project": "Jpet Store",
+            "purpose": "",
+            "priority": "Low",
+            "dependencies": [
+                {
+                    "id": "US-9",
+                    "name": "Get cart"
+                },
+                {
+                    "id": "US-16",
+                    "name": "Get account"
+                }
+            ],
+            "restrictions": "",
+            "acceptanceCriteria": ""
+        },
+        {
+            "id": "US-11",
+            "name": "Get order",
+            "actor": "user",
+            "points": 3,
+            "element": {
+                "x": 580,
+                "y": 750,
+                "di": {
+                    "id": "Activity_1i9atwn_di",
+                    "$type": "bpmndi:BPMNShape",
+                    "label": {
+                        "$type": "bpmndi:BPMNLabel"
+                    },
+                    "bounds": {
+                        "x": 580,
+                        "y": 750,
+                        "$type": "dc:Bounds",
+                        "width": 100,
+                        "height": 80
+                    }
+                },
+                "id": "US-11",
+                "type": "bpmn:Task",
+                "order": {
+                    "level": 5
+                },
+                "width": 100,
+                "height": 80,
+                "labels": [],
+                "children": []
+            },
+            "project": "Jpet Store",
+            "purpose": "",
+            "priority": "Low",
+            "dependencies": [
+                {
+                    "id": "US-16",
+                    "name": "Get account"
+                }
+            ],
+            "restrictions": "",
+            "acceptanceCriteria": ""
+        },
+        {
+            "id": "US-12",
+            "name": "Set order ID",
+            "actor": "user",
+            "points": 5,
+            "element": {
+                "x": 1000,
+                "y": 380,
+                "di": {
+                    "id": "Activity_0uwq2jf_di",
+                    "$type": "bpmndi:BPMNShape",
+                    "label": {
+                        "$type": "bpmndi:BPMNLabel"
+                    },
+                    "bounds": {
+                        "x": 1000,
+                        "y": 380,
+                        "$type": "dc:Bounds",
+                        "width": 100,
+                        "height": 80
+                    }
+                },
+                "id": "US-12",
+                "type": "bpmn:Task",
+                "order": {
+                    "level": 5
+                },
+                "width": 100,
+                "height": 80,
+                "labels": [],
+                "children": []
+            },
+            "project": "Jpet Store",
+            "purpose": "",
+            "priority": "Low",
+            "dependencies": [],
+            "restrictions": "",
+            "acceptanceCriteria": ""
+        },
+        {
+            "id": "US-13",
+            "name": "List order",
+            "actor": "user",
+            "points": 3,
+            "element": {
+                "x": 580,
+                "y": 850,
+                "di": {
+                    "id": "Activity_0q1weov_di",
+                    "$type": "bpmndi:BPMNShape",
+                    "label": {
+                        "$type": "bpmndi:BPMNLabel"
+                    },
+                    "bounds": {
+                        "x": 580,
+                        "y": 850,
+                        "$type": "dc:Bounds",
+                        "width": 100,
+                        "height": 80
+                    }
+                },
+                "id": "US-13",
+                "type": "bpmn:Task",
+                "order": {
+                    "level": 5
+                },
+                "width": 100,
+                "height": 80,
+                "labels": [],
+                "children": []
+            },
+            "project": "Jpet Store",
+            "purpose": "",
+            "priority": "Low",
+            "dependencies": [
+                {
+                    "id": "US-16",
+                    "name": "Get account"
+                }
+            ],
+            "restrictions": "",
+            "acceptanceCriteria": ""
+        },
+        {
+            "id": "US-14",
+            "name": "Get authentication",
+            "actor": "user",
+            "points": 3,
+            "element": {
+                "x": 1000,
+                "y": 820,
+                "di": {
+                    "id": "Activity_15iuv1o_di",
+                    "$type": "bpmndi:BPMNShape",
+                    "label": {
+                        "$type": "bpmndi:BPMNLabel"
+                    },
+                    "bounds": {
+                        "x": 1000,
+                        "y": 820,
+                        "$type": "dc:Bounds",
+                        "width": 100,
+                        "height": 80
+                    }
+                },
+                "id": "US-14",
+                "type": "bpmn:Task",
+                "order": {
+                    "level": 5
+                },
+                "width": 100,
+                "height": 80,
+                "labels": [],
+                "children": []
+            },
+            "project": "Jpet Store",
+            "purpose": "",
+            "priority": "Low",
+            "dependencies": [],
+            "restrictions": "",
+            "acceptanceCriteria": ""
+        },
+        {
+            "id": "US-15",
+            "name": "Sign up",
+            "actor": "user",
+            "points": 5,
+            "element": {
+                "x": 760,
+                "y": 240,
+                "di": {
+                    "id": "Activity_1rbyf2v_di",
+                    "$type": "bpmndi:BPMNShape",
+                    "label": {
+                        "$type": "bpmndi:BPMNLabel"
+                    },
+                    "bounds": {
+                        "x": 760,
+                        "y": 240,
+                        "$type": "dc:Bounds",
+                        "width": 100,
+                        "height": 80
+                    }
+                },
+                "id": "US-15",
+                "type": "bpmn:Task",
+                "order": {
+                    "level": 5
+                },
+                "width": 100,
+                "height": 80,
+                "labels": [],
+                "children": []
+            },
+            "project": "Jpet Store",
+            "purpose": "",
+            "priority": "Low",
+            "dependencies": [
+                {
+                    "id": "US-16",
+                    "name": "Get account"
+                },
+                {
+                    "id": "US-1",
+                    "name": "View category"
+                }
+            ],
+            "restrictions": "",
+            "acceptanceCriteria": ""
+        },
+        {
+            "id": "US-16",
+            "name": "Get account",
+            "actor": "user",
+            "points": 3,
+            "element": {
+                "x": 320,
+                "y": 850,
+                "di": {
+                    "id": "Activity_1gminqu_di",
+                    "$type": "bpmndi:BPMNShape",
+                    "label": {
+                        "$type": "bpmndi:BPMNLabel"
+                    },
+                    "bounds": {
+                        "x": 320,
+                        "y": 850,
+                        "$type": "dc:Bounds",
+                        "width": 100,
+                        "height": 80
+                    }
+                },
+                "id": "US-16",
+                "type": "bpmn:Task",
+                "order": {
+                    "level": 5
+                },
+                "width": 100,
+                "height": 80,
+                "labels": [],
+                "children": []
+            },
+            "project": "Jpet Store",
+            "purpose": "",
+            "priority": "Low",
+            "dependencies": [],
+            "restrictions": "",
+            "acceptanceCriteria": ""
+        },
+        {
+            "id": "US-17",
+            "name": "Sign off",
+            "actor": "user",
+            "points": 2,
+            "element": {
+                "x": 1000,
+                "y": 110,
+                "di": {
+                    "id": "Activity_0hjxhv5_di",
+                    "$type": "bpmndi:BPMNShape",
+                    "label": {
+                        "$type": "bpmndi:BPMNLabel"
+                    },
+                    "bounds": {
+                        "x": 1000,
+                        "y": 110,
+                        "$type": "dc:Bounds",
+                        "width": 100,
+                        "height": 80
+                    }
+                },
+                "id": "US-17",
+                "type": "bpmn:Task",
+                "order": {
+                    "level": 5
+                },
+                "width": 100,
+                "height": 80,
+                "labels": [],
+                "children": []
+            },
+            "project": "Jpet Store",
+            "purpose": "",
+            "priority": "Low",
+            "dependencies": [],
+            "restrictions": "",
+            "acceptanceCriteria": ""
+        },
+        {
+            "id": "US-18",
+            "name": "Update account",
+            "actor": "user",
+            "points": 3,
+            "element": {
+                "x": 860,
+                "y": 390,
+                "di": {
+                    "id": "Activity_0he7gjy_di",
+                    "$type": "bpmndi:BPMNShape",
+                    "label": {
+                        "$type": "bpmndi:BPMNLabel"
+                    },
+                    "bounds": {
+                        "x": 860,
+                        "y": 390,
+                        "$type": "dc:Bounds",
+                        "width": 100,
+                        "height": 80
+                    }
+                },
+                "id": "US-18",
+                "type": "bpmn:Task",
+                "order": {
+                    "level": 5
+                },
+                "width": 100,
+                "height": 80,
+                "labels": [],
+                "children": []
+            },
+            "project": "Jpet Store",
+            "purpose": "",
+            "priority": "Low",
+            "dependencies": [
+                {
+                    "id": "US-16",
+                    "name": "Get account"
+                },
+                {
+                    "id": "US-1",
+                    "name": "View category"
+                }
+            ],
+            "restrictions": "",
+            "acceptanceCriteria": ""
+        },
+        {
+            "id": "US-19",
+            "name": "Get category",
+            "actor": "user",
+            "points": 2,
+            "element": {
+                "x": 320,
+                "y": 240,
+                "di": {
+                    "id": "Activity_0dagg98_di",
+                    "$type": "bpmndi:BPMNShape",
+                    "label": {
+                        "$type": "bpmndi:BPMNLabel"
+                    },
+                    "bounds": {
+                        "x": 320,
+                        "y": 240,
+                        "$type": "dc:Bounds",
+                        "width": 100,
+                        "height": 80
+                    }
+                },
+                "id": "US-19",
+                "type": "bpmn:Task",
+                "order": {
+                    "level": 5
+                },
+                "width": 100,
+                "height": 80,
+                "labels": [],
+                "children": []
+            },
+            "project": "Jpet Store",
+            "purpose": "",
+            "priority": "Low",
+            "dependencies": [],
+            "restrictions": "",
+            "acceptanceCriteria": ""
+        },
+        {
+            "id": "US-20",
+            "name": "Get product",
+            "actor": "user",
+            "points": 2,
+            "element": {
+                "x": 320,
+                "y": 360,
+                "di": {
+                    "id": "Activity_02mcwyf_di",
+                    "$type": "bpmndi:BPMNShape",
+                    "label": {
+                        "$type": "bpmndi:BPMNLabel"
+                    },
+                    "bounds": {
+                        "x": 320,
+                        "y": 360,
+                        "$type": "dc:Bounds",
+                        "width": 100,
+                        "height": 80
+                    }
+                },
+                "id": "US-20",
+                "type": "bpmn:Task",
+                "order": {
+                    "level": 5
+                },
+                "width": 100,
+                "height": 80,
+                "labels": [],
+                "children": []
+            },
+            "project": "Jpet Store",
+            "purpose": "",
+            "priority": "Low",
+            "dependencies": [],
+            "restrictions": "",
+            "acceptanceCriteria": ""
+        },
+        {
+            "id": "US-21",
+            "name": "Search item",
+            "actor": "user",
+            "points": 3,
+            "element": {
+                "x": 320,
+                "y": 620,
+                "di": {
+                    "id": "Activity_0jbcxtn_di",
+                    "$type": "bpmndi:BPMNShape",
+                    "label": {
+                        "$type": "bpmndi:BPMNLabel"
+                    },
+                    "bounds": {
+                        "x": 320,
+                        "y": 620,
+                        "$type": "dc:Bounds",
+                        "width": 100,
+                        "height": 80
+                    }
+                },
+                "id": "US-21",
+                "type": "bpmn:Task",
+                "order": {
+                    "level": 5
+                },
+                "width": 100,
+                "height": 80,
+                "labels": [],
+                "children": []
+            },
+            "project": "Jpet Store",
+            "purpose": "",
+            "priority": "Low",
+            "dependencies": [],
+            "restrictions": "",
+            "acceptanceCriteria": ""
+        },
+        {
+            "id": "US-22",
+            "name": "Sign in",
+            "actor": "user",
+            "points": 3,
+            "element": {
+                "x": 760,
+                "y": 90,
+                "di": {
+                    "id": "Activity_0zsh727_di",
+                    "$type": "bpmndi:BPMNShape",
+                    "label": {
+                        "$type": "bpmndi:BPMNLabel"
+                    },
+                    "bounds": {
+                        "x": 760,
+                        "y": 90,
+                        "$type": "dc:Bounds",
+                        "width": 100,
+                        "height": 80
+                    }
+                },
+                "id": "US-22",
+                "type": "bpmn:Task",
+                "order": {
+                    "level": 5
+                },
+                "width": 100,
+                "height": 80,
+                "labels": [],
+                "children": []
+            },
+            "project": "Jpet Store",
+            "purpose": "",
+            "priority": "Low",
+            "dependencies": [
+                {
+                    "id": "US-1",
+                    "name": "View category"
+                }
+            ],
+            "restrictions": "",
+            "acceptanceCriteria": ""
+        }
+    ]
+}

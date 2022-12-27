@@ -16,25 +16,33 @@ var json;
 var userStory = [];
 var proximoMS = "";
 var CantidadMSs = 0;
+var proyecto = "";
+var arraySS = [];
 
 var AIST = 0; // Acoplamiento AIS total
 var ADST = 0; // Acoplamiento ADS total
 var SIYT = 0; // Acoplamiento SIY total
-var CpT = 0;  // Acoplamiento total de la aplicación
 
 var Coh = 0;  // Cohesion grade total
-var CohT = 0; // Cohesión total de la aplicación
-
-var WsicT = 0;// mayor número de historias de usuario asociadas a un microservicio
-var CxT = 0;  // Complejidad cognitiva total de la aplicación
-var SsT = 0;  // Similitud semántica total de la aplicación
 
 /* Cx = (sum(c𝑔)) + maxMSpoints + (CantidadMSs*WsicT) + (sum(Pf)) + (sum(SIY)) */
 var maxMSpoints = 0;
 var Cx = 0;
-var sumCg = 0;
-var sumPf = 0; // Número (máximo?) de llamadas secuenciales entre microservicios
+var sumCg = 0; // Cg = P(i) * (calls(i) + requests(i)) de un microservicio
+var sumPf = 0; // Pf = Profundidad máxima de llamadas secuenciales de un microservicio
 var sumSIY = 0;
+
+/* CxT = Cx / Cxo */
+
+//   𝑀𝑇 ⃗=[𝐶𝑝𝑇, 𝐶𝑜ℎ𝑇, 𝑊𝑠𝑖𝑐𝑇, 𝐶𝑥𝑇,(100− 𝑆𝑠𝑇)]
+var CpT = 0;  // Acoplamiento total de la aplicación
+var CohT = 0; // Cohesión total de la aplicación
+var WsicT = 0;// mayor número de historias de usuario asociadas a un microservicio
+var CxT = 0;  // Complejidad cognitiva total de la aplicación
+var SsT = 0;  // Similitud semántica total de la aplicación
+
+// Gm = /𝑀𝑇 ⃗/
+var Gm = 0;
 
 /*
 𝑀𝑆𝐵𝐴=(𝑀𝑆, 𝑀𝑇 ⃗) 
@@ -42,20 +50,7 @@ Donde:
 𝑀𝑆𝐵𝐴 = MicroServices Based Application
 MS es un conjunto de microservicios MS = {ms1, ms2, …, msn} 
 𝑀𝑇 ⃗ es un vector de métricas calculadas para MSBA
-
-𝑀𝑇 ⃗=[𝐶𝑝𝑇, 𝐶𝑜ℎ𝑇, 𝑊𝑠𝑖𝑐𝑇, 𝐶𝑥𝑇,(100− 𝑆𝑠𝑇)]
-Donde:
-CpT es el acoplamiento, 
-CohT es la cohesión, 
-WsicT es el mayor número de historias de usuario asociadas a un microservicio, 
-CxT son los puntos de complejidad cognitiva, y 
-SsT es la similitud semántica; Las cuales son métricas calculadas para MSBA
-
-Gm = /𝑀𝑇 ⃗/
 */
-var Gm = 0;
-
-/* CxT = Cx / Cxo */
 
 //************ Funciones ****************/
 
@@ -64,7 +59,6 @@ function recibe_parametro(props) {
   var diagrama = query.get('diagrama')
   if (diagrama !== null) {
     try {
-      //window.location.href = './';
       json = JSON.parse(diagrama);
       var schema = require('./schemas/microservices.json');
       var esValido = validarJson(schema, json);
@@ -138,7 +132,6 @@ async function similitud_semantica(nombres_HU) {
       resultado = json;
       //similitudSemantica = parseFloat(resultado.semantic_similarity)
       similitudSemantica = resultado.semantic_similarity
-      console.log(similitudSemantica);
     }).catch(function (err) {
       swal({
         title: "" + err,
@@ -153,7 +146,8 @@ async function similitud_semantica(nombres_HU) {
 }
 
 async function convertir_jsonAnodos() {
-
+  proyecto = json[0].userStories[0].project;
+  arraySS = [];
   AIST = 0;
   ADST = 0;
   SIYT = 0;
@@ -183,6 +177,8 @@ async function convertir_jsonAnodos() {
       var USdependencias = [];
       var UScalls = [];
       json[i].userStories[j].id = json[i].userStories[j].id.replace("-", "");
+      json[i].userStories[j].name = json[i].userStories[j].name.replace("/", " ");
+      json[i].userStories[j].name = json[i].userStories[j].name.replace("*", " ");
       nombresHU = nombresHU + json[i].userStories[j].name + "/";
       MSpuntos = MSpuntos + json[i].userStories[j].points;
       if (Object(json[i].userStories).length > WsicT) {
@@ -216,14 +212,14 @@ async function convertir_jsonAnodos() {
         return UScalls.indexOf(item) === index;
       })
       nodos = nodos.concat({
-        "actor": json[i].userStories[j].actor,
+        "Actor": json[i].userStories[j].actor,
         "componente": "historia",
         "Dependencies": USdependencias,
         "group": json[i].id,
         "id": json[i].userStories[j].id,
         "key": json[i].userStories[j].id,
-        "name": json[i].userStories[j].name,
-        "priority": json[i].userStories[j].priority,
+        "Name": json[i].userStories[j].name,
+        "Priority": json[i].userStories[j].priority,
         "project": json[i].userStories[j].project,
         "Points": json[i].userStories[j].points
       });
@@ -275,125 +271,128 @@ async function convertir_jsonAnodos() {
     ADST = ADST + Math.pow(MSdependencias.length, 2) // Sumatoria de los cuadrados
   };
 
-  var arraySSs = await similitud_semantica(arrayNombresHU);
+  arraySS = await similitud_semantica(arrayNombresHU);
 
-  // Quitar las aristas con 'to' undefined
-  aristas = aristas.filter((item) => item.to !== undefined);
+  calcularMetricas(true);
 
-  var rendimiento = 0;
-  var contadorSS = 0;
+  // // Quitar las aristas con 'to' undefined
+  // aristas = aristas.filter((item) => item.to !== undefined);
 
-  // Cálculo de los acomplamientos AIS y SIY
-  for (let i = 0; i < nodos.length; i++) {
-    if (nodos[i].componente === "microservicio") {
-      var LC = CantidadMSs - 1; // Cohesion Lack
+  // var rendimiento = 0;
+  // var contadorSS = 0;
 
-      // Cálculo del acomplamiento AIS (Cantidad de aristas que le entran)
-      var MSrequests = [];
-      var MSimportancia = [];
-      for (let j = 0; j < aristas.length; j++) {
-        if (nodos[i].id === aristas[j].to) {
-          MSrequests = MSrequests.concat(aristas[j].from);
-        }
-      }
-      // eslint-disable-next-line
-      MSimportancia = MSrequests.filter((item, index) => {// Quita las importancias
-        return MSrequests.indexOf(item) === index;      // repetidas
-      })
-      nodos[i].requests = MSrequests.length;
-      nodos[i]["Coupling AIS"] = MSimportancia.length;
-      AIST = AIST + Math.pow(MSimportancia.length, 2); // Sumatoria de los cuadrados
+  // // Cálculo de los acomplamientos AIS y SIY
+  // for (let i = 0; i < nodos.length; i++) {
+  //   if (nodos[i].componente === "microservicio") {
+  //     var LC = CantidadMSs - 1; // Cohesion Lack
 
-      // Cálculo del acomplamiento SIY (interdependencias / cantidad de MS's)
-      var interdependencias = [];
-      // eslint-disable-next-line
-      var interdepA = nodos[i]["Dependencies"].filter((item, index) => {// Quita las depen-
-        return nodos[i]["Dependencies"].indexOf(item) === index;// dencias(1) repetidas
-      })
-      for (let j = 0; j < interdepA.length; j++) { // para comparar cada dependencia(1)
-        for (let k = 0; k < nodos.length; k++) { // Inicia de nuevo en todos los nodos
-          if (nodos[k].componente === "microservicio") { // solo los nodos MS's
-            // eslint-disable-next-line
-            var interdepB = nodos[k]["Dependencies"].filter((item, index) => {
-              return nodos[k]["Dependencies"].indexOf(item) === index;
-            }) // Quita las dependencias(2) repetidas
-            if (interdepA[j] === nodos[k].id) { // Compara dependencias(1) con IDs de MS
-              for (let l = 0; l < interdepB.length; l++) {
-                if (interdepB[l] === nodos[i].id) { // Compara dependencias(2) con IDs de MS
-                  interdependencias = interdependencias.concat(nodos[k].id);
-                  LC--;
-                }
-              }
-            }
-          }
-        }
-      }
-      var SIY = (interdependencias.length / CantidadMSs)
-      nodos[i]["Coupling SIY"] = SIY.toFixed(2);
-      SIYT = SIYT + Math.pow(SIY, 2); // Sumatoria de los cuadrados
+  //     // Cálculo del acomplamiento AIS (Cantidad de aristas que le entran)
+  //     var MSrequests = [];
+  //     var MSimportancia = [];
+  //     for (let j = 0; j < aristas.length; j++) {
+  //       if (nodos[i].id === aristas[j].to) {
+  //         MSrequests = MSrequests.concat(aristas[j].from);
+  //       }
+  //     }
+  //     // eslint-disable-next-line
+  //     MSimportancia = MSrequests.filter((item, index) => {// Quita las importancias
+  //       return MSrequests.indexOf(item) === index;      // repetidas
+  //     })
+  //     nodos[i].requests = MSrequests.length;
+  //     nodos[i]["Coupling AIS"] = MSimportancia.length;
+  //     AIST = AIST + Math.pow(MSimportancia.length, 2); // Sumatoria de los cuadrados
 
-      // Cálculo de Cohesion Lack  y Grade
-      nodos[i]["Cohesion Lack"] = LC;
-      Coh = LC / CantidadMSs;
-      nodos[i]["Cohesion Grade"] = Coh.toFixed(2);
-      CohT = CohT + Math.pow(Coh, 2); // Sumatoria de los cuadrados
+  //     // Cálculo del acomplamiento SIY (interdependencias / cantidad de MS's)
+  //     var interdependencias = [];
+  //     // eslint-disable-next-line
+  //     var interdepA = nodos[i]["Dependencies"].filter((item, index) => {// Quita las depen-
+  //       return nodos[i]["Dependencies"].indexOf(item) === index;// dencias(1) repetidas
+  //     })
+  //     for (let j = 0; j < interdepA.length; j++) { // para comparar cada dependencia(1)
+  //       for (let k = 0; k < nodos.length; k++) { // Inicia de nuevo en todos los nodos
+  //         if (nodos[k].componente === "microservicio") { // solo los nodos MS's
+  //           // eslint-disable-next-line
+  //           var interdepB = nodos[k]["Dependencies"].filter((item, index) => {
+  //             return nodos[k]["Dependencies"].indexOf(item) === index;
+  //           }) // Quita las dependencias(2) repetidas
+  //           if (interdepA[j] === nodos[k].id) { // Compara dependencias(1) con IDs de MS
+  //             for (let l = 0; l < interdepB.length; l++) {
+  //               if (interdepB[l] === nodos[i].id) { // Compara dependencias(2) con IDs de MS
+  //                 interdependencias = interdependencias.concat(nodos[k].id);
+  //                 LC--;
+  //               }
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+  //     var SIY = (interdependencias.length / CantidadMSs)
+  //     nodos[i]["Coupling SIY"] = SIY.toFixed(2);
+  //     SIYT = SIYT + Math.pow(SIY, 2); // Sumatoria de los cuadrados
 
-      // Cálculo de la similitud semántica
-      nodos[i]["Semantic Similarity"] = arraySSs[contadorSS];
-      contadorSS++;
-      SsT = SsT + nodos[i]["Semantic Similarity"] // Sumatoria previa
-      // Se formatea el valor de la similitud semántica para expresarle en términos porcentuales
-      nodos[i]["Semantic Similarity"] = "" + (100 * nodos[i]["Semantic Similarity"]).toFixed(2) + "%";
+  //     // Cálculo de Cohesion Lack  y Grade
+  //     nodos[i]["Cohesion Lack"] = LC;
+  //     Coh = LC / CantidadMSs;
+  //     nodos[i]["Cohesion Grade"] = Coh.toFixed(2);
+  //     CohT = CohT + Math.pow(Coh, 2); // Sumatoria de los cuadrados
 
-      /*        Otros         */
-      rendimiento = rendimiento + nodos[i].calls;
-      // cg = MSpuntos * (MScalls + MSrequests)
-      nodos[i].cg = nodos[i]["Points"] * (nodos[i].calls + MSrequests.length);
-      console.log(nodos[i].id + ".cg: " + nodos[i].cg.toFixed(2));
-      //
-      if (nodos[i]["Points"] > maxMSpoints) {
-        maxMSpoints = nodos[i]["Points"];
-      }
+  //     // Cálculo de la similitud semántica
+  //     nodos[i]["Semantic Similarity"] = arraySS[contadorSS];
+  //     contadorSS++;
+  //     SsT = SsT + nodos[i]["Semantic Similarity"] // Sumatoria previa
+  //     // Se formatea el valor de la similitud semántica para expresarle en términos porcentuales
+  //     nodos[i]["Semantic Similarity"] = "" + (100 * nodos[i]["Semantic Similarity"]).toFixed(2) + "%";
 
-      // Cálculo de las variables para calcular la complejidad cognitiva CxT
-      sumPf = sumPf + profundidadMax(nodos, nodos[i].id);
-      sumCg = sumCg + nodos[i].cg;
-      sumSIY = sumSIY + SIY;      
-    }
-  }
+  //     /*        Otros         */
+  //     rendimiento = rendimiento + nodos[i].calls;
+  //     // cg = MSpuntos * (MScalls + MSrequests)
+  //     nodos[i].cg = nodos[i]["Points"] * (nodos[i].calls + MSrequests.length);
+  //     console.log(nodos[i].id + ".cg: " + nodos[i].cg.toFixed(2));
+  //     //
+  //     if (nodos[i]["Points"] > maxMSpoints) {
+  //       maxMSpoints = nodos[i]["Points"];
+  //     }
 
-  // Cx = (sum(c𝑔)) + maxMSpoints + (CantidadMSs*WsicT) + (sum(Pf)) + (sum(SIY)) 
-  Cx = sumCg + maxMSpoints + (CantidadMSs * WsicT) + sumPf + sumSIY
-  CxT = Cx / 2;
+  //     // Cálculo de las variables para calcular la complejidad cognitiva CxT
+  //     sumPf = sumPf + profundidadMax(nodos, nodos[i].id);
+  //     sumCg = sumCg + nodos[i].cg;
+  //     sumSIY = sumSIY + SIY;
+  //   }
+  // }
 
-  // Sacar las raíces de las sumatorias
-  AIST = Math.sqrt(AIST);
-  ADST = Math.sqrt(ADST);
-  SIYT = Math.sqrt(SIYT);
-  CpT = Math.sqrt(Math.pow(AIST, 2) + Math.pow(ADST, 2) + Math.pow(SIYT, 2));
-  CohT = Math.sqrt(CohT);
-  SsT = SsT * (100 / CantidadMSs);
+  // // Cx = (sum(c𝑔)) + maxMSpoints + (CantidadMSs*WsicT) + (sum(Pf)) + (sum(SIY)) 
+  // Cx = sumCg + maxMSpoints + (CantidadMSs * WsicT) + sumPf + sumSIY
+  // CxT = Cx / 2;
 
-  // 𝑀𝑇 ⃗=[𝐶𝑝𝑇, 𝐶𝑜ℎ𝑇, 𝑊𝑠𝑖𝑐𝑇, 𝐶𝑥𝑇,(100 − 𝑆𝑠𝑇)]
-  // Gm = /𝑀𝑇 ⃗/
-  Gm = Math.sqrt(Math.pow(CpT, 2) + Math.pow(CohT, 2) + Math.pow(WsicT, 2) + Math.pow(CxT, 2) + Math.pow((100 - SsT), 2));
+  // // Sacar las raíces de las sumatorias
+  // AIST = Math.sqrt(AIST);
+  // ADST = Math.sqrt(ADST);
+  // SIYT = Math.sqrt(SIYT);
+  // CpT = Math.sqrt(Math.pow(AIST, 2) + Math.pow(ADST, 2) + Math.pow(SIYT, 2));
+  // CohT = Math.sqrt(CohT);
+  // SsT = SsT * (100 / CantidadMSs);
 
-  /*          Otros           */
-  rendimiento = rendimiento / CantidadMSs;
-  // console.log("  *** OTRAS MÉTRICAS DE LA APLICACIÓN ***")
-  console.log("Rendimiento: " + rendimiento.toFixed(2));
-  console.log("Max MS points: " + maxMSpoints.toFixed(2));
-  console.log("Suma de profundidades: " + sumPf.toFixed(2));
-  console.log("Suma de Cg: " + sumCg.toFixed(2));
-  console.log("Suma de SIY: " + sumSIY.toFixed(2));
-  console.log("Cx: " + Cx.toFixed(2));
+  // // 𝑀𝑇 ⃗=[𝐶𝑝𝑇, 𝐶𝑜ℎ𝑇, 𝑊𝑠𝑖𝑐𝑇, 𝐶𝑥𝑇,(100 − 𝑆𝑠𝑇)]
+  // // Gm = /𝑀𝑇 ⃗/
+  // Gm = Math.sqrt(Math.pow(CpT, 2) + Math.pow(CohT, 2) + Math.pow(WsicT, 2) + Math.pow(CxT, 2) + Math.pow((100 - SsT), 2));
 
-  diagramaCargado = true;
-  init();
+  // /*          Otros           */
+  // rendimiento = rendimiento / CantidadMSs;
+  // // console.log("  *** OTRAS MÉTRICAS DE LA APLICACIÓN ***")
+  // console.log("Rendimiento: " + rendimiento.toFixed(2));
+  // console.log("Max MS points: " + maxMSpoints.toFixed(2));
+  // console.log("Suma de profundidades: " + sumPf.toFixed(2));
+  // console.log("Suma de Cg: " + sumCg.toFixed(2));
+  // console.log("Suma de SIY: " + sumSIY.toFixed(2));
+  // console.log("Cx: " + Cx.toFixed(2));
+
+  // diagramaCargado = true;
+  // init();
 }
 
 function convertir_jsonAnodos2() {
-
+  proyecto = json[0].userStories[0].project;
+  arraySS = [];
   AIST = 0;
   ADST = 0;
   SIYT = 0;
@@ -423,6 +422,8 @@ function convertir_jsonAnodos2() {
       var USdependencias = [];
       var UScalls = [];
       json[i].userStories[j].id = json[i].userStories[j].id.replace("-", "");
+      json[i].userStories[j].name = json[i].userStories[j].name.replace("/", " ");
+      json[i].userStories[j].name = json[i].userStories[j].name.replace("*", " ");
       nombresHU = nombresHU.concat(json[i].userStories[j].name);
       MSpuntos = MSpuntos + json[i].userStories[j].points;
       if (Object(json[i].userStories).length > WsicT) {
@@ -456,14 +457,14 @@ function convertir_jsonAnodos2() {
         return UScalls.indexOf(item) === index;
       })
       nodos = nodos.concat({
-        "actor": json[i].userStories[j].actor,
+        "Actor": json[i].userStories[j].actor,
         "componente": "historia",
         "Dependencies": USdependencias,
         "group": json[i].id,
         "id": json[i].userStories[j].id,
         "key": json[i].userStories[j].id,
-        "name": json[i].userStories[j].name,
-        "priority": json[i].userStories[j].priority,
+        "Name": json[i].userStories[j].name,
+        "Priority": json[i].userStories[j].priority,
         "project": json[i].userStories[j].project,
         "Points": json[i].userStories[j].points
       });
@@ -511,37 +512,173 @@ function convertir_jsonAnodos2() {
     ADST = ADST + Math.pow(MSdependencias.length, 2) // Sumatoria de los cuadrados
   };
 
+  calcularMetricas(false);
+
+  // // Quitar las aristas con 'to' undefined
+  // aristas = aristas.filter((item) => item.to !== undefined);
+
+  // var rendimiento = 0;
+
+  // // Cálculo de las métricas de la aplicación
+  // for (let i = 0; i < nodos.length; i++) {
+  //   if (nodos[i].componente === "microservicio") {
+
+  //     // Cálculo de los requests (Cantidad de aristas que le entran)
+  //     var MSrequests = [];
+  //     for (let j = 0; j < aristas.length; j++) {
+  //       if (nodos[i].id === aristas[j].to) {
+  //         MSrequests = MSrequests.concat(aristas[j].from);
+  //       }
+  //     }
+  //     nodos[i].requests = MSrequests.length;
+  //     AIST = AIST + Math.pow(nodos[i]["Coupling AIS"], 2); // Sumatoria de los cuadrados
+
+  //     // Cálculo del acomplamiento SIYT       
+  //     var SIY = (nodos[i]["Coupling SIY"])
+  //     SIYT = SIYT + Math.pow(SIY, 2); // Sumatoria de los cuadrados
+
+  //     // Cálculo de CohT
+  //     Coh = nodos[i]["Cohesion Lack"] / CantidadMSs;
+  //     CohT = CohT + Math.pow(Coh, 2); // Sumatoria de los cuadrados
+
+  //     // Cálculo de la similitud semántica
+  //     SsT = SsT + nodos[i]["Semantic Similarity"] // Sumatoria previa
+  //     // Se formatea el valor de la similitud semántica para expresarle en términos porcentuales
+  //     nodos[i]["Semantic Similarity"] = nodos[i]["Semantic Similarity"].toFixed(2) + "%";
+
+  //     /*        Otros         */
+  //     rendimiento = rendimiento + nodos[i].calls;
+  //     // cg = MSpuntos * (MScalls + MSrequests)
+  //     nodos[i].cg = nodos[i]["Points"] * (nodos[i].calls + MSrequests.length);
+  //     console.log(nodos[i].id + ".cg: " + nodos[i].cg.toFixed(2));
+  //     //
+  //     if (nodos[i]["Points"] > maxMSpoints) {
+  //       maxMSpoints = nodos[i]["Points"];
+  //     }
+
+  //     // Cálculo de las variables para calcular la complejidad cognitiva CxT
+  //     sumPf = sumPf + profundidadMax(nodos, nodos[i].id);
+  //     sumCg = sumCg + nodos[i].cg;
+  //     sumSIY = sumSIY + SIY;
+  //   }
+  // }
+
+  // // Cx = (sum(c𝑔)) + maxMSpoints + (CantidadMSs*WsicT) + (sum(Pf)) + (sum(SIY)) 
+  // Cx = sumCg + maxMSpoints + (CantidadMSs * WsicT) + sumPf + sumSIY
+  // CxT = Cx / 2;
+
+  // // Sacar las raíces de las sumatorias
+  // AIST = Math.sqrt(AIST);
+  // ADST = Math.sqrt(ADST);
+  // SIYT = Math.sqrt(SIYT);
+  // CpT = Math.sqrt(Math.pow(AIST, 2) + Math.pow(ADST, 2) + Math.pow(SIYT, 2));
+  // CohT = Math.sqrt(CohT);
+  // SsT = SsT * (1 / CantidadMSs);
+
+  // // 𝑀𝑇 ⃗=[𝐶𝑝𝑇, 𝐶𝑜ℎ𝑇, 𝑊𝑠𝑖𝑐𝑇, 𝐶𝑥𝑇,(100 − 𝑆𝑠𝑇)]
+  // // Gm = /𝑀𝑇 ⃗/
+  // Gm = Math.sqrt(Math.pow(CpT, 2) + Math.pow(CohT, 2) + Math.pow(WsicT, 2) + Math.pow(CxT, 2) + Math.pow((100 - SsT), 2));
+
+  // /*          Otros           */
+  // rendimiento = rendimiento / CantidadMSs;
+  // // console.log("  *** OTRAS MÉTRICAS DE LA APLICACIÓN ***")
+  // console.log("Rendimiento: " + rendimiento.toFixed(2));
+  // console.log("Max MS points: " + maxMSpoints.toFixed(2));
+  // console.log("Suma de profundidades: " + sumPf.toFixed(2));
+  // console.log("Suma de Cg: " + sumCg.toFixed(2));
+  // console.log("Suma de SIY: " + sumSIY.toFixed(2));
+  // console.log("Cx: " + Cx.toFixed(2));
+
+  // diagramaCargado = true;
+  // init();
+}
+
+function calcularMetricas(recalcular) {
   // Quitar las aristas con 'to' undefined
   aristas = aristas.filter((item) => item.to !== undefined);
 
   var rendimiento = 0;
+  var contadorSS = 0;
 
-  // Cálculo de las métricas de la aplicación
+  // Cálculo de los acomplamientos AIS y SIY
   for (let i = 0; i < nodos.length; i++) {
     if (nodos[i].componente === "microservicio") {
+      var LC = CantidadMSs - 1; // Cohesion Lack
 
       // Cálculo de los requests (Cantidad de aristas que le entran)
-      var MSrequests = [];      
+      var MSrequests = [];
+      var MSimportancia = [];
       for (let j = 0; j < aristas.length; j++) {
         if (nodos[i].id === aristas[j].to) {
           MSrequests = MSrequests.concat(aristas[j].from);
         }
-      }  
+      }
+      // eslint-disable-next-line
+      MSimportancia = MSrequests.filter((item, index) => {// Quita las importancias
+        return MSrequests.indexOf(item) === index;      // repetidas
+      })
       nodos[i].requests = MSrequests.length;
+      if (recalcular) {
+        nodos[i]["Coupling AIS"] = MSimportancia.length;
+      }
       AIST = AIST + Math.pow(nodos[i]["Coupling AIS"], 2); // Sumatoria de los cuadrados
 
-      // Cálculo del acomplamiento SIYT       
-      var SIY = (nodos[i]["Coupling SIY"])
+      if (recalcular) {
+        // Cálculo del acomplamiento SIY (interdependencias / cantidad de MS's)
+        var interdependencias = [];
+        // eslint-disable-next-line
+        var interdepA = nodos[i]["Dependencies"].filter((item, index) => {// Quita las depen-
+          return nodos[i]["Dependencies"].indexOf(item) === index;// dencias(1) repetidas
+        })
+        for (let j = 0; j < interdepA.length; j++) { // para comparar cada dependencia(1)
+          for (let k = 0; k < nodos.length; k++) { // Inicia de nuevo en todos los nodos
+            if (nodos[k].componente === "microservicio") { // solo los nodos MS's
+              // eslint-disable-next-line
+              var interdepB = nodos[k]["Dependencies"].filter((item, index) => {
+                return nodos[k]["Dependencies"].indexOf(item) === index;
+              }) // Quita las dependencias(2) repetidas
+              if (interdepA[j] === nodos[k].id) { // Compara dependencias(1) con IDs de MS
+                for (let l = 0; l < interdepB.length; l++) {
+                  if (interdepB[l] === nodos[i].id) { // Compara dependencias(2) con IDs de MS
+                    interdependencias = interdependencias.concat(nodos[k].id);
+                    LC--;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      var SIY = 0;
+      if (recalcular) {
+        SIY = (interdependencias.length / CantidadMSs)
+        nodos[i]["Coupling SIY"] = SIY.toFixed(2);
+
+        // Cálculo de Cohesion Lack  y Grade
+        nodos[i]["Cohesion Lack"] = LC;
+        Coh = LC / CantidadMSs;
+        nodos[i]["Cohesion Grade"] = Coh.toFixed(2);
+
+        nodos[i]["Semantic Similarity"] = arraySS[contadorSS];
+        contadorSS++;
+      } else {
+        SIY = (nodos[i]["Coupling SIY"])
+
+        // Cálculo de CohT
+        Coh = nodos[i]["Cohesion Lack"] / CantidadMSs;
+      }
       SIYT = SIYT + Math.pow(SIY, 2); // Sumatoria de los cuadrados
 
-      // Cálculo de CohT
-      Coh = nodos[i]["Cohesion Lack"] / CantidadMSs;
       CohT = CohT + Math.pow(Coh, 2); // Sumatoria de los cuadrados
 
-      // Cálculo de la similitud semántica
       SsT = SsT + nodos[i]["Semantic Similarity"] // Sumatoria previa
+
       // Se formatea el valor de la similitud semántica para expresarle en términos porcentuales
-      nodos[i]["Semantic Similarity"] = nodos[i]["Semantic Similarity"].toFixed(2) + "%";
+      if (recalcular) {
+        nodos[i]["Semantic Similarity"] = "" + (100 * nodos[i]["Semantic Similarity"]).toFixed(2) + "%";
+      } else {
+        nodos[i]["Semantic Similarity"] = nodos[i]["Semantic Similarity"].toFixed(2) + "%";
+      }
 
       /*        Otros         */
       rendimiento = rendimiento + nodos[i].calls;
@@ -554,9 +691,11 @@ function convertir_jsonAnodos2() {
       }
 
       // Cálculo de las variables para calcular la complejidad cognitiva CxT
-      sumPf = sumPf + profundidadMax(nodos, nodos[i].id);
+      var profundidad = profundidadMax(nodos, nodos[i].id);
+      console.log(nodos[i].id + ".prof: " + profundidad);
+      sumPf = sumPf + profundidad;
       sumCg = sumCg + nodos[i].cg;
-      sumSIY = sumSIY + SIY;      
+      sumSIY = sumSIY + SIY;
     }
   }
 
@@ -570,7 +709,11 @@ function convertir_jsonAnodos2() {
   SIYT = Math.sqrt(SIYT);
   CpT = Math.sqrt(Math.pow(AIST, 2) + Math.pow(ADST, 2) + Math.pow(SIYT, 2));
   CohT = Math.sqrt(CohT);
-  SsT = SsT * (1 / CantidadMSs);
+  if (recalcular) {
+    SsT = SsT * (100 / CantidadMSs);
+  } else {
+    SsT = SsT * (1 / CantidadMSs);
+  }
 
   // 𝑀𝑇 ⃗=[𝐶𝑝𝑇, 𝐶𝑜ℎ𝑇, 𝑊𝑠𝑖𝑐𝑇, 𝐶𝑥𝑇,(100 − 𝑆𝑠𝑇)]
   // Gm = /𝑀𝑇 ⃗/
@@ -579,6 +722,9 @@ function convertir_jsonAnodos2() {
   /*          Otros           */
   rendimiento = rendimiento / CantidadMSs;
   // console.log("  *** OTRAS MÉTRICAS DE LA APLICACIÓN ***")
+  console.log("AIST: " + AIST.toFixed(2));
+  console.log("ADST: " + ADST.toFixed(2));
+  console.log("SIYT: " + SIYT.toFixed(2));
   console.log("Rendimiento: " + rendimiento.toFixed(2));
   console.log("Max MS points: " + maxMSpoints.toFixed(2));
   console.log("Suma de profundidades: " + sumPf.toFixed(2));
@@ -592,26 +738,33 @@ function convertir_jsonAnodos2() {
 
 function convertir_nodosAjson(nodosAjson) {
   json = [];
-  var hu = [];
   var microservicios = [];
   microservicios = nodosAjson.filter((item) => item.componente === 'microservicio')
 
   for (let h = 0; h < microservicios.length; h++) {
-    hu = nodosAjson.filter((item) => (
+    const hu = nodosAjson.filter((item) => (
       item.componente === 'historia' && item.group === microservicios[h]["key"]
     ))
+    var huCopia = JSON.stringify(hu);
+    huCopia = JSON.parse(huCopia);
     // Convertir el array de dependencias de tipo string a tipo objeto
     for (let i = 0; i < hu.length; i++) {
       var dependenciasFormateadas = [];
-      for (let j = 0; j < hu[i]["Dependencies"].length; j++) {
+      for (let j = 0; j < huCopia[i]["Dependencies"].length; j++) {
         dependenciasFormateadas = dependenciasFormateadas.concat({
-          id: hu[i]["Dependencies"][j]
+          id: huCopia[i]["Dependencies"][j]
         });
-      }    
-      hu[i]["dependencies"] = dependenciasFormateadas;
-      delete hu[i]["Dependencies"];
-      hu[i]["points"] = hu[i]["Points"];
-      delete hu[i]["Points"];
+      }
+      huCopia[i]["dependencies"] = dependenciasFormateadas;
+      delete huCopia[i]["Dependencies"];
+      huCopia[i]["points"] = huCopia[i]["Points"];
+      delete huCopia[i]["Points"];
+      huCopia[i]["actor"] = huCopia[i]["Actor"];
+      delete huCopia[i]["Actor"];
+      huCopia[i]["name"] = huCopia[i]["Name"];
+      delete huCopia[i]["Name"];
+      huCopia[i]["priority"] = huCopia[i]["Priority"];
+      delete huCopia[i]["Priority"];
     }
     microservicios[h]["Semantic Similarity"] = microservicios[h]["Semantic Similarity"].replace("%", "");
     json = json.concat({
@@ -624,7 +777,7 @@ function convertir_nodosAjson(nodosAjson) {
       "id": microservicios[h]["key"],
       "points": microservicios[h]["Points"],
       "semanticSimilarity": Number(microservicios[h]["Semantic Similarity"]),
-      "userStories": hu
+      "userStories": huCopia
     });
   }
 }
@@ -676,11 +829,11 @@ function formatearUS(historia) {
   var historiaFormateada = [ // Historia para el JSON
     {
       "id": historia.id,
-      "name": historia.name,
-      "actor": historia.actor,
+      "name": historia.Name,
+      "actor": historia.Actor,
       "points": historia.Points,
-      "project": historia.project,
-      "priority": historia.priority,
+      "project": proyecto,
+      "priority": historia.Priority,
       "dependencies": dependenciasFormateadas
     }
   ]
@@ -689,8 +842,10 @@ function formatearUS(historia) {
 
 function quitarUSdeMS(ms, us) {
   for (let i = 0; i < Object(json).length; i++) {
+    json[i].id = json[i].id.replace("-", "");
     if (json[i].id === ms) {
       for (let j = 0; j < json[i].userStories.length; j++) {
+        json[i].userStories[j].id = json[i].userStories[j].id.replace("-", "");
         if (json[i].userStories[j].id === us[0].id) {
           json[i].userStories.splice(j, 1);
           return;
@@ -709,7 +864,7 @@ function init() {
     initialAutoScale: go.Diagram.Uniform,  // scale always has all content fitting in the viewport
 
     "BackgroundSingleClicked": () => {
-      document.getElementById('myInspectorDiv').style.visibility = 'hidden';      
+      document.getElementById('myInspectorDiv').style.visibility = 'hidden';
       document.getElementById('titulo').innerHTML = '';
     },
 
@@ -756,8 +911,7 @@ function init() {
   myDiagram.groupTemplate = $(go.Group, "Vertical", { // 'Vertical' Pone el nombre del nodo arriba    
     deletable: false, // No permite borrar el grupo
     copyable: false,
-    //isActionable: true,
-    handlesDragDropForMembers: true,  // don't need to define handlers on Nodes and Links
+    handlesDragDropForMembers: true,
     computesBoundsAfterDrag: true  // Permite arrastrar la historia fuera del
     // microservicio sin deformarlo
   },
@@ -812,8 +966,10 @@ function init() {
         grp.diagram.currentCursor = "";
       },
       mouseDrop: (e, grp) => {
+        var MSdesde = myDiagram.selection.ea.key.qb.group; // id del MS desde donde se coge la HU
+        var MShacia = grp.qb.id; // id del MS a donde se suelta la HU
         const ok = grp.addMembers(grp.diagram.selection, true);
-        if (!ok) {
+        if (!ok || MSdesde === MShacia) {
           grp.diagram.currentTool.doCancel();
           return;
         }
@@ -842,9 +998,9 @@ function init() {
         new go.Binding("stroke", "isHighlighted", function (h) {
           return h ? "red" : null;
         }).ofObject(),
-        new go.Binding("stroke", "isSelected", function (h) {
-          return h ? "rgb(30,144,255)" : null;
-        }).ofObject(),
+        // new go.Binding("stroke", "isSelected", function (h) {
+        //   return h ? "rgb(30,144,255)" : null;
+        // }).ofObject(),
         new go.Binding("strokeWidth", "isHighlighted", function (h) {
           return h ? 2 : 3;
         }).ofObject(),
@@ -923,8 +1079,14 @@ function init() {
   // Crea el modelo del diagrama a mostrar
   myDiagram.model = new go.GraphLinksModel(nodos, aristas);
 
+  const titulo = document.createElement("h2");
+  titulo.textContent = proyecto;
+  titulo.style.color = "white";
+  titulo.style.textAlign = "center";
+  document.getElementById('myDiagramDiv').appendChild(titulo);
+
   inspectors();
-  
+
 } // fin del Init()
 
 function inspectors() {
@@ -974,7 +1136,7 @@ function inspectors() {
         readOnly: true,
         show: Inspector.showIfPresent
       },
-      "actor": {
+      "Actor": {
         readOnly: true,
         show: Inspector.showIfPresent
       },
@@ -982,15 +1144,11 @@ function inspectors() {
         readOnly: true,
         show: Inspector.showIfPresent
       },
-      "name": {
+      "Name": {
         readOnly: true,
         show: Inspector.showIfPresent
       },
-      "priority": {
-        readOnly: true,
-        show: Inspector.showIfPresent
-      },
-      "project": {
+      "Priority": {
         readOnly: true,
         show: Inspector.showIfPresent
       }
@@ -1147,13 +1305,12 @@ function agregarHistoria(e) {
   } else {
     swal({
       title: "Cargue un diagrama primero",
-      text: "Desea crear un diagrama?",
+      text: "¿Desea realizar una descomposición manual?",
       icon: "error",
       buttons: ['Cancel', 'Accept']
     }).then(respuesta => {
       if (respuesta) {
         if (!archivo) {
-          console.log("No hay archivo");
           return;
         }
         var lector = new FileReader();
@@ -1182,10 +1339,13 @@ function agregarGuiones() {
   var nuevoJson = [];
   for (let i = 0; i < Object(json).length; i++) {
     if (json[i].userStories.length > 0) {
+      json[i].id = json[i].id.replace("-", ""); // Evita guiones duplicados
       json[i].id = json[i].id.replace("MS", "MS-");
       for (let j = 0; j < Object(json[i].userStories).length; j++) {
+        json[i].userStories[j].id = json[i].userStories[j].id.replace("-", "");
         json[i].userStories[j].id = json[i].userStories[j].id.replace("US", "US-");
         for (let k = 0; k < Object(json[i].userStories[j].dependencies).length; k++) {
+          json[i].userStories[j].dependencies[k].id = json[i].userStories[j].dependencies[k].id.replace("-", "");
           json[i].userStories[j].dependencies[k].id = json[i].userStories[j].dependencies[k].id.replace("US", "US-");
         }
       }
@@ -1196,17 +1356,23 @@ function agregarGuiones() {
 }
 
 function exportarJson() {
-  if (diagramaCargado) {    
-    convertir_nodosAjson(nodos);
+  if (diagramaCargado) {
+    convertir_nodosAjson(nodos); // Se llama para guardar en el JSON la config actual
     agregarGuiones();
     var dataStr = JSON.stringify(json);
     var dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
 
-    var exportFileDefaultName = 'data.json'; // Asigna un nombre al archivo
+    // Se obtiene la fecha para el nombre del archivo
+    var fecha = new Date();
+    var hora = fecha.toLocaleTimeString('it-IT');
+    fecha = fecha.toLocaleDateString('en-US');
+
+    // Asigna un nombre al archivo que se va a exportar
+    var nombreArchivo = proyecto + " " + fecha + "-" + hora + '.json'; // Asigna un nombre al archivo
 
     var linkElement = document.createElement('a');
     linkElement.setAttribute('href', dataUri);
-    linkElement.setAttribute('download', exportFileDefaultName);
+    linkElement.setAttribute('download', nombreArchivo);
     linkElement.click();
   } else {
     swal({
@@ -1235,7 +1401,7 @@ function nuevoDiagrama2() {
   diagramaCargado = true;
 }
 
-function cambiar_tamano() {    
+function cambiar_tamano() {
   document.getElementById('titulo').innerHTML = '';
   document.getElementById('myInspectorDiv').style.visibility = 'hidden';
   if (diagramaCargado === true) {
