@@ -4,6 +4,7 @@
     {
       "id": "US-1",
       "name": "Iniciar sesión",
+      "description": "",
       "actor": "User",
       "points": 1,
       "element": {
@@ -48,6 +49,7 @@
     {
       "id": "US-2",
       "name": "Registrarse en el sistema",
+      "description": "",
       "actor": "User",
       "points": 1,
       "element": {
@@ -87,6 +89,7 @@
     {
       "id": "US-3",
       "name": "Buscar productos",
+      "description": "",
       "actor": "User",
       "points": 1,
       "element": {
@@ -126,6 +129,7 @@
     {
       "id": "US-4",
       "name": "Listar categorias",
+      "description": "",
       "actor": "User",
       "points": 1,
       "element": {
@@ -165,6 +169,7 @@
     {
       "id": "US-5",
       "name": "Ver detalles categoría",
+      "description": "",
       "actor": "User",
       "points": 1,
       "element": {
@@ -209,6 +214,7 @@
     {
       "id": "US-6",
       "name": "Obtener categoría",
+      "description": "",
       "actor": "User",
       "points": 1,
       "element": {
@@ -253,6 +259,7 @@
     {
       "id": "US-7",
       "name": "Listar productos",
+      "description": "",
       "actor": "User",
       "points": 1,
       "element": {
@@ -301,6 +308,7 @@
     {
       "id": "US-8",
       "name": "Obtener producto",
+      "description": "",
       "actor": "User",
       "points": 1,
       "element": {
@@ -345,6 +353,7 @@
     {
       "id": "US-9",
       "name": "Ver Items o artículos del producto",
+      "description": "",
       "actor": "User",
       "points": 1,
       "element": {
@@ -393,6 +402,7 @@
     {
       "id": "US-10",
       "name": "Ver detalle del artículo",
+      "description": "",
       "actor": "User",
       "points": 1,
       "element": {
@@ -437,6 +447,7 @@
     {
       "id": "US-11",
       "name": "Verificar inventario del artículo",
+      "description": "",
       "actor": "User",
       "points": 1,
       "element": {
@@ -481,6 +492,7 @@
     {
       "id": "US-12",
       "name": "Cerrar sesión",
+      "description": "",
       "actor": "User",
       "points": 1,
       "element": {
@@ -525,6 +537,7 @@
     {
       "id": "US-13",
       "name": "Obtener cuenta de usuario",
+      "description": "",
       "actor": "User",
       "points": 1,
       "element": {
@@ -569,6 +582,7 @@
     {
       "id": "US-14",
       "name": "Actualizar cuenta de usuario",
+      "description": "",
       "actor": "User",
       "points": 1,
       "element": {
@@ -613,6 +627,7 @@
     {
       "id": "US-15",
       "name": "Obtener los artículos agregados al carrito",
+      "description": "",
       "actor": "User",
       "points": 1,
       "element": {
@@ -661,6 +676,7 @@
     {
       "id": "US-16",
       "name": "Agregar artículo",
+      "description": "",
       "actor": "User",
       "points": 1,
       "element": {
@@ -705,6 +721,7 @@
     {
       "id": "US-17",
       "name": "Actualizar cantidad de un artículo en el carrito",
+      "description": "",
       "actor": "User",
       "points": 1,
       "element": {
@@ -749,6 +766,7 @@
     {
       "id": "US-18",
       "name": "Eliminar artículo del carrito",
+      "description": "",
       "actor": "User",
       "points": 1,
       "element": {
@@ -793,6 +811,7 @@
     {
       "id": "US-19",
       "name": "Listar ordenes de compra",
+      "description": "",
       "actor": "User",
       "points": 1,
       "element": {
@@ -837,6 +856,7 @@
     {
       "id": "US-20",
       "name": "Crear orden de compra",
+      "description": "",
       "actor": "User",
       "points": 1,
       "element": {
@@ -881,6 +901,7 @@
     {
       "id": "US-21",
       "name": "Verificar si esta autenticado",
+      "description": "",
       "actor": "User",
       "points": 1,
       "element": {
@@ -925,6 +946,7 @@
     {
       "id": "US-22",
       "name": "Asignar número ID de orden",
+      "description": "",
       "actor": "User",
       "points": 1,
       "element": {
@@ -969,6 +991,7 @@
     {
       "id": "US-23",
       "name": "Registrar información de pago y envío",
+      "description": "",
       "actor": "User",
       "points": 1,
       "element": {
@@ -1013,6 +1036,7 @@
     {
       "id": "US-24",
       "name": "Enviar confirmación del pedido al correo",
+      "description": "",
       "actor": "User",
       "points": 1,
       "element": {
@@ -1057,6 +1081,7 @@
     {
       "id": "US-25",
       "name": "Enviar orden de compra",
+      "description": "",
       "actor": "User",
       "points": 1,
       "element": {

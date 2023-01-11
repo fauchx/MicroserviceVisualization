@@ -1,0 +1,125 @@
+[
+    {
+        "cohesionLack": 2,
+        "cohesionGrade": 0.5,
+        "couplingADS": 2,
+        "couplingAIS": 1,
+        "couplingSIY": 0.25,
+        "complexity": 1,
+        "id": "MS-1",
+        "points": 1,
+        "semanticSimilarity": 100,
+        "userStories": [
+            {
+                "componente": "historia",
+                "group": "MS1",
+                "id": "US-1",
+                "key": "US1",
+                "project": "Test project",
+                "__gohashid": 14266,
+                "dependencies": [
+                    {
+                        "id": "US-3"
+                    },
+                    {
+                        "id": "US-4"
+                    }
+                ],
+                "points": 1,
+                "actor": "User",
+                "name": "Login",
+                "description": "",
+                "priority": "Baja"
+            }
+        ]
+    },
+    {
+        "cohesionLack": 2,
+        "cohesionGrade": 0.5,
+        "couplingADS": 1,
+        "couplingAIS": 1,
+        "couplingSIY": 0.25,
+        "complexity": 3,
+        "id": "MS-2",
+        "points": 3,
+        "semanticSimilarity": 100,
+        "userStories": [
+            {
+                "componente": "historia",
+                "group": "MS2",
+                "id": "US-3",
+                "key": "US3",
+                "project": "Test project",
+                "__gohashid": 14268,
+                "dependencies": [
+                    {
+                        "id": "US-1"
+                    }
+                ],
+                "points": 3,
+                "actor": "User",
+                "name": "Search products",
+                "description": "",
+                "priority": "Baja"
+            }
+        ]
+    },
+    {
+        "cohesionLack": 3,
+        "cohesionGrade": 0.75,
+        "couplingADS": 0,
+        "couplingAIS": 2,
+        "couplingSIY": 0,
+        "complexity": 4,
+        "id": "MS-3",
+        "points": 4,
+        "semanticSimilarity": 100,
+        "userStories": [
+            {
+                "componente": "historia",
+                "group": "MS3",
+                "id": "US-4",
+                "key": "US4",
+                "project": "Test project",
+                "__gohashid": 14270,
+                "dependencies": [],
+                "points": 4,
+                "actor": "User",
+                "name": "List categories",
+                "description": "",
+                "priority": "Baja"
+            }
+        ]
+    },
+    {
+        "cohesionLack": 3,
+        "cohesionGrade": 0.75,
+        "couplingADS": 1,
+        "couplingAIS": 0,
+        "couplingSIY": 0,
+        "complexity": 2,
+        "id": "MS-4",
+        "points": 2,
+        "semanticSimilarity": 100,
+        "userStories": [
+            {
+                "componente": "historia",
+                "group": "MS4",
+                "id": "US-2",
+                "key": "US2",
+                "project": "Test project",
+                "__gohashid": 14272,
+                "dependencies": [
+                    {
+                        "id": "US-4"
+                    }
+                ],
+                "points": 2,
+                "actor": "User",
+                "name": "Register",
+                "description": "",
+                "priority": "Baja"
+            }
+        ]
+    }
+]

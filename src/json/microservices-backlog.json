@@ -15,7 +15,7 @@
                 "name": "Login",
                 "actor": "User",
                 "points": 1,
-                "project": "Old project",
+                "project": "Test project",
                 "purpose": "",
                 "priority": "Baja",
                 "dependencies": [
@@ -34,7 +34,7 @@
                 "name": "Register",
                 "actor": "User",
                 "points": 2,
-                "project": "Old project",
+                "project": "Test project",
                 "purpose": "",
                 "priority": "Baja",
                 "dependencies": [
@@ -62,7 +62,7 @@
                 "name": "Search products",
                 "actor": "User",
                 "points": 3,
-                "project": "Old project",
+                "project": "Test project",
                 "purpose": "",
                 "priority": "Baja",
                 "dependencies": [
@@ -90,7 +90,7 @@
                 "name": "List categories",
                 "actor": "User",
                 "points": 4,
-                "project": "Old project",
+                "project": "Test project",
                 "purpose": "",
                 "priority": "Baja",
                 "dependencies": []

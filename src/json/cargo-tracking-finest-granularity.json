@@ -11,8 +11,12 @@
         "semanticSimilarity": 100,
         "userStories": [
             {
-                "actor": "User",
                 "componente": "historia",
+                "group": "MS1",
+                "id": "US-1",
+                "key": "US1",
+                "project": "Cargo Tracking",
+                "__gohashid": 46339,
                 "dependencies": [
                     {
                         "id": "US-12"
@@ -21,14 +25,11 @@
                         "id": "US-3"
                     }
                 ],
-                "group": "MS1",
-                "id": "US-1",
-                "key": "US1",
-                "name": "Create cargo trip",
-                "priority": "Baja",
-                "project": "Cargo Tracking",
                 "points": 3,
-                "__gohashid": 48312
+                "actor": "User",
+                "name": "Create voyage.",
+                "description": "Allows to create a trip for a given cargo. Specifying the necessary movements to reach the destination.",
+                "priority": "Baja"
             }
         ]
     },
@@ -44,21 +45,22 @@
         "semanticSimilarity": 100,
         "userStories": [
             {
-                "actor": "User",
                 "componente": "historia",
+                "group": "MS2",
+                "id": "US-2",
+                "key": "US2",
+                "project": "Cargo Tracking",
+                "__gohashid": 46341,
                 "dependencies": [
                     {
                         "id": "US-12"
                     }
                 ],
-                "group": "MS2",
-                "id": "US-2",
-                "key": "US2",
-                "name": "Manage cargo event",
-                "priority": "Baja",
-                "project": "Cargo Tracking",
                 "points": 3,
-                "__gohashid": 48314
+                "actor": "User",
+                "name": "Handle cargo event.",
+                "description": "Allows to register or create an event in a location indicating the date when the event ends.",
+                "priority": "Baja"
             }
         ]
     },
@@ -74,21 +76,22 @@
         "semanticSimilarity": 100,
         "userStories": [
             {
-                "actor": "User",
                 "componente": "historia",
+                "group": "MS3",
+                "id": "US-3",
+                "key": "US3",
+                "project": "Cargo Tracking",
+                "__gohashid": 46343,
                 "dependencies": [
                     {
                         "id": "US-12"
                     }
                 ],
-                "group": "MS3",
-                "id": "US-3",
-                "key": "US3",
-                "name": "Add Carrier Movement",
-                "priority": "Baja",
-                "project": "Cargo Tracking",
                 "points": 5,
-                "__gohashid": 48316
+                "actor": "User",
+                "name": "Add Carrier Movement.",
+                "description": "Allows to add a carrier movement for a created trip, specify where the carrier is on a given date.",
+                "priority": "Baja"
             }
         ]
     },
@@ -104,17 +107,18 @@
         "semanticSimilarity": 100,
         "userStories": [
             {
-                "actor": "User",
                 "componente": "historia",
-                "dependencies": [],
                 "group": "MS4",
                 "id": "US-4",
                 "key": "US4",
-                "name": "Create location",
-                "priority": "Baja",
                 "project": "Cargo Tracking",
+                "__gohashid": 46345,
+                "dependencies": [],
                 "points": 2,
-                "__gohashid": 48318
+                "actor": "User",
+                "name": "Create location.",
+                "description": "Allows to create a location specifying its name and identifier.",
+                "priority": "Baja"
             }
         ]
     },
@@ -130,17 +134,18 @@
         "semanticSimilarity": 100,
         "userStories": [
             {
-                "actor": "User",
                 "componente": "historia",
-                "dependencies": [],
                 "group": "MS5",
                 "id": "US-5",
                 "key": "US5",
-                "name": "View trip tracking",
-                "priority": "Baja",
                 "project": "Cargo Tracking",
+                "__gohashid": 46347,
+                "dependencies": [],
                 "points": 3,
-                "__gohashid": 48320
+                "actor": "User",
+                "name": "View tracking.",
+                "description": "Allows to check the tracking of the trip or cargo according to the Tracking Id.",
+                "priority": "Baja"
             }
         ]
     },
@@ -156,8 +161,12 @@
         "semanticSimilarity": 100,
         "userStories": [
             {
-                "actor": "User",
                 "componente": "historia",
+                "group": "MS6",
+                "id": "US-6",
+                "key": "US6",
+                "project": "Cargo Tracking",
+                "__gohashid": 46349,
                 "dependencies": [
                     {
                         "id": "US-7"
@@ -169,14 +178,11 @@
                         "id": "US-11"
                     }
                 ],
-                "group": "MS6",
-                "id": "US-6",
-                "key": "US6",
-                "name": "Create cargo",
-                "priority": "Baja",
-                "project": "Cargo Tracking",
                 "points": 7,
-                "__gohashid": 48322
+                "actor": "User",
+                "name": "Create cargo.",
+                "description": "Allows to create a cargo to transport. A Tracking Id is generated. An itinerary, a route specification and a delivery are associated.",
+                "priority": "Baja"
             }
         ]
     },
@@ -192,21 +198,22 @@
         "semanticSimilarity": 100,
         "userStories": [
             {
-                "actor": "User",
                 "componente": "historia",
+                "group": "MS7",
+                "id": "US-7",
+                "key": "US7",
+                "project": "Cargo Tracking",
+                "__gohashid": 46351,
                 "dependencies": [
                     {
                         "id": "US-8"
                     }
                 ],
-                "group": "MS7",
-                "id": "US-7",
-                "key": "US7",
-                "name": "Create cargo itinerary",
-                "priority": "Baja",
-                "project": "Cargo Tracking",
                 "points": 5,
-                "__gohashid": 48324
+                "actor": "User",
+                "name": "Route Cargo.",
+                "description": "Allows to create a cargo itinerary specifying its stops.",
+                "priority": "Baja"
             }
         ]
     },
@@ -222,21 +229,22 @@
         "semanticSimilarity": 100,
         "userStories": [
             {
-                "actor": "User",
                 "componente": "historia",
+                "group": "MS8",
+                "id": "US-8",
+                "key": "US8",
+                "project": "Cargo Tracking",
+                "__gohashid": 46353,
                 "dependencies": [
                     {
                         "id": "US-12"
                     }
                 ],
-                "group": "MS8",
-                "id": "US-8",
-                "key": "US8",
-                "name": "Create stop",
-                "priority": "Baja",
-                "project": "Cargo Tracking",
                 "points": 2,
-                "__gohashid": 48326
+                "actor": "User",
+                "name": "Create leg.",
+                "description": "Create a stop for an itinerary.",
+                "priority": "Baja"
             }
         ]
     },
@@ -252,21 +260,22 @@
         "semanticSimilarity": 100,
         "userStories": [
             {
-                "actor": "User",
                 "componente": "historia",
+                "group": "MS9",
+                "id": "US-9",
+                "key": "US9",
+                "project": "Cargo Tracking",
+                "__gohashid": 46355,
                 "dependencies": [
                     {
                         "id": "US-12"
                     }
                 ],
-                "group": "MS9",
-                "id": "US-9",
-                "key": "US9",
-                "name": "Schedule cargo – create route specification",
-                "priority": "Baja",
-                "project": "Cargo Tracking",
                 "points": 5,
-                "__gohashid": 48328
+                "actor": "User",
+                "name": "Book cargo.",
+                "description": "Create the cargo shipment, the route is specified by entering an origin and destination location and a delivery deadline date is established.",
+                "priority": "Baja"
             }
         ]
     },
@@ -282,21 +291,22 @@
         "semanticSimilarity": 100,
         "userStories": [
             {
-                "actor": "User",
                 "componente": "historia",
+                "group": "MS10",
+                "id": "US-10",
+                "key": "US10",
+                "project": "Cargo Tracking",
+                "__gohashid": 46357,
                 "dependencies": [
                     {
                         "id": "US-12"
                     }
                 ],
-                "group": "MS10",
-                "id": "US-10",
-                "key": "US10",
-                "name": "Change cargo destination",
-                "priority": "Baja",
-                "project": "Cargo Tracking",
                 "points": 1,
-                "__gohashid": 48330
+                "actor": "User",
+                "name": "Change cargo destination.",
+                "description": "Allows to modify the destination of a shipped cargo.",
+                "priority": "Baja"
             }
         ]
     },
@@ -312,8 +322,12 @@
         "semanticSimilarity": 100,
         "userStories": [
             {
-                "actor": "User",
                 "componente": "historia",
+                "group": "MS11",
+                "id": "US-11",
+                "key": "US11",
+                "project": "Cargo Tracking",
+                "__gohashid": 46359,
                 "dependencies": [
                     {
                         "id": "US-6"
@@ -325,14 +339,11 @@
                         "id": "US-14"
                     }
                 ],
-                "group": "MS11",
-                "id": "US-11",
-                "key": "US11",
-                "name": "Create delivery",
-                "priority": "Baja",
-                "project": "Cargo Tracking",
                 "points": 7,
-                "__gohashid": 48332
+                "actor": "User",
+                "name": "Create delivery.",
+                "description": "Allows to create and associate a delivery to the cargo, calculate an estimated delivery date having in mind the status of the carriers and the routes.",
+                "priority": "Baja"
             }
         ]
     },
@@ -348,17 +359,18 @@
         "semanticSimilarity": 100,
         "userStories": [
             {
-                "actor": "User",
                 "componente": "historia",
-                "dependencies": [],
                 "group": "MS12",
                 "id": "US-12",
                 "key": "US12",
-                "name": "Get locations",
-                "priority": "Baja",
                 "project": "Cargo Tracking",
+                "__gohashid": 46361,
+                "dependencies": [],
                 "points": 2,
-                "__gohashid": 48334
+                "actor": "User",
+                "name": "Get locations.",
+                "description": "Allows to obtain the list of available locations.",
+                "priority": "Baja"
             }
         ]
     },
@@ -374,21 +386,22 @@
         "semanticSimilarity": 100,
         "userStories": [
             {
-                "actor": "User",
                 "componente": "historia",
+                "group": "MS13",
+                "id": "US-13",
+                "key": "US13",
+                "project": "Cargo Tracking",
+                "__gohashid": 46363,
                 "dependencies": [
                     {
                         "id": "US-5"
                     }
                 ],
-                "group": "MS13",
-                "id": "US-13",
-                "key": "US13",
-                "name": "Check carrier status",
-                "priority": "Baja",
-                "project": "Cargo Tracking",
                 "points": 3,
-                "__gohashid": 48336
+                "actor": "User",
+                "name": "Get carrier status.",
+                "description": "Allows to obtain the state of the carriers.",
+                "priority": "Baja"
             }
         ]
     },
@@ -404,21 +417,22 @@
         "semanticSimilarity": 100,
         "userStories": [
             {
-                "actor": "User",
                 "componente": "historia",
+                "group": "MS14",
+                "id": "US-14",
+                "key": "US14",
+                "project": "Cargo Tracking",
+                "__gohashid": 46365,
                 "dependencies": [
                     {
                         "id": "US-5"
                     }
                 ],
-                "group": "MS14",
-                "id": "US-14",
-                "key": "US14",
-                "name": "Check route status",
-                "priority": "Baja",
-                "project": "Cargo Tracking",
                 "points": 3,
-                "__gohashid": 48338
+                "actor": "User",
+                "name": "Get routes status.",
+                "description": "Allows to obtain the status of the routes.",
+                "priority": "Baja"
             }
         ]
     }

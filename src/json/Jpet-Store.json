@@ -4,6 +4,7 @@
         {
             "id": "US-1",
             "name": "View category",
+            "description": "",
             "actor": "user",
             "points": 3,
             "element": {
@@ -52,6 +53,7 @@
         {
             "id": "US-2",
             "name": "List category",
+            "description": "",
             "actor": "user",
             "points": 1,
             "element": {
@@ -91,6 +93,7 @@
         {
             "id": "US-3",
             "name": "Search product",
+            "description": "",
             "actor": "user",
             "points": 5,
             "element": {
@@ -130,6 +133,7 @@
         {
             "id": "US-4",
             "name": "View product",
+            "description": "",
             "actor": "user",
             "points": 3,
             "element": {
@@ -174,6 +178,7 @@
         {
             "id": "US-5",
             "name": "View item",
+            "description": "",
             "actor": "user",
             "points": 3,
             "element": {
@@ -213,6 +218,7 @@
         {
             "id": "US-6",
             "name": "Add item to cart",
+            "description": "",
             "actor": "user",
             "points": 5,
             "element": {
@@ -261,6 +267,7 @@
         {
             "id": "US-7",
             "name": "Remove item from cart",
+            "description": "",
             "actor": "user",
             "points": 3,
             "element": {
@@ -300,6 +307,7 @@
         {
             "id": "US-8",
             "name": "Update cart",
+            "description": "",
             "actor": "user",
             "points": 3,
             "element": {
@@ -339,6 +347,7 @@
         {
             "id": "US-9",
             "name": "Get cart",
+            "description": "",
             "actor": "user",
             "points": 3,
             "element": {
@@ -378,6 +387,7 @@
         {
             "id": "US-10",
             "name": "New order",
+            "description": "",
             "actor": "user",
             "points": 8,
             "element": {
@@ -426,6 +436,7 @@
         {
             "id": "US-11",
             "name": "Get order",
+            "description": "",
             "actor": "user",
             "points": 3,
             "element": {
@@ -470,6 +481,7 @@
         {
             "id": "US-12",
             "name": "Set order ID",
+            "description": "",
             "actor": "user",
             "points": 5,
             "element": {
@@ -509,6 +521,7 @@
         {
             "id": "US-13",
             "name": "List order",
+            "description": "",
             "actor": "user",
             "points": 3,
             "element": {
@@ -553,6 +566,7 @@
         {
             "id": "US-14",
             "name": "Get authentication",
+            "description": "",
             "actor": "user",
             "points": 3,
             "element": {
@@ -592,6 +606,7 @@
         {
             "id": "US-15",
             "name": "Sign up",
+            "description": "",
             "actor": "user",
             "points": 5,
             "element": {
@@ -640,6 +655,7 @@
         {
             "id": "US-16",
             "name": "Get account",
+            "description": "",
             "actor": "user",
             "points": 3,
             "element": {
@@ -679,6 +695,7 @@
         {
             "id": "US-17",
             "name": "Sign off",
+            "description": "",
             "actor": "user",
             "points": 2,
             "element": {
@@ -718,6 +735,7 @@
         {
             "id": "US-18",
             "name": "Update account",
+            "description": "",
             "actor": "user",
             "points": 3,
             "element": {
@@ -766,6 +784,7 @@
         {
             "id": "US-19",
             "name": "Get category",
+            "description": "",
             "actor": "user",
             "points": 2,
             "element": {
@@ -805,6 +824,7 @@
         {
             "id": "US-20",
             "name": "Get product",
+            "description": "",
             "actor": "user",
             "points": 2,
             "element": {
@@ -844,6 +864,7 @@
         {
             "id": "US-21",
             "name": "Search item",
+            "description": "",
             "actor": "user",
             "points": 3,
             "element": {
@@ -883,6 +904,7 @@
         {
             "id": "US-22",
             "name": "Sign in",
+            "description": "",
             "actor": "user",
             "points": 3,
             "element": {

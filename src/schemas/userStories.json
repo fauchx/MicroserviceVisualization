@@ -13,6 +13,9 @@
       "name": {
         "type": "string"
       },
+      "description": {
+        "type": "string"
+      },
       "actor": {
         "type": "string"
       },
@@ -45,6 +48,7 @@
     "required": [
       "id",
       "name",
+      "description",
       "actor",
       "points",
       "project",

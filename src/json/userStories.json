@@ -4,6 +4,7 @@
         {
             "id": "US-5",
             "name": "Register product",
+            "description": "",
             "actor": "User",
             "points": 1,
             "element": {

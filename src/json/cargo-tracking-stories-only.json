@@ -3,7 +3,8 @@
   "userStories": [
     {
       "id": "US-1",
-      "name": "Create cargo trip",
+      "name": "Create voyage.",
+      "description": "Allows to create a trip for a given cargo. Specifying the necessary movements to reach the destination.",
       "actor": "User",
       "points": 3,
       "project": "Cargo Tracking",
@@ -21,7 +22,8 @@
     },
     {
       "id": "US-2",
-      "name": "Manage cargo event",
+      "name": "Handle cargo event.",
+      "description": "Allows to register or create an event in a location indicating the date when the event ends.",
       "actor": "User",
       "points": 3,
       "project": "Cargo Tracking",
@@ -35,7 +37,8 @@
     },
     {
       "id": "US-3",
-      "name": "Add Carrier Movement",
+      "name": "Add Carrier Movement.",
+      "description": "Allows to add a carrier movement for a created trip, specify where the carrier is on a given date.",
       "actor": "User",
       "points": 5,
       "project": "Cargo Tracking",
@@ -49,7 +52,8 @@
     },
     {
       "id": "US-4",
-      "name": "Create location",
+      "name": "Create location.",
+      "description": "Allows to create a location specifying its name and identifier.",
       "actor": "User",
       "points": 2,
       "project": "Cargo Tracking",
@@ -58,7 +62,8 @@
     },
     {
       "id": "US-5",
-      "name": "View trip tracking",
+      "name": "View tracking.",
+      "description": "Allows to check the tracking of the trip or cargo according to the Tracking Id.",
       "actor": "User",
       "points": 3,
       "project": "Cargo Tracking",
@@ -67,7 +72,8 @@
     },
     {
       "id": "US-6",
-      "name": "Create cargo",
+      "name": "Create cargo.",
+      "description": "Allows to create a cargo to transport. A Tracking Id is generated. An itinerary, a route specification and a delivery are associated.",
       "actor": "User",
       "points": 7,
       "project": "Cargo Tracking",
@@ -89,7 +95,8 @@
     },
     {
       "id": "US-7",
-      "name": "Create cargo itinerary",
+      "name": "Route Cargo.",
+      "description": "Allows to create a cargo itinerary specifying its stops.",
       "actor": "User",
       "points": 5,
       "project": "Cargo Tracking",
@@ -103,7 +110,8 @@
     },
     {
       "id": "US-8",
-      "name": "Create stop",
+      "name": "Create leg.",
+      "description": "Create a stop for an itinerary.",
       "actor": "User",
       "points": 2,
       "project": "Cargo Tracking",
@@ -117,7 +125,8 @@
     },
     {
       "id": "US-9",
-      "name": "Schedule cargo – create route specification",
+      "name": "Book cargo.",
+      "description": "Create the cargo shipment, the route is specified by entering an origin and destination location and a delivery deadline date is established.",
       "actor": "User",
       "points": 5,
       "project": "Cargo Tracking",
@@ -131,7 +140,8 @@
     },
     {
       "id": "US-10",
-      "name": "Change cargo destination",
+      "name": "Change cargo destination.",
+      "description": "Allows to modify the destination of a shipped cargo.",
       "actor": "User",
       "points": 1,
       "project": "Cargo Tracking",
@@ -145,7 +155,8 @@
     },
     {
       "id": "US-11",
-      "name": "Create delivery",
+      "name": "Create delivery.",
+      "description": "Allows to create and associate a delivery to the cargo, calculate an estimated delivery date having in mind the status of the carriers and the routes.",
       "actor": "User",
       "points": 7,
       "project": "Cargo Tracking",
@@ -167,7 +178,8 @@
     },
     {
       "id": "US-12",
-      "name": "Get locations",
+      "name": "Get locations.",
+      "description": "Allows to obtain the list of available locations.",
       "actor": "User",
       "points": 2,
       "project": "Cargo Tracking",
@@ -176,7 +188,8 @@
     },
     {
       "id": "US-13",
-      "name": "Check carrier status",
+      "name": "Get carrier status.",
+      "description": "Allows to obtain the state of the carriers.",
       "actor": "User",
       "points": 3,
       "project": "Cargo Tracking",
@@ -190,7 +203,8 @@
     },
     {
       "id": "US-14",
-      "name": "Check route status",
+      "name": "Get routes status.",
+      "description": "Allows to obtain the status of the routes.",
       "actor": "User",
       "points": 3,
       "project": "Cargo Tracking",
