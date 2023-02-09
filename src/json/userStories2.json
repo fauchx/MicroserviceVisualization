@@ -4,6 +4,7 @@
         {
             "id": "US-8",
             "name": "Iniciar sesión",
+            "description": "",
             "actor": "User",
             "points": 1,
             "element": {
@@ -48,6 +49,7 @@
         {
             "id": "US-6",
             "name": "Registrarse en el sistema",
+            "description": "",
             "actor": "User",
             "points": 1,
             "element": {
@@ -92,6 +94,7 @@
         {
             "id": "US-7",
             "name": "Buscar productos",
+            "description": "",
             "actor": "User",
             "points": 1,
             "element": {
