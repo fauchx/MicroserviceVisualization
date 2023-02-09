@@ -1,13 +1,21 @@
 [
     {
-        "id": "MS1",
+        "cohesionLack": 1,
+        "cohesionGrade": 0.33,
+        "couplingADS": 2,
+        "couplingAIS": 1,
+        "couplingSIY": 0.33,
+        "complexity": 3,
+        "id": "MS-1",
+        "points": 3,
+        "semanticSimilarity": 39.63,
         "userStories": [
             {
                 "id": "US-1",
                 "name": "Login",
                 "actor": "User",
                 "points": 1,
-                "project": "Old project",
+                "project": "Test project",
                 "purpose": "",
                 "priority": "Baja",
                 "dependencies": [
@@ -26,7 +34,7 @@
                 "name": "Register",
                 "actor": "User",
                 "points": 2,
-                "project": "Old project",
+                "project": "Test project",
                 "purpose": "",
                 "priority": "Baja",
                 "dependencies": [
@@ -39,14 +47,22 @@
         ]
     },
     {
-        "id": "MS2",
+        "cohesionLack": 1,
+        "cohesionGrade": 0.33,
+        "couplingADS": 1,
+        "couplingAIS": 1,
+        "couplingSIY": 0.33,
+        "complexity": 3,
+        "id": "MS-2",
+        "points": 3,
+        "semanticSimilarity": 100,
         "userStories": [
             {
                 "id": "US-3",
                 "name": "Search products",
                 "actor": "User",
                 "points": 3,
-                "project": "Old project",
+                "project": "Test project",
                 "purpose": "",
                 "priority": "Baja",
                 "dependencies": [
@@ -59,14 +75,22 @@
         ]
     },
     {
-        "id": "MS3",
+        "cohesionLack": 2,
+        "cohesionGrade": 0.67,
+        "couplingADS": 0,
+        "couplingAIS": 1,
+        "couplingSIY": 0,
+        "complexity": 4,
+        "id": "MS-3",
+        "points": 4,
+        "semanticSimilarity": 100,
         "userStories": [
             {
                 "id": "US-4",
                 "name": "List categories",
                 "actor": "User",
                 "points": 4,
-                "project": "Old project",
+                "project": "Test project",
                 "purpose": "",
                 "priority": "Baja",
                 "dependencies": []

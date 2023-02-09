@@ -9,6 +9,38 @@
       "id": {
         "type": "string"
       },
+      "points": {
+        "type": "number",
+        "minimum": 0
+      },
+      "complexity": {
+        "type": "number",
+        "minimum": 0
+      },
+      "cohesionLack": {
+        "type": "number",
+        "minimum": 0
+      },
+      "cohesionGrade": {
+        "type": "number",
+        "minimum": 0
+      },
+      "couplingADS": {
+        "type": "number",
+        "minimum": 0
+      },
+      "couplingAIS": {
+        "type": "number",
+        "minimum": 0
+      },
+      "couplingSIY": {
+        "type": "number",
+        "minimum": 0
+      },
+      "semanticSimilarity": {
+        "type": "number",
+        "minimum": 0
+      },
       "userStories": {
         "type": "array",
         "uniqueItems": true,
@@ -19,6 +51,9 @@
               "type": "string"
             },
             "name": {
+              "type": "string"
+            },
+            "description": {
               "type": "string"
             },
             "actor": {
@@ -38,6 +73,7 @@
           "required": [
             "id",
             "name",
+            "description",
             "actor",
             "points",
             "project",
@@ -49,6 +85,14 @@
     },
     "required": [
       "id",
+      "points",
+      "complexity",
+      "cohesionLack",
+      "cohesionGrade",
+      "couplingADS",
+      "couplingAIS",
+      "couplingSIY",
+      "semanticSimilarity",
       "userStories"
     ],
     "additionalProperties": true
