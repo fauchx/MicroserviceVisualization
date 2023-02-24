@@ -5,6 +5,7 @@ import '../node_modules/gojs/extensions/Figures'
 import { Inspector } from '../node_modules/gojs/extensionsJSM/DataInspector.js'
 import './css/App.css';  // contains .diagram-component CSS
 import swal from 'sweetalert'
+import Swal from 'sweetalert2'
 
 //************ Variables ****************/
 
@@ -117,6 +118,18 @@ async function similitud_semantica(nombres_HU) {
     cadena = cadena + "*" + nombres_HU[i];
   }
   const encodedValue = encodeURIComponent(cadena);
+  var showLoading = function () {
+    Swal.fire({
+      title: 'Calculating...',
+      width: 300,
+      allowOutsideClick: false,
+      showConfirmButton: false,
+      willOpen: () => {
+        Swal.showLoading()
+      },
+    });
+  }
+  showLoading();
   await new Promise((resolve, reject) => {
     fetch(`http://localhost:8000/api/?user_stories=${encodedValue}`, {
       method: "GET",
@@ -134,17 +147,107 @@ async function similitud_semantica(nombres_HU) {
     }).catch(function (err) {
       swal({
         title: "" + err,
+        width: 100,
         text: "Error",
         icon: "error",
         timer: 5000
       })
       diagramaCargado = false;
+      return;
     })
   });
+  Swal.close();
   return similitudSemantica;
 }
 
+function ejecutar_consulta(query) {
+  query = ['US5,US6,US11,US13,US14', 'US4,US7,US8', 'US1,US2,US3,US9,US10,US12'];
+  return query;
+}
+
+function consultarBD() {
+  var cadena_historias = ""; // Para almacenar todos las IDs de HUs de un MS en un string
+  var historia_sin_guion = ""; // Variable que guardará el ID de la HU sin guión  
+
+  var nombre_proyecto = json[0].userStories[0].project;
+  var cantidad_MSs = json.length;
+  var cantidad_HUs = 0;
+
+  var arreglo_stringsHUs = []; // Arrreglo de strings de historias para cada MS
+  var arreglo_historias = []; // Arreglos temporales de historias de cada MS
+  for (let i = 0; i < Object(json).length; i++) { // Iteración para cada microservicio
+    cantidad_HUs = cantidad_HUs + Object(json[i].userStories).length;
+    cadena_historias = ""; // Todas las historias de un microservicio en un string
+    for (let j = 0; j < Object(json[i].userStories).length; j++) {
+      historia_sin_guion = json[i].userStories[j].id.replace("US-", "")
+      cadena_historias = cadena_historias + historia_sin_guion + ","; // Concatena IDs de HUs en string
+    }
+    formatear_strings_HU();
+    arreglo_stringsHUs = arreglo_stringsHUs.concat(cadena_historias); // Agrega el string de IDs de HUs al arreglo
+  }
+
+  function formatear_strings_HU() {
+    cadena_historias = cadena_historias.substring(0, cadena_historias.length - 1);
+    arreglo_historias = cadena_historias.split(',');
+    // arreglo_historias = arreglo_historias.sort();
+    var nums = arreglo_historias.map(function (str) { // Convertir arreglo de strings a nummeros
+      return parseInt(str);
+    });
+    nums = nums.sort(function (a, b) {
+      return a - b;
+    });
+    arreglo_historias = nums.map(function (str) {
+      // using map() to convert array of strings to numbers
+      return "US" + str;
+    });
+    cadena_historias = ""
+    for (let j = 0; j < arreglo_historias.length; j++) {
+      cadena_historias = cadena_historias + arreglo_historias[j] + ","; // Concatena IDs de HUs en string
+    }
+    cadena_historias = cadena_historias.substring(0, cadena_historias.length - 1);
+  }
+
+  /////////////////////// Hacer las consultas en base de datos ////////////////////////////////////////  
+  var consulta = "SELECT * FROM tabla-1 WHERE nombre = " + nombre_proyecto + " AND microservicios = " + cantidad_MSs + " AND historias = ," + cantidad_HUs;
+  var registros = ejecutar_consulta(consulta);
+  var arreglo_stringsHUsBD = []; // Array de string de historias para cada MS
+  //for (let i = 0; i < registros.length; i++) {
+  for (let i = 0; i < 1; i++) {
+    consulta = "SELECT * FROM tabla-2 WHERE tabla-1-id = " + registros[i].id
+    arreglo_stringsHUsBD = ejecutar_consulta(consulta);
+    var coincidencias_MSs = 0;
+    for (let i = 0; i < arreglo_stringsHUs.length; i++) {
+      for (let j = 0; j < arreglo_stringsHUsBD.length; j++) {
+        if (arreglo_stringsHUs[i] === arreglo_stringsHUsBD[j]) {
+          coincidencias_MSs += 1;
+        }
+      }
+    }
+    if (coincidencias_MSs === cantidad_MSs) {
+      console.log("Si es el mismo")
+      // json = JSON.parse(registros[i].archivo); // Trae el JSON
+      // nuevoDiagrama(false);
+      return;
+    }
+  }
+
+  ///////////////////// Si es falso se guarda la configuración en la base de datos /////////////////////////
+  consulta = "INSERT INTO tabla-1 VALUES(" + nombre_proyecto + "," + cantidad_MSs + "," + cantidad_HUs + "," + JSON.stringify(json) + ")";
+  var registro_id = ejecutar_consulta(consulta);
+  for (let i = 0; i < cantidad_MSs.length; i++) {
+    consulta = "INSERT INTO tabla-2 VALUES(" + registro_id + "," + json[i].id + "," + arreglo_stringsHUs[i] + ")"
+    ejecutar_consulta(consulta);
+  }
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  console.log("No es el mismo")
+  return;
+}
+
 async function convertir_jsonAnodos(recalcular) {
+  if (recalcular) {
+    consultarBD();
+  }
   proyecto = json[0].userStories[0].project;
   arraySS = [];
   AIST = 0;
@@ -261,7 +364,8 @@ async function convertir_jsonAnodos(recalcular) {
             if (document.getElementById('stories').checked) {
               return 45 + (json[i].userStories.length * 12);
             } else {
-              return 45 + (MSpuntos * 12);
+              //return 45 + (MSpuntos * 12);
+              return 40 + MSpuntos + (json[i].userStories.length * 12);
             }
           })(),
           "textoID": 0.23 - ((((45 + (json[i].userStories.length * 12)) - 57) * 0.12) / 100),
@@ -292,7 +396,8 @@ async function convertir_jsonAnodos(recalcular) {
             if (document.getElementById('stories').checked) {
               return 45 + (json[i].userStories.length * 12);
             } else {
-              return 45 + (MSpuntos * 12);
+              //return 45 + (MSpuntos * 12);
+              return 40 + MSpuntos + (json[i].userStories.length * 12);
             }
           })(),
           "textoID": 0.23 - ((((45 + (json[i].userStories.length * 12)) - 57) * 0.12) / 100),
@@ -435,7 +540,8 @@ function calcularMetricas(recalcular) {
 
   // 𝑀𝑇 ⃗=[𝐶𝑝𝑇, 𝐶𝑜ℎ𝑇, 𝑊𝑠𝑖𝑐𝑇, 𝐶𝑥𝑇,(100 − 𝑆𝑠𝑇)]
   // Gm = /𝑀𝑇 ⃗/
-  Gm = Math.sqrt(Math.pow((10 * CpT), 2) + Math.pow(WsicT, 2) + Math.pow(CxT, 2) + Math.pow((100 - SsT), 2));
+
+  Gm = Math.sqrt(Math.pow((10*CpT), 2) + Math.pow(CohT, 2) + Math.pow(WsicT, 2) + Math.pow(CxT, 2) + Math.pow((100 - SsT), 2));
 
   /*          Otros           */
   rendimiento = rendimiento / CantidadMSs;
