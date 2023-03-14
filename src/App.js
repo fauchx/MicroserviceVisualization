@@ -35,18 +35,18 @@ var sumSIY = 0;
 
 /* CxT = Cx / Cxo */
 
-//   𝑀𝑇 ⃗=[𝐶𝑝𝑇, 𝐶𝑜ℎ𝑇, 𝑊𝑠𝑖𝑐𝑇, 𝐶𝑥𝑇,(100− 𝑆𝑠𝑇)]
+//   𝑀𝑇 ⃗=[10 𝐶𝑝𝑇, 𝐶𝑜ℎ𝑇, 𝑊𝑠𝑖𝑐𝑇, 𝐶𝑥𝑇,(100− 𝑆𝑠𝑇)]
 var CpT = 0;  // Acoplamiento total de la aplicación
 var CohT = 0; // Cohesión total de la aplicación
 var WsicT = 0;// mayor número de historias de usuario asociadas a un microservicio
 var CxT = 0;  // Complejidad cognitiva total de la aplicación
 var SsT = 0;  // Similitud semántica total de la aplicación
 
-// Gm = /𝑀𝑇 ⃗/
+// Gm = |𝑀𝑇 ⃗|
 var Gm = 0;
 
 /*
-𝑀𝑆𝐵𝐴=(𝑀𝑆, 𝑀𝑇 ⃗) 
+𝑀𝑆𝐵𝐴=(𝑀𝑆, 𝑀𝑇 ⃗)  
 Donde:
 𝑀𝑆𝐵𝐴 = MicroServices Based Application
 MS es un conjunto de microservicios MS = {ms1, ms2, …, msn} 
@@ -160,89 +160,121 @@ async function similitud_semantica(nombres_HU) {
   return similitudSemantica;
 }
 
-function ejecutar_consulta(query) {
-  query = ['US5,US6,US11,US13,US14', 'US4,US7,US8', 'US1,US2,US3,US9,US10,US12'];
-  return query;
-}
-
-function consultarBD() {
-  var cadena_historias = ""; // Para almacenar todos las IDs de HUs de un MS en un string
-  var historia_sin_guion = ""; // Variable que guardará el ID de la HU sin guión  
-
-  var nombre_proyecto = json[0].userStories[0].project;
-  var cantidad_MSs = json.length;
-  var cantidad_HUs = 0;
-
-  var arreglo_stringsHUs = []; // Arrreglo de strings de historias para cada MS
-  var arreglo_historias = []; // Arreglos temporales de historias de cada MS
-  for (let i = 0; i < Object(json).length; i++) { // Iteración para cada microservicio
-    cantidad_HUs = cantidad_HUs + Object(json[i].userStories).length;
-    cadena_historias = ""; // Todas las historias de un microservicio en un string
-    for (let j = 0; j < Object(json[i].userStories).length; j++) {
-      historia_sin_guion = json[i].userStories[j].id.replace("US-", "")
-      cadena_historias = cadena_historias + historia_sin_guion + ","; // Concatena IDs de HUs en string
-    }
-    formatear_strings_HU();
-    arreglo_stringsHUs = arreglo_stringsHUs.concat(cadena_historias); // Agrega el string de IDs de HUs al arreglo
-  }
-
-  function formatear_strings_HU() {
-    cadena_historias = cadena_historias.substring(0, cadena_historias.length - 1);
-    arreglo_historias = cadena_historias.split(',');
-    // arreglo_historias = arreglo_historias.sort();
-    var nums = arreglo_historias.map(function (str) { // Convertir arreglo de strings a nummeros
-      return parseInt(str);
-    });
-    nums = nums.sort(function (a, b) {
-      return a - b;
-    });
-    arreglo_historias = nums.map(function (str) {
-      // using map() to convert array of strings to numbers
-      return "US" + str;
-    });
-    cadena_historias = ""
-    for (let j = 0; j < arreglo_historias.length; j++) {
-      cadena_historias = cadena_historias + arreglo_historias[j] + ","; // Concatena IDs de HUs en string
-    }
-    cadena_historias = cadena_historias.substring(0, cadena_historias.length - 1);
-  }
-
-  /////////////////////// Hacer las consultas en base de datos ////////////////////////////////////////  
-  var consulta = "SELECT * FROM tabla-1 WHERE nombre = " + nombre_proyecto + " AND microservicios = " + cantidad_MSs + " AND historias = ," + cantidad_HUs;
-  var registros = ejecutar_consulta(consulta);
-  var arreglo_stringsHUsBD = []; // Array de string de historias para cada MS
-  //for (let i = 0; i < registros.length; i++) {
-  for (let i = 0; i < 1; i++) {
-    consulta = "SELECT * FROM tabla-2 WHERE tabla-1-id = " + registros[i].id
-    arreglo_stringsHUsBD = ejecutar_consulta(consulta);
-    var coincidencias_MSs = 0;
-    for (let i = 0; i < arreglo_stringsHUs.length; i++) {
-      for (let j = 0; j < arreglo_stringsHUsBD.length; j++) {
-        if (arreglo_stringsHUs[i] === arreglo_stringsHUsBD[j]) {
-          coincidencias_MSs += 1;
-        }
+async function consultarBD() {
+  var resultado = "";
+  var cadena = JSON.stringify(json);
+  const encodedValue = encodeURIComponent(cadena);
+  await new Promise((resolve, reject) => {
+    fetch(`http://localhost:8000/api/?configuraciones=${encodedValue}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    }).then(function (response) {
+      setTimeout(() => {
+        resolve(response)
+      }, 50);
+      return response.json();
+    }).then(json => {
+      resultado = json;
+      var nueva_config = resultado.nueva_config
+      console.log("Este es el response: " + nueva_config)
+      if (nueva_config) {
+        return true;
+      } else {
+        json = JSON.parse(resultado.configuracion);
+        return false;
       }
-    }
-    if (coincidencias_MSs === cantidad_MSs) {
-      console.log("Si es el mismo")
-      // json = JSON.parse(registros[i].archivo); // Trae el JSON
-      // nuevoDiagrama(false);
-      return;
-    }
-  }
-
-  ///////////////////// Si es falso se guarda la configuración en la base de datos /////////////////////////
-  consulta = "INSERT INTO tabla-1 VALUES(" + nombre_proyecto + "," + cantidad_MSs + "," + cantidad_HUs + "," + JSON.stringify(json) + ")";
-  var registro_id = ejecutar_consulta(consulta);
-  for (let i = 0; i < cantidad_MSs.length; i++) {
-    consulta = "INSERT INTO tabla-2 VALUES(" + registro_id + "," + json[i].id + "," + arreglo_stringsHUs[i] + ")"
-    ejecutar_consulta(consulta);
-  }
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  console.log("No es el mismo")
-  return;
+    }).catch(function (err) {
+      swal({
+        title: "" + err,
+        text: "Error",
+        icon: "error",
+        timer: 5000
+      })
+      diagramaCargado = false;
+    })
+  });
 }
+// Esta lógica puede servir para mantener un array de configuraciones para comparar resultados
+// function consultarBD() {
+//   var cadena_historias = ""; // Para almacenar todos las IDs de HUs de un MS en un string
+//   var historia_sin_guion = ""; // Variable que guardará el ID de la HU sin guión  
+
+//   var nombre_proyecto = json[0].userStories[0].project;
+//   var cantidad_MSs = json.length;
+//   var cantidad_HUs = 0;
+
+//   var arreglo_stringsHUs = []; // Arrreglo de strings de historias para cada MS
+//   var arreglo_historias = []; // Arreglos temporales de historias de cada MS
+//   for (let i = 0; i < Object(json).length; i++) { // Iteración para cada microservicio
+//     cantidad_HUs = cantidad_HUs + Object(json[i].userStories).length;
+//     cadena_historias = ""; // Todas las historias de un microservicio en un string
+//     for (let j = 0; j < Object(json[i].userStories).length; j++) {
+//       historia_sin_guion = json[i].userStories[j].id.replace("US-", "")
+//       cadena_historias = cadena_historias + historia_sin_guion + ","; // Concatena IDs de HUs en string
+//     }
+//     formatear_strings_HU();
+//     arreglo_stringsHUs = arreglo_stringsHUs.concat(cadena_historias); // Agrega el string de IDs de HUs al arreglo
+//   }
+
+//   function formatear_strings_HU() {
+//     cadena_historias = cadena_historias.substring(0, cadena_historias.length - 1);
+//     arreglo_historias = cadena_historias.split(',');
+//     // arreglo_historias = arreglo_historias.sort();
+//     var nums = arreglo_historias.map(function (str) { // Convertir arreglo de strings a nummeros
+//       return parseInt(str);
+//     });
+//     nums = nums.sort(function (a, b) {
+//       return a - b;
+//     });
+//     arreglo_historias = nums.map(function (str) {
+//       // using map() to convert array of strings to numbers
+//       return "US" + str;
+//     });
+//     cadena_historias = ""
+//     for (let j = 0; j < arreglo_historias.length; j++) {
+//       cadena_historias = cadena_historias + arreglo_historias[j] + ","; // Concatena IDs de HUs en string
+//     }
+//     cadena_historias = cadena_historias.substring(0, cadena_historias.length - 1);
+//   }
+
+//   /////////////////////// Hacer las consultas en base de datos ////////////////////////////////////////  
+//   var consulta = "SELECT * FROM tabla-1 WHERE nombre = " + nombre_proyecto + " AND microservicios = " + cantidad_MSs + " AND historias = ," + cantidad_HUs;
+//   var registros = ejecutar_consulta(consulta);
+//   var arreglo_stringsHUsBD = []; // Array de string de historias para cada MS
+//   //for (let i = 0; i < registros.length; i++) {
+//   for (let i = 0; i < 1; i++) {
+//     consulta = "SELECT * FROM tabla-2 WHERE tabla-1-id = " + registros[i].id
+//     arreglo_stringsHUsBD = ejecutar_consulta(consulta);
+//     var coincidencias_MSs = 0;
+//     for (let i = 0; i < arreglo_stringsHUs.length; i++) {
+//       for (let j = 0; j < arreglo_stringsHUsBD.length; j++) {
+//         if (arreglo_stringsHUs[i] === arreglo_stringsHUsBD[j]) {
+//           coincidencias_MSs += 1;
+//         }
+//       }
+//     }
+//     if (coincidencias_MSs === cantidad_MSs) {
+//       console.log("Si es el mismo")
+//       // json = JSON.parse(registros[i].archivo); // Trae el JSON
+//       // nuevoDiagrama(false);
+//       return;
+//     }
+//   }
+
+//   ///////////////////// Si es falso se guarda la configuración en la base de datos /////////////////////////
+//   consulta = "INSERT INTO tabla-1 VALUES(" + nombre_proyecto + "," + cantidad_MSs + "," + cantidad_HUs + "," + JSON.stringify(json) + ")";
+//   var registro_id = ejecutar_consulta(consulta);
+//   for (let i = 0; i < cantidad_MSs.length; i++) {
+//     consulta = "INSERT INTO tabla-2 VALUES(" + registro_id + "," + json[i].id + "," + arreglo_stringsHUs[i] + ")"
+//     ejecutar_consulta(consulta);
+//   }
+//   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//   console.log("No es el mismo")
+//   return;
+// }
 
 async function convertir_jsonAnodos(recalcular) {
   if (recalcular) {
@@ -539,7 +571,7 @@ function calcularMetricas(recalcular) {
   }
 
   // 𝑀𝑇 ⃗=[𝐶𝑝𝑇, 𝐶𝑜ℎ𝑇, 𝑊𝑠𝑖𝑐𝑇, 𝐶𝑥𝑇,(100 − 𝑆𝑠𝑇)]
-  // Gm = /𝑀𝑇 ⃗/
+  // Gm = |𝑀𝑇 ⃗|
 
   Gm = Math.sqrt(Math.pow((10*CpT), 2) + Math.pow(CohT, 2) + Math.pow(WsicT, 2) + Math.pow(CxT, 2) + Math.pow((100 - SsT), 2));
 
@@ -979,7 +1011,7 @@ function inspectors() {
     "CohT": CohT.toFixed(2),
     "SsT": "" + SsT.toFixed(2) + "%",
     "WsicT": WsicT,
-    "CxT": CxT.toFixed(2),
+    "CxT": CxT.toFixed(1),
     "Gm": Gm.toFixed(2)
   };
 
@@ -1189,12 +1221,26 @@ function exportarJson() {
   }
 }
 
+// function nuevoDiagrama(recalcular) {
+//   if (diagramaCargado === true) {
+//     myDiagram.div = null;
+//     myDiagram = null;
+//   }
+//   convertir_jsonAnodos(recalcular);
+//   diagramaCargado = true;
+// }
+
 function nuevoDiagrama(recalcular) {
   if (diagramaCargado === true) {
     myDiagram.div = null;
     myDiagram = null;
   }
-  convertir_jsonAnodos(recalcular);
+  if (recalcular === true) {
+    var nueva_config = consultarBD()
+    convertir_jsonAnodos(nueva_config);
+  } else {    
+    convertir_jsonAnodos(false);
+  }
   diagramaCargado = true;
 }
 
@@ -1202,7 +1248,7 @@ function cambiar_tamano() {
   document.getElementById('titulo').innerHTML = '';
   document.getElementById('myInspectorDiv').style.visibility = 'hidden';
   if (diagramaCargado === true) {
-    nuevoDiagrama(true);
+    nuevoDiagrama(false);
   }
 }
 

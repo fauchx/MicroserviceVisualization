@@ -389,7 +389,7 @@
             "name": "New order",
             "description": "",
             "actor": "user",
-            "points": 8,
+            "points": 7,
             "element": {
                 "x": 580,
                 "y": 650,
