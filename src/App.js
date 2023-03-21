@@ -19,6 +19,7 @@ var proximoMS = "";
 var CantidadMSs = 0;
 var proyecto = "";
 var arraySS = [];
+var nueva_config = false;
 
 var AIST = 0; // Acoplamiento AIS total
 var ADST = 0; // Acoplamiento ADS total
@@ -153,7 +154,6 @@ async function similitud_semantica(nombres_HU) {
         timer: 5000
       })
       diagramaCargado = false;
-      return;
     })
   });
   Swal.close();
@@ -161,11 +161,10 @@ async function similitud_semantica(nombres_HU) {
 }
 
 async function consultarBD() {
-  var resultado = "";
   var cadena = JSON.stringify(json);
   const encodedValue = encodeURIComponent(cadena);
   await new Promise((resolve, reject) => {
-    fetch(`http://localhost:8000/api/?configuraciones=${encodedValue}`, {
+    fetch(`http://localhost:8000/api/?configuracion=${encodedValue}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
@@ -175,14 +174,13 @@ async function consultarBD() {
         resolve(response)
       }, 50);
       return response.json();
-    }).then(json => {
-      resultado = json;
-      var nueva_config = resultado.nueva_config
-      console.log("Este es el response: " + nueva_config)
-      if (nueva_config) {
+    }).then(resultado => {
+      if (resultado.nueva_config === true) {
+        nueva_config = true;
         return true;
       } else {
         json = JSON.parse(resultado.configuracion);
+        nueva_config = false;
         return false;
       }
     }).catch(function (err) {
@@ -276,10 +274,7 @@ async function consultarBD() {
 //   return;
 // }
 
-async function convertir_jsonAnodos(recalcular) {
-  if (recalcular) {
-    consultarBD();
-  }
+async function convertir_jsonAnodos(recalcular, recalcularSS, diagramar) {
   proyecto = json[0].userStories[0].project;
   arraySS = [];
   AIST = 0;
@@ -390,7 +385,7 @@ async function convertir_jsonAnodos(recalcular) {
           "key": json[i].id,
           "Points": MSpuntos,
           "requests": 0,
-          "Semantic Similarity": 0,
+          "Semantic Similarity": json[i].semanticSimilarity,
           // eslint-disable-next-line
           "size": (function () {
             if (document.getElementById('stories').checked) {
@@ -441,14 +436,14 @@ async function convertir_jsonAnodos(recalcular) {
     ADST = ADST + Math.pow(MSdependencias.length, 2) // Sumatoria de los cuadrados
   };
 
-  if (recalcular) {
+  if (recalcular & recalcularSS) {
     arraySS = await similitud_semantica(arrayNombresHU);
   }
 
-  calcularMetricas(recalcular);
+  calcularMetricas(recalcular, recalcularSS, diagramar);
 }
 
-function calcularMetricas(recalcular) {
+function calcularMetricas(recalcular, recalcularSS, diagramar) {
   // Quitar las aristas con 'to' undefined
   aristas = aristas.filter((item) => item.to !== undefined);
 
@@ -514,8 +509,10 @@ function calcularMetricas(recalcular) {
         Coh = LC / CantidadMSs;
         nodos[i]["Cohesion Grade"] = Coh.toFixed(2);
 
-        nodos[i]["Semantic Similarity"] = arraySS[contadorSS];
-        contadorSS++;
+        if (recalcularSS) {
+          nodos[i]["Semantic Similarity"] = arraySS[contadorSS];
+          contadorSS++;
+        }
       } else {
         SIY = (nodos[i]["Coupling SIY"])
 
@@ -530,6 +527,9 @@ function calcularMetricas(recalcular) {
 
       // Se formatea el valor de la similitud semántica para expresarle en términos porcentuales
       if (recalcular) {
+        if (!diagramar) {
+          nodos[i]["Semantic Similarity"] = nodos[i]["Semantic Similarity"] / 100
+        }
         nodos[i]["Semantic Similarity"] = "" + (100 * nodos[i]["Semantic Similarity"]).toFixed(2) + "%";
       } else {
         nodos[i]["Semantic Similarity"] = nodos[i]["Semantic Similarity"].toFixed(2) + "%";
@@ -572,8 +572,7 @@ function calcularMetricas(recalcular) {
 
   // 𝑀𝑇 ⃗=[𝐶𝑝𝑇, 𝐶𝑜ℎ𝑇, 𝑊𝑠𝑖𝑐𝑇, 𝐶𝑥𝑇,(100 − 𝑆𝑠𝑇)]
   // Gm = |𝑀𝑇 ⃗|
-
-  Gm = Math.sqrt(Math.pow((10*CpT), 2) + Math.pow(CohT, 2) + Math.pow(WsicT, 2) + Math.pow(CxT, 2) + Math.pow((100 - SsT), 2));
+  Gm = Math.sqrt(Math.pow((10 * CpT), 2) + Math.pow(CohT, 2) + Math.pow(WsicT, 2) + Math.pow(CxT, 2) + Math.pow((100 - SsT), 2));
 
   /*          Otros           */
   rendimiento = rendimiento / CantidadMSs;
@@ -589,7 +588,9 @@ function calcularMetricas(recalcular) {
   console.log("Cx: " + Cx.toFixed(2));
 
   diagramaCargado = true;
-  init();
+  if (diagramar) {
+    init();
+  }
 }
 
 function convertir_nodosAjson(nodosAjson) {
@@ -638,6 +639,7 @@ function convertir_nodosAjson(nodosAjson) {
       "userStories": huCopia
     });
   }
+  agregarGuiones();
 }
 
 function nuevoMSid() { // Retorna un nuevo ID no usado en el diagrama
@@ -672,7 +674,7 @@ function crearMicroservicio(ms, us) {
     "complexity": 0,
     "id": ms,
     "points": 0,
-    "semanticSimilarity": 0,
+    "semanticSimilarity": 100.00,
     "userStories": us
   });
 }
@@ -749,6 +751,8 @@ function init() {
           var proximo = nuevoMSid(); // Crea un nuevo id de MS no repetido
           quitarUSdeMS(MSnombre, nuevaHistoria);
           crearMicroservicio(proximo, nuevaHistoria); // Crea nuevo MS y le asigna el id recién creado
+          convertir_jsonAnodos(true, false, false); // (recalcular, recalcularSS, diagramar)
+          convertir_nodosAjson(nodos);
           nuevoDiagrama(true);
         } else {
           myDiagram.currentTool.doCancel();
@@ -831,7 +835,6 @@ function init() {
           return;
         }
         convertir_nodosAjson(nodos);
-        agregarGuiones();
         nuevoDiagrama(true);
       }
     },
@@ -1072,7 +1075,7 @@ export function leerArchivo(e) {
     var schema = require('./schemas/microservices.json');
     var esValido = validarJson(schema, json);
     if (esValido) {
-      convertir_jsonAnodos(false);
+      convertir_jsonAnodos(false, false, true); // (recalcular, recalcularSS, diagramar)
     } else {
       diagramaCargado = false;
       AIST = 0;
@@ -1196,7 +1199,6 @@ function agregarGuiones() {
 function exportarJson() {
   if (diagramaCargado) {
     convertir_nodosAjson(nodos); // Se llama para guardar en el JSON la config actual
-    agregarGuiones();
     var dataStr = JSON.stringify(json);
     var dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
 
@@ -1221,25 +1223,20 @@ function exportarJson() {
   }
 }
 
-// function nuevoDiagrama(recalcular) {
-//   if (diagramaCargado === true) {
-//     myDiagram.div = null;
-//     myDiagram = null;
-//   }
-//   convertir_jsonAnodos(recalcular);
-//   diagramaCargado = true;
-// }
-
-function nuevoDiagrama(recalcular) {
+async function nuevoDiagrama(recalcular) {
   if (diagramaCargado === true) {
     myDiagram.div = null;
     myDiagram = null;
   }
   if (recalcular === true) {
-    var nueva_config = consultarBD()
-    convertir_jsonAnodos(nueva_config);
-  } else {    
-    convertir_jsonAnodos(false);
+    await consultarBD()
+    if (nueva_config) {
+      convertir_jsonAnodos(true, true, true); // (recalcular, recalcularSS, diagramar)
+    } else {
+      convertir_jsonAnodos(false, false, true); // (recalcular, recalcularSS, diagramar)
+    }
+  } else {
+    convertir_jsonAnodos(false, false, true); // (recalcular, recalcularSS, diagramar)
   }
   diagramaCargado = true;
 }
