@@ -1,0 +1,452 @@
+[
+  {
+    "cohesionLack": 6,
+    "cohesionGrade": 0.86,
+    "couplingADS": 0,
+    "couplingAIS": 0,
+    "couplingSIY": 0,
+    "complexity": 11,
+    "id": "MS-1",
+    "points": 11,
+    "semanticSimilarity": 91.38,
+    "userStories": [
+      {
+        "componente": "historia",
+        "group": "MS1",
+        "id": "US-5",
+        "key": "US5",
+        "project": "Jpet Store",
+        "__gohashid": 23893,
+        "dependencies": [],
+        "points": 3,
+        "actor": "user",
+        "name": "View item (get item)",
+        "description": "",
+        "priority": "Low"
+      },
+      {
+        "componente": "historia",
+        "group": "MS1",
+        "id": "US-6",
+        "key": "US6",
+        "project": "Jpet Store",
+        "__gohashid": 23894,
+        "dependencies": [
+          {
+            "id": "US-5"
+          },
+          {
+            "id": "US-21"
+          }
+        ],
+        "points": 5,
+        "actor": "user",
+        "name": "Add item to cart",
+        "description": "",
+        "priority": "Low"
+      },
+      {
+        "componente": "historia",
+        "group": "MS1",
+        "id": "US-21",
+        "key": "US21",
+        "project": "Jpet Store",
+        "__gohashid": 23895,
+        "dependencies": [],
+        "points": 3,
+        "actor": "user",
+        "name": "Is item in stock",
+        "description": "",
+        "priority": "Low"
+      }
+    ]
+  },
+  {
+    "cohesionLack": 6,
+    "cohesionGrade": 0.86,
+    "couplingADS": 0,
+    "couplingAIS": 0,
+    "couplingSIY": 0,
+    "complexity": 6,
+    "id": "MS-2",
+    "points": 6,
+    "semanticSimilarity": 74.56,
+    "userStories": [
+      {
+        "componente": "historia",
+        "group": "MS2",
+        "id": "US-7",
+        "key": "US7",
+        "project": "Jpet Store",
+        "__gohashid": 23897,
+        "dependencies": [],
+        "points": 3,
+        "actor": "user",
+        "name": "Remove item from cart",
+        "description": "",
+        "priority": "Low"
+      },
+      {
+        "componente": "historia",
+        "group": "MS2",
+        "id": "US-8",
+        "key": "US8",
+        "project": "Jpet Store",
+        "__gohashid": 23898,
+        "dependencies": [],
+        "points": 3,
+        "actor": "user",
+        "name": "Update cart quantities",
+        "description": "",
+        "priority": "Low"
+      }
+    ]
+  },
+  {
+    "cohesionLack": 6,
+    "cohesionGrade": 0.86,
+    "couplingADS": 0,
+    "couplingAIS": 0,
+    "couplingSIY": 0,
+    "complexity": 10,
+    "id": "MS-3",
+    "points": 10,
+    "semanticSimilarity": 76.25,
+    "userStories": [
+      {
+        "componente": "historia",
+        "group": "MS3",
+        "id": "US-3",
+        "key": "US3",
+        "project": "Jpet Store",
+        "__gohashid": 23900,
+        "dependencies": [],
+        "points": 5,
+        "actor": "user",
+        "name": "Search products",
+        "description": "",
+        "priority": "Low"
+      },
+      {
+        "componente": "historia",
+        "group": "MS3",
+        "id": "US-4",
+        "key": "US4",
+        "project": "Jpet Store",
+        "__gohashid": 23901,
+        "dependencies": [
+          {
+            "id": "US-20"
+          }
+        ],
+        "points": 3,
+        "actor": "user",
+        "name": "View product",
+        "description": "",
+        "priority": "Low"
+      },
+      {
+        "componente": "historia",
+        "group": "MS3",
+        "id": "US-20",
+        "key": "US20",
+        "project": "Jpet Store",
+        "__gohashid": 23902,
+        "dependencies": [],
+        "points": 2,
+        "actor": "user",
+        "name": "Get product",
+        "description": "",
+        "priority": "Low"
+      }
+    ]
+  },
+  {
+    "cohesionLack": 6,
+    "cohesionGrade": 0.86,
+    "couplingADS": 0,
+    "couplingAIS": 0,
+    "couplingSIY": 0,
+    "complexity": 5,
+    "id": "MS-4",
+    "points": 5,
+    "semanticSimilarity": 100,
+    "userStories": [
+      {
+        "componente": "historia",
+        "group": "MS4",
+        "id": "US-14",
+        "key": "US14",
+        "project": "Jpet Store",
+        "__gohashid": 23904,
+        "dependencies": [],
+        "points": 3,
+        "actor": "user",
+        "name": "Is authenticated",
+        "description": "",
+        "priority": "Low"
+      },
+      {
+        "componente": "historia",
+        "group": "MS4",
+        "id": "US-17",
+        "key": "US17",
+        "project": "Jpet Store",
+        "__gohashid": 23905,
+        "dependencies": [],
+        "points": 2,
+        "actor": "user",
+        "name": "Sign off",
+        "description": "",
+        "priority": "Low"
+      }
+    ]
+  },
+  {
+    "cohesionLack": 6,
+    "cohesionGrade": 0.86,
+    "couplingADS": 1,
+    "couplingAIS": 0,
+    "couplingSIY": 0,
+    "complexity": 22,
+    "id": "MS-5",
+    "points": 22,
+    "semanticSimilarity": 30.95,
+    "userStories": [
+      {
+        "componente": "historia",
+        "group": "MS5",
+        "id": "US-9",
+        "key": "US9",
+        "project": "Jpet Store",
+        "__gohashid": 23907,
+        "dependencies": [],
+        "points": 3,
+        "actor": "user",
+        "name": "Get cart",
+        "description": "",
+        "priority": "Low"
+      },
+      {
+        "componente": "historia",
+        "group": "MS5",
+        "id": "US-10",
+        "key": "US10",
+        "project": "Jpet Store",
+        "__gohashid": 23908,
+        "dependencies": [
+          {
+            "id": "US-9"
+          },
+          {
+            "id": "US-16"
+          }
+        ],
+        "points": 7,
+        "actor": "user",
+        "name": "New order",
+        "description": "",
+        "priority": "Low"
+      },
+      {
+        "componente": "historia",
+        "group": "MS5",
+        "id": "US-11",
+        "key": "US11",
+        "project": "Jpet Store",
+        "__gohashid": 23909,
+        "dependencies": [
+          {
+            "id": "US-16"
+          }
+        ],
+        "points": 3,
+        "actor": "user",
+        "name": "Get order",
+        "description": "",
+        "priority": "Low"
+      },
+      {
+        "componente": "historia",
+        "group": "MS5",
+        "id": "US-12",
+        "key": "US12",
+        "project": "Jpet Store",
+        "__gohashid": 23910,
+        "dependencies": [],
+        "points": 5,
+        "actor": "user",
+        "name": "Set order id",
+        "description": "",
+        "priority": "Low"
+      },
+      {
+        "componente": "historia",
+        "group": "MS5",
+        "id": "US-13",
+        "key": "US13",
+        "project": "Jpet Store",
+        "__gohashid": 23911,
+        "dependencies": [
+          {
+            "id": "US-16"
+          }
+        ],
+        "points": 3,
+        "actor": "user",
+        "name": "List orders",
+        "description": "",
+        "priority": "Low"
+      }
+    ]
+  },
+  {
+    "cohesionLack": 6,
+    "cohesionGrade": 0.86,
+    "couplingADS": 0,
+    "couplingAIS": 1,
+    "couplingSIY": 0,
+    "complexity": 6,
+    "id": "MS-6",
+    "points": 6,
+    "semanticSimilarity": 58.78,
+    "userStories": [
+      {
+        "componente": "historia",
+        "group": "MS6",
+        "id": "US-1",
+        "key": "US1",
+        "project": "Jpet Store",
+        "__gohashid": 23913,
+        "dependencies": [
+          {
+            "id": "US-2"
+          },
+          {
+            "id": "US-19"
+          }
+        ],
+        "points": 3,
+        "actor": "user",
+        "name": "View category",
+        "description": "",
+        "priority": "Low"
+      },
+      {
+        "componente": "historia",
+        "group": "MS6",
+        "id": "US-2",
+        "key": "US2",
+        "project": "Jpet Store",
+        "__gohashid": 23914,
+        "dependencies": [],
+        "points": 1,
+        "actor": "user",
+        "name": "List category",
+        "description": "",
+        "priority": "Low"
+      },
+      {
+        "componente": "historia",
+        "group": "MS6",
+        "id": "US-19",
+        "key": "US19",
+        "project": "Jpet Store",
+        "__gohashid": 23915,
+        "dependencies": [],
+        "points": 2,
+        "actor": "user",
+        "name": "Get category",
+        "description": "",
+        "priority": "Low"
+      }
+    ]
+  },
+  {
+    "cohesionLack": 6,
+    "cohesionGrade": 0.86,
+    "couplingADS": 1,
+    "couplingAIS": 1,
+    "couplingSIY": 0,
+    "complexity": 14,
+    "id": "MS-7",
+    "points": 14,
+    "semanticSimilarity": 100,
+    "userStories": [
+      {
+        "componente": "historia",
+        "group": "MS7",
+        "id": "US-15",
+        "key": "US15",
+        "project": "Jpet Store",
+        "__gohashid": 23917,
+        "dependencies": [
+          {
+            "id": "US-16"
+          },
+          {
+            "id": "US-1"
+          }
+        ],
+        "points": 5,
+        "actor": "user",
+        "name": "New account (sign up)",
+        "description": "",
+        "priority": "Low"
+      },
+      {
+        "componente": "historia",
+        "group": "MS7",
+        "id": "US-16",
+        "key": "US16",
+        "project": "Jpet Store",
+        "__gohashid": 23918,
+        "dependencies": [],
+        "points": 3,
+        "actor": "user",
+        "name": "Get account",
+        "description": "",
+        "priority": "Low"
+      },
+      {
+        "componente": "historia",
+        "group": "MS7",
+        "id": "US-18",
+        "key": "US18",
+        "project": "Jpet Store",
+        "__gohashid": 23919,
+        "dependencies": [
+          {
+            "id": "US-16"
+          },
+          {
+            "id": "US-1"
+          }
+        ],
+        "points": 3,
+        "actor": "user",
+        "name": "Update account",
+        "description": "",
+        "priority": "Low"
+      },
+      {
+        "componente": "historia",
+        "group": "MS7",
+        "id": "US-22",
+        "key": "US22",
+        "project": "Jpet Store",
+        "__gohashid": 23920,
+        "dependencies": [
+          {
+            "id": "US-1"
+          }
+        ],
+        "points": 3,
+        "actor": "user",
+        "name": "Sign in",
+        "description": "",
+        "priority": "Low"
+      }
+    ]
+  }
+]

@@ -7,6 +7,7 @@ import './css/App.css';  // contains .diagram-component CSS
 import swal from 'sweetalert'
 import schema from "./schemas/microservices.json";
 import {API_URL} from "./utils";
+import Swal from 'sweetalert2'
 
 //************ Variables ****************/
 
@@ -20,6 +21,7 @@ var proximoMS = "";
 var CantidadMSs = 0;
 var proyecto = "";
 var arraySS = [];
+var nueva_config = false;
 
 var AIST = 0; // Acoplamiento AIS total
 var ADST = 0; // Acoplamiento ADS total
@@ -36,18 +38,18 @@ var sumSIY = 0;
 
 /* CxT = Cx / Cxo */
 
-//   𝑀𝑇 ⃗=[𝐶𝑝𝑇, 𝐶𝑜ℎ𝑇, 𝑊𝑠𝑖𝑐𝑇, 𝐶𝑥𝑇,(100− 𝑆𝑠𝑇)]
+//   𝑀𝑇 ⃗=[10 𝐶𝑝𝑇, 𝐶𝑜ℎ𝑇, 𝑊𝑠𝑖𝑐𝑇, 𝐶𝑥𝑇,(100− 𝑆𝑠𝑇)]
 var CpT = 0;  // Acoplamiento total de la aplicación
 var CohT = 0; // Cohesión total de la aplicación
 var WsicT = 0;// mayor número de historias de usuario asociadas a un microservicio
 var CxT = 0;  // Complejidad cognitiva total de la aplicación
 var SsT = 0;  // Similitud semántica total de la aplicación
 
-// Gm = /𝑀𝑇 ⃗/
+// Gm = |𝑀𝑇 ⃗|
 var Gm = 0;
 
 /*
-𝑀𝑆𝐵𝐴=(𝑀𝑆, 𝑀𝑇 ⃗) 
+𝑀𝑆𝐵𝐴=(𝑀𝑆, 𝑀𝑇 ⃗)  
 Donde:
 𝑀𝑆𝐵𝐴 = MicroServices Based Application
 MS es un conjunto de microservicios MS = {ms1, ms2, …, msn} 
@@ -130,44 +132,166 @@ async function similitud_semantica(nombres_HU) {
   var resultado = "";
   var cadena = nombres_HU[0];
   var similitudSemantica = [];
-  if (nombres_HU.length > 1) {
-    for (let i = 1; i < nombres_HU.length; i++) {
-      cadena = cadena + "*" + nombres_HU[i];
-    }
-    const encodedValue = encodeURIComponent(cadena);
-    swal({
-      title: "Loading stories",
-      icon: "success",
-    })
-    await new Promise((resolve, reject) => {
-      fetch(`${API_URL}/?user_stories=${encodedValue}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json"
-        },
-      }).then(function (response) {
-        setTimeout(() => {
-          resolve(response)
-        }, 50);
-        return response.json();
-      }).then(json => {
-        resultado = json;
-        similitudSemantica = resultado.semantic_similarity
-      }).catch(function (err) {
-        swal({
-          title: "" + err,
-          text: "Error",
-          icon: "error",
-          timer: 5000
-        })
-        diagramaCargado = false;
-      })
-    });
-    return similitudSemantica;
+  for (let i = 1; i < nombres_HU.length; i++) {
+    cadena = cadena + "*" + nombres_HU[i];
   }
+  const encodedValue = encodeURIComponent(cadena);
+  var showLoading = function () {
+    Swal.fire({
+      title: 'Calculating...',
+      width: 300,
+      allowOutsideClick: false,
+      showConfirmButton: false,
+      willOpen: () => {
+        Swal.showLoading()
+      },
+    });
+  }
+  showLoading();
+  await new Promise((resolve, reject) => {
+    fetch(`${API_URL}/?user_stories=${encodedValue}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    }).then(function (response) {
+      setTimeout(() => {
+        resolve(response)
+      }, 50);
+      return response.json();
+    }).then(json => {
+      resultado = json;
+      similitudSemantica = resultado.semantic_similarity
+    }).catch(function (err) {
+      swal({
+        title: "" + err,
+        width: 100,
+        text: "Error",
+        icon: "error",
+        timer: 5000
+      })
+      diagramaCargado = false;
+    })
+  });
+  Swal.close();
+  return similitudSemantica;
 }
 
-async function convertir_jsonAnodos(recalcular) {
+async function consultarBD() {
+  var cadena = JSON.stringify(json);
+  const encodedValue = encodeURIComponent(cadena);
+  await new Promise((resolve, reject) => {
+    fetch(`http://localhost:8000/api/?configuracion=${encodedValue}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    }).then(function (response) {
+      setTimeout(() => {
+        resolve(response)
+      }, 50);
+      return response.json();
+    }).then(resultado => {
+      if (resultado.nueva_config === true) {
+        nueva_config = true;
+        return true;
+      } else {
+        json = JSON.parse(resultado.configuracion);
+        nueva_config = false;
+        return false;
+      }
+    }).catch(function (err) {
+      swal({
+        title: "" + err,
+        text: "Error",
+        icon: "error",
+        timer: 5000
+      })
+      diagramaCargado = false;
+    })
+  });
+}
+// Esta lógica puede servir para mantener un array de configuraciones para comparar resultados
+// function consultarBD() {
+//   var cadena_historias = ""; // Para almacenar todos las IDs de HUs de un MS en un string
+//   var historia_sin_guion = ""; // Variable que guardará el ID de la HU sin guión  
+
+//   var nombre_proyecto = json[0].userStories[0].project;
+//   var cantidad_MSs = json.length;
+//   var cantidad_HUs = 0;
+
+//   var arreglo_stringsHUs = []; // Arrreglo de strings de historias para cada MS
+//   var arreglo_historias = []; // Arreglos temporales de historias de cada MS
+//   for (let i = 0; i < Object(json).length; i++) { // Iteración para cada microservicio
+//     cantidad_HUs = cantidad_HUs + Object(json[i].userStories).length;
+//     cadena_historias = ""; // Todas las historias de un microservicio en un string
+//     for (let j = 0; j < Object(json[i].userStories).length; j++) {
+//       historia_sin_guion = json[i].userStories[j].id.replace("US-", "")
+//       cadena_historias = cadena_historias + historia_sin_guion + ","; // Concatena IDs de HUs en string
+//     }
+//     formatear_strings_HU();
+//     arreglo_stringsHUs = arreglo_stringsHUs.concat(cadena_historias); // Agrega el string de IDs de HUs al arreglo
+//   }
+
+//   function formatear_strings_HU() {
+//     cadena_historias = cadena_historias.substring(0, cadena_historias.length - 1);
+//     arreglo_historias = cadena_historias.split(',');
+//     // arreglo_historias = arreglo_historias.sort();
+//     var nums = arreglo_historias.map(function (str) { // Convertir arreglo de strings a nummeros
+//       return parseInt(str);
+//     });
+//     nums = nums.sort(function (a, b) {
+//       return a - b;
+//     });
+//     arreglo_historias = nums.map(function (str) {
+//       // using map() to convert array of strings to numbers
+//       return "US" + str;
+//     });
+//     cadena_historias = ""
+//     for (let j = 0; j < arreglo_historias.length; j++) {
+//       cadena_historias = cadena_historias + arreglo_historias[j] + ","; // Concatena IDs de HUs en string
+//     }
+//     cadena_historias = cadena_historias.substring(0, cadena_historias.length - 1);
+//   }
+
+//   /////////////////////// Hacer las consultas en base de datos ////////////////////////////////////////  
+//   var consulta = "SELECT * FROM tabla-1 WHERE nombre = " + nombre_proyecto + " AND microservicios = " + cantidad_MSs + " AND historias = ," + cantidad_HUs;
+//   var registros = ejecutar_consulta(consulta);
+//   var arreglo_stringsHUsBD = []; // Array de string de historias para cada MS
+//   //for (let i = 0; i < registros.length; i++) {
+//   for (let i = 0; i < 1; i++) {
+//     consulta = "SELECT * FROM tabla-2 WHERE tabla-1-id = " + registros[i].id
+//     arreglo_stringsHUsBD = ejecutar_consulta(consulta);
+//     var coincidencias_MSs = 0;
+//     for (let i = 0; i < arreglo_stringsHUs.length; i++) {
+//       for (let j = 0; j < arreglo_stringsHUsBD.length; j++) {
+//         if (arreglo_stringsHUs[i] === arreglo_stringsHUsBD[j]) {
+//           coincidencias_MSs += 1;
+//         }
+//       }
+//     }
+//     if (coincidencias_MSs === cantidad_MSs) {
+//       console.log("Si es el mismo")
+//       // json = JSON.parse(registros[i].archivo); // Trae el JSON
+//       // nuevoDiagrama(false);
+//       return;
+//     }
+//   }
+
+//   ///////////////////// Si es falso se guarda la configuración en la base de datos /////////////////////////
+//   consulta = "INSERT INTO tabla-1 VALUES(" + nombre_proyecto + "," + cantidad_MSs + "," + cantidad_HUs + "," + JSON.stringify(json) + ")";
+//   var registro_id = ejecutar_consulta(consulta);
+//   for (let i = 0; i < cantidad_MSs.length; i++) {
+//     consulta = "INSERT INTO tabla-2 VALUES(" + registro_id + "," + json[i].id + "," + arreglo_stringsHUs[i] + ")"
+//     ejecutar_consulta(consulta);
+//   }
+//   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//   console.log("No es el mismo")
+//   return;
+// }
+
+async function convertir_jsonAnodos(recalcular, recalcularSS, diagramar) {
   proyecto = json[0].userStories[0].project;
   arraySS = [];
   AIST = 0;
@@ -278,13 +402,14 @@ async function convertir_jsonAnodos(recalcular) {
           "key": json[i].id,
           "Points": MSpuntos,
           "requests": 0,
-          "Semantic Similarity": 0,
+          "Semantic Similarity": json[i].semanticSimilarity,
           // eslint-disable-next-line
           "size": (function () {
             if (document.getElementById('stories').checked) {
               return 45 + (json[i].userStories.length * 12);
             } else {
-              return 45 + (MSpuntos * 12);
+              //return 45 + (MSpuntos * 12);
+              return 40 + MSpuntos + (json[i].userStories.length * 12);
             }
           })(),
           "textoID": 0.23 - ((((45 + (json[i].userStories.length * 12)) - 57) * 0.12) / 100),
@@ -315,7 +440,8 @@ async function convertir_jsonAnodos(recalcular) {
             if (document.getElementById('stories').checked) {
               return 45 + (json[i].userStories.length * 12);
             } else {
-              return 45 + (MSpuntos * 12);
+              //return 45 + (MSpuntos * 12);
+              return 40 + MSpuntos + (json[i].userStories.length * 12);
             }
           })(),
           "textoID": 0.23 - ((((45 + (json[i].userStories.length * 12)) - 57) * 0.12) / 100),
@@ -327,14 +453,14 @@ async function convertir_jsonAnodos(recalcular) {
     ADST = ADST + Math.pow(MSdependencias.length, 2) // Sumatoria de los cuadrados
   };
 
-  if (recalcular) {
+  if (recalcular & recalcularSS) {
     arraySS = await similitud_semantica(arrayNombresHU);
   }
 
-  calcularMetricas(recalcular);
+  calcularMetricas(recalcular, recalcularSS, diagramar);
 }
 
-function calcularMetricas(recalcular) {
+function calcularMetricas(recalcular, recalcularSS, diagramar) {
   // Quitar las aristas con 'to' undefined
   aristas = aristas.filter((item) => item.to !== undefined);
 
@@ -400,8 +526,10 @@ function calcularMetricas(recalcular) {
         Coh = LC / CantidadMSs;
         nodos[i]["Cohesion Grade"] = Coh.toFixed(2);
 
-        nodos[i]["Semantic Similarity"] = arraySS[contadorSS];
-        contadorSS++;
+        if (recalcularSS) {
+          nodos[i]["Semantic Similarity"] = arraySS[contadorSS];
+          contadorSS++;
+        }
       } else {
         SIY = (nodos[i]["Coupling SIY"])
 
@@ -416,6 +544,9 @@ function calcularMetricas(recalcular) {
 
       // Se formatea el valor de la similitud semántica para expresarle en términos porcentuales
       if (recalcular) {
+        if (!diagramar) {
+          nodos[i]["Semantic Similarity"] = nodos[i]["Semantic Similarity"] / 100
+        }
         nodos[i]["Semantic Similarity"] = "" + (100 * nodos[i]["Semantic Similarity"]).toFixed(2) + "%";
       } else {
         nodos[i]["Semantic Similarity"] = nodos[i]["Semantic Similarity"].toFixed(2) + "%";
@@ -457,8 +588,8 @@ function calcularMetricas(recalcular) {
   }
 
   // 𝑀𝑇 ⃗=[𝐶𝑝𝑇, 𝐶𝑜ℎ𝑇, 𝑊𝑠𝑖𝑐𝑇, 𝐶𝑥𝑇,(100 − 𝑆𝑠𝑇)]
-  // Gm = /𝑀𝑇 ⃗/
-  Gm = Math.sqrt(Math.pow((10 * CpT), 2) + Math.pow(WsicT, 2) + Math.pow(CxT, 2) + Math.pow((100 - SsT), 2));
+  // Gm = |𝑀𝑇 ⃗|
+  Gm = Math.sqrt(Math.pow((10 * CpT), 2) + Math.pow(CohT, 2) + Math.pow(WsicT, 2) + Math.pow(CxT, 2) + Math.pow((100 - SsT), 2));
 
   /*          Otros           */
   rendimiento = rendimiento / CantidadMSs;
@@ -474,7 +605,9 @@ function calcularMetricas(recalcular) {
   console.log("Cx: " + Cx.toFixed(2));
 
   diagramaCargado = true;
-  init();
+  if (diagramar) {
+    init();
+  }
 }
 
 function convertir_nodosAjson(nodosAjson) {
@@ -523,6 +656,7 @@ function convertir_nodosAjson(nodosAjson) {
       "userStories": huCopia
     });
   }
+  agregarGuiones();
 }
 
 function nuevoMSid() { // Retorna un nuevo ID no usado en el diagrama
@@ -557,7 +691,7 @@ function crearMicroservicio(ms, us) {
     "complexity": 0,
     "id": ms,
     "points": 0,
-    "semanticSimilarity": 0,
+    "semanticSimilarity": 100.00,
     "userStories": us
   });
 }
@@ -636,6 +770,8 @@ function init() {
           var proximo = nuevoMSid(); // Crea un nuevo id de MS no repetido
           quitarUSdeMS(MSnombre, nuevaHistoria);
           crearMicroservicio(proximo, nuevaHistoria); // Crea nuevo MS y le asigna el id recién creado
+          convertir_jsonAnodos(true, false, false); // (recalcular, recalcularSS, diagramar)
+          convertir_nodosAjson(nodos);
           nuevoDiagrama(true);
         } else {
           myDiagram.currentTool.doCancel();
@@ -718,7 +854,6 @@ function init() {
           return;
         }
         convertir_nodosAjson(nodos);
-        agregarGuiones();
         nuevoDiagrama(true);
       }
     },
@@ -898,7 +1033,7 @@ function inspectors() {
     "CohT": CohT.toFixed(2),
     "SsT": "" + SsT.toFixed(2) + "%",
     "WsicT": WsicT,
-    "CxT": CxT.toFixed(2),
+    "CxT": CxT.toFixed(1),
     "Gm": Gm.toFixed(2)
   };
 
@@ -959,7 +1094,7 @@ export function leerArchivo(e) {
     var schema = require('./schemas/microservices.json');
     var esValido = validarJson(schema, json);
     if (esValido) {
-      convertir_jsonAnodos(false);
+      convertir_jsonAnodos(false, false, true); // (recalcular, recalcularSS, diagramar)
     } else {
       diagramaCargado = false;
       AIST = 0;
@@ -1083,7 +1218,6 @@ function agregarGuiones() {
 function exportarJson() {
   if (diagramaCargado) {
     convertir_nodosAjson(nodos); // Se llama para guardar en el JSON la config actual
-    agregarGuiones();
     var dataStr = JSON.stringify(json);
     var dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
 
@@ -1108,12 +1242,21 @@ function exportarJson() {
   }
 }
 
-function nuevoDiagrama(recalcular) {
+async function nuevoDiagrama(recalcular) {
   if (diagramaCargado === true) {
     myDiagram.div = null;
     myDiagram = null;
   }
-  convertir_jsonAnodos(recalcular);
+  if (recalcular === true) {
+    await consultarBD()
+    if (nueva_config) {
+      convertir_jsonAnodos(true, true, true); // (recalcular, recalcularSS, diagramar)
+    } else {
+      convertir_jsonAnodos(false, false, true); // (recalcular, recalcularSS, diagramar)
+    }
+  } else {
+    convertir_jsonAnodos(false, false, true); // (recalcular, recalcularSS, diagramar)
+  }
   diagramaCargado = true;
 }
 
@@ -1121,7 +1264,7 @@ function cambiar_tamano() {
   document.getElementById('titulo').innerHTML = '';
   document.getElementById('myInspectorDiv').style.visibility = 'hidden';
   if (diagramaCargado === true) {
-    nuevoDiagrama(true);
+    nuevoDiagrama(false);
   }
 }
 

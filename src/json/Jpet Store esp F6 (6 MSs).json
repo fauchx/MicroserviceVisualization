@@ -1,0 +1,439 @@
+[
+  {
+    "cohesionLack": 5,
+    "cohesionGrade": 0.83,
+    "couplingADS": 0,
+    "couplingAIS": 1,
+    "couplingSIY": 0,
+    "complexity": 6,
+    "id": "MS-1",
+    "points": 6,
+    "semanticSimilarity": 58.78,
+    "userStories": [
+      {
+        "componente": "historia",
+        "group": "MS1",
+        "id": "US-1",
+        "key": "US1",
+        "project": "Jpet Store",
+        "__gohashid": 135080,
+        "dependencies": [
+          {
+            "id": "US-2"
+          },
+          {
+            "id": "US-19"
+          }
+        ],
+        "points": 3,
+        "actor": "user",
+        "name": "Ver categoría",
+        "description": "",
+        "priority": "Low"
+      },
+      {
+        "componente": "historia",
+        "group": "MS1",
+        "id": "US-2",
+        "key": "US2",
+        "project": "Jpet Store",
+        "__gohashid": 135081,
+        "dependencies": [],
+        "points": 1,
+        "actor": "user",
+        "name": "Listar categorías",
+        "description": "",
+        "priority": "Low"
+      },
+      {
+        "componente": "historia",
+        "group": "MS1",
+        "id": "US-19",
+        "key": "US19",
+        "project": "Jpet Store",
+        "__gohashid": 135082,
+        "dependencies": [],
+        "points": 2,
+        "actor": "user",
+        "name": "Obtener categorías",
+        "description": "",
+        "priority": "Low"
+      }
+    ]
+  },
+  {
+    "cohesionLack": 5,
+    "cohesionGrade": 0.83,
+    "couplingADS": 0,
+    "couplingAIS": 0,
+    "couplingSIY": 0,
+    "complexity": 6,
+    "id": "MS-4",
+    "points": 6,
+    "semanticSimilarity": 74.11,
+    "userStories": [
+      {
+        "componente": "historia",
+        "group": "MS4",
+        "id": "US-7",
+        "key": "US7",
+        "project": "Jpet Store",
+        "__gohashid": 135084,
+        "dependencies": [],
+        "points": 3,
+        "actor": "user",
+        "name": "Quitar item o artículo del carrito de compras",
+        "description": "",
+        "priority": "Low"
+      },
+      {
+        "componente": "historia",
+        "group": "MS4",
+        "id": "US-8",
+        "key": "US8",
+        "project": "Jpet Store",
+        "__gohashid": 135085,
+        "dependencies": [],
+        "points": 3,
+        "actor": "user",
+        "name": "Actualizar carrito de compras",
+        "description": "",
+        "priority": "Low"
+      }
+    ]
+  },
+  {
+    "cohesionLack": 5,
+    "cohesionGrade": 0.83,
+    "couplingADS": 0,
+    "couplingAIS": 0,
+    "couplingSIY": 0,
+    "complexity": 5,
+    "id": "MS-6",
+    "points": 5,
+    "semanticSimilarity": 0,
+    "userStories": [
+      {
+        "componente": "historia",
+        "group": "MS6",
+        "id": "US-14",
+        "key": "US14",
+        "project": "Jpet Store",
+        "__gohashid": 135087,
+        "dependencies": [],
+        "points": 3,
+        "actor": "user",
+        "name": "Obtener autenticación",
+        "description": "",
+        "priority": "Low"
+      },
+      {
+        "componente": "historia",
+        "group": "MS6",
+        "id": "US-17",
+        "key": "US17",
+        "project": "Jpet Store",
+        "__gohashid": 135088,
+        "dependencies": [],
+        "points": 2,
+        "actor": "user",
+        "name": "Cerrar sesión",
+        "description": "",
+        "priority": "Low"
+      }
+    ]
+  },
+  {
+    "cohesionLack": 5,
+    "cohesionGrade": 0.83,
+    "couplingADS": 0,
+    "couplingAIS": 0,
+    "couplingSIY": 0,
+    "complexity": 10,
+    "id": "MS-3",
+    "points": 10,
+    "semanticSimilarity": 80.98,
+    "userStories": [
+      {
+        "componente": "historia",
+        "group": "MS3",
+        "id": "US-3",
+        "key": "US3",
+        "project": "Jpet Store",
+        "__gohashid": 135090,
+        "dependencies": [],
+        "points": 5,
+        "actor": "user",
+        "name": "Buscar producto",
+        "description": "",
+        "priority": "Low"
+      },
+      {
+        "componente": "historia",
+        "group": "MS3",
+        "id": "US-4",
+        "key": "US4",
+        "project": "Jpet Store",
+        "__gohashid": 135091,
+        "dependencies": [
+          {
+            "id": "US-20"
+          }
+        ],
+        "points": 3,
+        "actor": "user",
+        "name": "Ver producto",
+        "description": "",
+        "priority": "Low"
+      },
+      {
+        "componente": "historia",
+        "group": "MS3",
+        "id": "US-20",
+        "key": "US20",
+        "project": "Jpet Store",
+        "__gohashid": 135092,
+        "dependencies": [],
+        "points": 2,
+        "actor": "user",
+        "name": "Obtener producto",
+        "description": "",
+        "priority": "Low"
+      }
+    ]
+  },
+  {
+    "cohesionLack": 5,
+    "cohesionGrade": 0.83,
+    "couplingADS": 1,
+    "couplingAIS": 0,
+    "couplingSIY": 0,
+    "complexity": 36,
+    "id": "MS-2",
+    "points": 36,
+    "semanticSimilarity": 30.95,
+    "userStories": [
+      {
+        "componente": "historia",
+        "group": "MS2",
+        "id": "US-9",
+        "key": "US9",
+        "project": "Jpet Store",
+        "__gohashid": 135094,
+        "dependencies": [],
+        "points": 3,
+        "actor": "user",
+        "name": "Obtener carrito de compras",
+        "description": "",
+        "priority": "Low"
+      },
+      {
+        "componente": "historia",
+        "group": "MS2",
+        "id": "US-10",
+        "key": "US10",
+        "project": "Jpet Store",
+        "__gohashid": 135095,
+        "dependencies": [
+          {
+            "id": "US-9"
+          },
+          {
+            "id": "US-16"
+          }
+        ],
+        "points": 7,
+        "actor": "user",
+        "name": "Nueva orden",
+        "description": "",
+        "priority": "Low"
+      },
+      {
+        "componente": "historia",
+        "group": "MS2",
+        "id": "US-11",
+        "key": "US11",
+        "project": "Jpet Store",
+        "__gohashid": 135096,
+        "dependencies": [
+          {
+            "id": "US-16"
+          }
+        ],
+        "points": 3,
+        "actor": "user",
+        "name": "Obtener orden",
+        "description": "",
+        "priority": "Low"
+      },
+      {
+        "componente": "historia",
+        "group": "MS2",
+        "id": "US-12",
+        "key": "US12",
+        "project": "Jpet Store",
+        "__gohashid": 135097,
+        "dependencies": [],
+        "points": 5,
+        "actor": "user",
+        "name": "Establecer identificación de la orden",
+        "description": "",
+        "priority": "Low"
+      },
+      {
+        "componente": "historia",
+        "group": "MS2",
+        "id": "US-13",
+        "key": "US13",
+        "project": "Jpet Store",
+        "__gohashid": 135098,
+        "dependencies": [
+          {
+            "id": "US-16"
+          }
+        ],
+        "points": 3,
+        "actor": "user",
+        "name": "Listar ordenes",
+        "description": "",
+        "priority": "Low"
+      },
+      {
+        "componente": "historia",
+        "group": "MS2",
+        "id": "US-15",
+        "key": "US15",
+        "project": "Jpet Store",
+        "__gohashid": 135099,
+        "dependencies": [
+          {
+            "id": "US-16"
+          },
+          {
+            "id": "US-1"
+          }
+        ],
+        "points": 5,
+        "actor": "user",
+        "name": "Crear cuenta nueva",
+        "description": "",
+        "priority": "Low"
+      },
+      {
+        "componente": "historia",
+        "group": "MS2",
+        "id": "US-16",
+        "key": "US16",
+        "project": "Jpet Store",
+        "__gohashid": 135100,
+        "dependencies": [],
+        "points": 3,
+        "actor": "user",
+        "name": "Obtener cuenta",
+        "description": "",
+        "priority": "Low"
+      },
+      {
+        "componente": "historia",
+        "group": "MS2",
+        "id": "US-18",
+        "key": "US18",
+        "project": "Jpet Store",
+        "__gohashid": 135101,
+        "dependencies": [
+          {
+            "id": "US-16"
+          },
+          {
+            "id": "US-1"
+          }
+        ],
+        "points": 3,
+        "actor": "user",
+        "name": "Actualizar cuenta",
+        "description": "",
+        "priority": "Low"
+      },
+      {
+        "componente": "historia",
+        "group": "MS2",
+        "id": "US-22",
+        "key": "US22",
+        "project": "Jpet Store",
+        "__gohashid": 135102,
+        "dependencies": [
+          {
+            "id": "US-1"
+          }
+        ],
+        "points": 3,
+        "actor": "user",
+        "name": "Iniciar sesión",
+        "description": "",
+        "priority": "Low"
+      }
+    ]
+  },
+  {
+    "cohesionLack": 5,
+    "cohesionGrade": 0.83,
+    "couplingADS": 0,
+    "couplingAIS": 0,
+    "couplingSIY": 0,
+    "complexity": 11,
+    "id": "MS-5",
+    "points": 11,
+    "semanticSimilarity": 76.29,
+    "userStories": [
+      {
+        "componente": "historia",
+        "group": "MS5",
+        "id": "US-5",
+        "key": "US5",
+        "project": "Jpet Store",
+        "__gohashid": 135104,
+        "dependencies": [],
+        "points": 3,
+        "actor": "user",
+        "name": "Ver item o artículo",
+        "description": "",
+        "priority": "Low"
+      },
+      {
+        "componente": "historia",
+        "group": "MS5",
+        "id": "US-6",
+        "key": "US6",
+        "project": "Jpet Store",
+        "__gohashid": 135105,
+        "dependencies": [
+          {
+            "id": "US-5"
+          },
+          {
+            "id": "US-21"
+          }
+        ],
+        "points": 5,
+        "actor": "user",
+        "name": "Agregar item o artículo al carrito de compras",
+        "description": "",
+        "priority": "Low"
+      },
+      {
+        "componente": "historia",
+        "group": "MS5",
+        "id": "US-21",
+        "key": "US21",
+        "project": "Jpet Store",
+        "__gohashid": 135106,
+        "dependencies": [],
+        "points": 3,
+        "actor": "user",
+        "name": "Buscar item o artículo",
+        "description": "",
+        "priority": "Low"
+      }
+    ]
+  }
+]
