@@ -181,7 +181,7 @@ async function consultarBD() {
   var cadena = JSON.stringify(json);
   const encodedValue = encodeURIComponent(cadena);
   await new Promise((resolve, reject) => {
-    fetch(`http://localhost:8000/api/?configuracion=${encodedValue}`, {
+    fetch(`${API_URL}/?configuracion=${encodedValue}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
