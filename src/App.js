@@ -5,6 +5,8 @@ import '../node_modules/gojs/extensions/Figures'
 import { Inspector } from '../node_modules/gojs/extensionsJSM/DataInspector.js'
 import './css/App.css';  // contains .diagram-component CSS
 import swal from 'sweetalert'
+import schema from "./schemas/microservices.json";
+import {API_URL} from "./utils";
 import Swal from 'sweetalert2'
 
 //************ Variables ****************/
@@ -60,15 +62,30 @@ function recibe_parametro(props) {
   const query = new URLSearchParams(props.target.location.search);
   var diagrama = query.get('diagrama')
   if (diagrama !== null) {
+    swal({
+      title: "Loading stories",
+      icon: "success",
+    })
     try {
-      json = JSON.parse(diagrama);
-      var schema = require('./schemas/microservices.json');
-      var esValido = validarJson(schema, json);
-      if (esValido) {
-        nuevoDiagrama(false);
-      }
-    } catch {
-      //
+      fetch(diagrama)
+        .then(response => response.json())
+        .then(data => {
+          console.log(data)
+          json = data;
+          var schema = require('./schemas/microservices.json');
+          var esValido = validarJson(schema, data);
+          if (esValido) {
+            nuevoDiagrama();
+            swal.close();
+          }
+        });
+
+    } catch(err) {
+      swal({
+        title: "" + err,
+        text: "Error",
+        icon: "error",
+      })
     }
   }
 }
@@ -132,7 +149,7 @@ async function similitud_semantica(nombres_HU) {
   }
   showLoading();
   await new Promise((resolve, reject) => {
-    fetch(`http://localhost:8000/api/?user_stories=${encodedValue}`, {
+    fetch(`${API_URL}/?user_stories=${encodedValue}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
@@ -164,7 +181,7 @@ async function consultarBD() {
   var cadena = JSON.stringify(json);
   const encodedValue = encodeURIComponent(cadena);
   await new Promise((resolve, reject) => {
-    fetch(`http://localhost:8000/api/?configuracion=${encodedValue}`, {
+    fetch(`${API_URL}/?configuracion=${encodedValue}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
@@ -681,10 +698,12 @@ function crearMicroservicio(ms, us) {
 
 function formatearUS(historia) {
   var dependenciasFormateadas = [];
-  for (let i = 0; i < historia["Dependencies"].length; i++) {
-    dependenciasFormateadas = dependenciasFormateadas.concat({
-      id: historia["Dependencies"][i]
-    });
+  if (historia["Dependencies"]){
+    for (let i = 0; i < historia["Dependencies"].length; i++) {
+      dependenciasFormateadas = dependenciasFormateadas.concat({
+        id: historia["Dependencies"][i]
+      });
+    }
   }
   var historiaFormateada = [ // Historia para el JSON
     {

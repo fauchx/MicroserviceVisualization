@@ -1,0 +1,12 @@
+version: '3.9'
+
+services:
+
+  visualization_frontend:
+    restart: always
+    image: visualization_frontend
+    build:
+      context: ../
+      dockerfile: ./deployment/frontend/Dockerfile
+    ports:
+      - "8001:80"
