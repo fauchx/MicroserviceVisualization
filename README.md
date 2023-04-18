@@ -1,2 +1,2 @@
 # microservices-visualization
-Interactive display of Microservces Backlog 
+Interactive display of Microservices Backlog 
