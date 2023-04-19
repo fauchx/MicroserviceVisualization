@@ -149,8 +149,12 @@ async function similitud_semantica(nombres_HU) {
   }
   showLoading();
   await new Promise((resolve, reject) => {
-    fetch(`${API_URL}/?user_stories=${encodedValue}`, {
-      method: "GET",
+    const formData = new FormData();
+    formData.append("user_stories", encodedValue)
+
+    fetch(`${API_URL}/`, {
+      method: "POST",
+      body: formData,
       headers: {
         "Content-Type": "application/json"
       },
@@ -178,11 +182,11 @@ async function similitud_semantica(nombres_HU) {
 }
 
 async function consultarBD() {
-  var cadena = JSON.stringify(json);
-  const encodedValue = encodeURIComponent(cadena);
   await new Promise((resolve, reject) => {
-    fetch(`${API_URL}/?configuracion=${encodedValue}`, {
-      method: "GET",
+    const formData = new FormData();
+    formData.append("configuracion", json)
+    fetch(`${API_URL}/`, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
