@@ -187,6 +187,7 @@ async function consultarBD() {
     formData.append("configuracion", json)
     fetch(`${API_URL}/`, {
       method: "POST",
+      body: formData,
       headers: {
         "Content-Type": "application/json"
       },
