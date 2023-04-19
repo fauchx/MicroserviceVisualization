@@ -155,9 +155,6 @@ async function similitud_semantica(nombres_HU) {
     fetch(`${API_URL}/`, {
       method: "POST",
       body: formData,
-      headers: {
-        "Content-Type": "application/json"
-      },
     }).then(function (response) {
       setTimeout(() => {
         resolve(response)
@@ -183,11 +180,9 @@ async function similitud_semantica(nombres_HU) {
 
 async function consultarBD() {
   await new Promise((resolve, reject) => {
-    const formData = new FormData();
-    formData.append("configuracion", json)
     fetch(`${API_URL}/`, {
       method: "POST",
-      body: formData,
+      body: JSON.stringify(json),
       headers: {
         "Content-Type": "application/json"
       },
