@@ -856,7 +856,9 @@ function init() {
         if (!ok || MSdesde === MShacia) {
           grp.diagram.currentTool.doCancel();
           return;
-        }
+        }        
+        convertir_nodosAjson(nodos);
+        convertir_jsonAnodos(true, false, false); // (recalcular, recalcularSS, diagramar)
         convertir_nodosAjson(nodos);
         nuevoDiagrama(true);
       }

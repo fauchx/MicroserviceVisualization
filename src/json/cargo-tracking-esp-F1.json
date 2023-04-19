@@ -1,1 +1,296 @@
-[{"cohesionLack":2,"cohesionGrade":0.67,"couplingADS":2,"couplingAIS":0,"couplingSIY":0,"complexity":23,"id":"MS-1","points":23,"semanticSimilarity":50.51,"userStories":[{"componente":"historia","group":"MS1","id":"US-5","key":"US5","project":"Cargo Tracking","__gohashid":53301,"dependencies":[],"points":3,"actor":"User","name":"Ver seguimiento del viaje o carga enviada","description":"Permite consultar el seguimiento del viaje o carga según el Tracking Id","priority":"Baja"},{"componente":"historia","group":"MS1","id":"US-6","key":"US6","project":"Cargo Tracking","__gohashid":53302,"dependencies":[{"id":"US-7"},{"id":"US-9"},{"id":"US-11"}],"points":7,"actor":"User","name":"Crear carga","description":"Permite crear una carga a transportar. Se genera un Tracking Id. Se asocia un itinerario, una especificación de ruta y una entrega","priority":"Baja"},{"componente":"historia","group":"MS1","id":"US-11","key":"US11","project":"Cargo Tracking","__gohashid":53303,"dependencies":[{"id":"US-6"},{"id":"US-13"},{"id":"US-14"}],"points":7,"actor":"User","name":"Crear entrega","description":"Permite crear y asociar al cargo una entrega, calcula una fecha estimada de entrega teniendo en cuanta el estado de los transportistas y el estado de las rutas","priority":"Baja"},{"componente":"historia","group":"MS1","id":"US-13","key":"US13","project":"Cargo Tracking","__gohashid":53304,"dependencies":[{"id":"US-5"}],"points":3,"actor":"User","name":"Consultar estado de transportistas","description":"Permite obtener el estado de los transportistas","priority":"Baja"},{"componente":"historia","group":"MS1","id":"US-14","key":"US14","project":"Cargo Tracking","__gohashid":53305,"dependencies":[{"id":"US-5"}],"points":3,"actor":"User","name":"Consultar estado de rutas","description":"Permite obtener el estado de las rutas","priority":"Baja"}]},{"cohesionLack":2,"cohesionGrade":0.67,"couplingADS":1,"couplingAIS":1,"couplingSIY":0,"complexity":9,"id":"MS-2","points":9,"semanticSimilarity":72.82,"userStories":[{"componente":"historia","group":"MS2","id":"US-8","key":"US8","project":"Cargo Tracking","__gohashid":53307,"dependencies":[{"id":"US-12"}],"points":2,"actor":"User","name":"Crear Parada","description":"Crear una parada para un itinerario","priority":"Baja"},{"componente":"historia","group":"MS2","id":"US-7","key":"US7","project":"Cargo Tracking","__gohashid":53308,"dependencies":[{"id":"US-8"}],"points":5,"actor":"User","name":"Crear itinerario de la carga","description":"Permite crear un itinerario de una carga especificando sus paradas","priority":"Baja"},{"componente":"historia","group":"MS2","id":"US-4","key":"US4","project":"Cargo Tracking","__gohashid":53309,"dependencies":[],"points":2,"actor":"User","name":"Crear localización","description":"Permite crear una localización especificando su nombre e identificador","priority":"Baja"}]},{"cohesionLack":2,"cohesionGrade":0.67,"couplingADS":0,"couplingAIS":2,"couplingSIY":0,"complexity":19,"id":"MS-3","points":19,"semanticSimilarity":83.19,"userStories":[{"componente":"historia","group":"MS3","id":"US-12","key":"US12","project":"Cargo Tracking","__gohashid":53311,"dependencies":[],"points":2,"actor":"User","name":"Obtener localizaciones","description":"Permite obtener el listado de las localizaciones disponibles","priority":"Baja"},{"componente":"historia","group":"MS3","id":"US-10","key":"US10","project":"Cargo Tracking","__gohashid":53312,"dependencies":[{"id":"US-12"}],"points":1,"actor":"User","name":"Cambiar destino de carga","description":"Permite modificar el destino de una carga enviada","priority":"Baja"},{"componente":"historia","group":"MS3","id":"US-9","key":"US9","project":"Cargo Tracking","__gohashid":53313,"dependencies":[{"id":"US-12"}],"points":5,"actor":"User","name":"Programar carga - crear especificación de ruta","description":"Crear el envío de la carga, se especifica la ruta ingresando una localización origen y destino y se establece una fecha límite de entrega","priority":"Baja"},{"componente":"historia","group":"MS3","id":"US-3","key":"US3","project":"Cargo Tracking","__gohashid":53314,"dependencies":[{"id":"US-12"}],"points":5,"actor":"User","name":"Agregar movimiento del transportista","description":"Permite agregar un movimiento de transportista para un viaje creado, especifica en donde se encuentra el transportista en una fecha dada","priority":"Baja"},{"componente":"historia","group":"MS3","id":"US-2","key":"US2","project":"Cargo Tracking","__gohashid":53315,"dependencies":[{"id":"US-12"}],"points":3,"actor":"User","name":"Gestionar evento de carga","description":"Permite registrar o crear un evento en una localización indicando la fecha cuando termina el evento","priority":"Baja"},{"componente":"historia","group":"MS3","id":"US-1","key":"US1","project":"Cargo Tracking","__gohashid":53316,"dependencies":[{"id":"US-12"},{"id":"US-3"}],"points":3,"actor":"User","name":"Crear viaje de carga","description":"Permite crear un viaje para una carga dada especificando los movimientos necesarios para llegar a su destino","priority":"Baja"}]}]
+[
+  {
+    "cohesionLack": 2,
+    "cohesionGrade": 0.67,
+    "couplingADS": 2,
+    "couplingAIS": 0,
+    "couplingSIY": 0,
+    "complexity": 23,
+    "id": "MS-1",
+    "points": 23,
+    "semanticSimilarity": 50.51,
+    "userStories": [
+      {
+        "componente": "historia",
+        "group": "MS1",
+        "id": "US-5",
+        "key": "US5",
+        "project": "Cargo Tracking",
+        "__gohashid": 53301,
+        "dependencies": [],
+        "points": 3,
+        "actor": "User",
+        "name": "Ver seguimiento del viaje o carga enviada",
+        "description": "Permite consultar el seguimiento del viaje o carga según el Tracking Id",
+        "priority": "Baja"
+      },
+      {
+        "componente": "historia",
+        "group": "MS1",
+        "id": "US-6",
+        "key": "US6",
+        "project": "Cargo Tracking",
+        "__gohashid": 53302,
+        "dependencies": [
+          {
+            "id": "US-7"
+          },
+          {
+            "id": "US-9"
+          },
+          {
+            "id": "US-11"
+          }
+        ],
+        "points": 7,
+        "actor": "User",
+        "name": "Crear carga",
+        "description": "Permite crear una carga a transportar. Se genera un Tracking Id. Se asocia un itinerario, una especificación de ruta y una entrega",
+        "priority": "Baja"
+      },
+      {
+        "componente": "historia",
+        "group": "MS1",
+        "id": "US-11",
+        "key": "US11",
+        "project": "Cargo Tracking",
+        "__gohashid": 53303,
+        "dependencies": [
+          {
+            "id": "US-6"
+          },
+          {
+            "id": "US-13"
+          },
+          {
+            "id": "US-14"
+          }
+        ],
+        "points": 7,
+        "actor": "User",
+        "name": "Crear entrega",
+        "description": "Permite crear y asociar al cargo una entrega, calcula una fecha estimada de entrega teniendo en cuanta el estado de los transportistas y el estado de las rutas",
+        "priority": "Baja"
+      },
+      {
+        "componente": "historia",
+        "group": "MS1",
+        "id": "US-13",
+        "key": "US13",
+        "project": "Cargo Tracking",
+        "__gohashid": 53304,
+        "dependencies": [
+          {
+            "id": "US-5"
+          }
+        ],
+        "points": 3,
+        "actor": "User",
+        "name": "Consultar estado de transportistas",
+        "description": "Permite obtener el estado de los transportistas",
+        "priority": "Baja"
+      },
+      {
+        "componente": "historia",
+        "group": "MS1",
+        "id": "US-14",
+        "key": "US14",
+        "project": "Cargo Tracking",
+        "__gohashid": 53305,
+        "dependencies": [
+          {
+            "id": "US-5"
+          }
+        ],
+        "points": 3,
+        "actor": "User",
+        "name": "Consultar estado de rutas",
+        "description": "Permite obtener el estado de las rutas",
+        "priority": "Baja"
+      }
+    ]
+  },
+  {
+    "cohesionLack": 2,
+    "cohesionGrade": 0.67,
+    "couplingADS": 1,
+    "couplingAIS": 1,
+    "couplingSIY": 0,
+    "complexity": 9,
+    "id": "MS-2",
+    "points": 9,
+    "semanticSimilarity": 72.82,
+    "userStories": [
+      {
+        "componente": "historia",
+        "group": "MS2",
+        "id": "US-8",
+        "key": "US8",
+        "project": "Cargo Tracking",
+        "__gohashid": 53307,
+        "dependencies": [
+          {
+            "id": "US-12"
+          }
+        ],
+        "points": 2,
+        "actor": "User",
+        "name": "Crear Parada",
+        "description": "Crear una parada para un itinerario",
+        "priority": "Baja"
+      },
+      {
+        "componente": "historia",
+        "group": "MS2",
+        "id": "US-7",
+        "key": "US7",
+        "project": "Cargo Tracking",
+        "__gohashid": 53308,
+        "dependencies": [
+          {
+            "id": "US-8"
+          }
+        ],
+        "points": 5,
+        "actor": "User",
+        "name": "Crear itinerario de la carga",
+        "description": "Permite crear un itinerario de una carga especificando sus paradas",
+        "priority": "Baja"
+      },
+      {
+        "componente": "historia",
+        "group": "MS2",
+        "id": "US-4",
+        "key": "US4",
+        "project": "Cargo Tracking",
+        "__gohashid": 53309,
+        "dependencies": [],
+        "points": 2,
+        "actor": "User",
+        "name": "Crear localización",
+        "description": "Permite crear una localización especificando su nombre e identificador",
+        "priority": "Baja"
+      }
+    ]
+  },
+  {
+    "cohesionLack": 2,
+    "cohesionGrade": 0.67,
+    "couplingADS": 0,
+    "couplingAIS": 2,
+    "couplingSIY": 0,
+    "complexity": 19,
+    "id": "MS-3",
+    "points": 19,
+    "semanticSimilarity": 83.19,
+    "userStories": [
+      {
+        "componente": "historia",
+        "group": "MS3",
+        "id": "US-12",
+        "key": "US12",
+        "project": "Cargo Tracking",
+        "__gohashid": 53311,
+        "dependencies": [],
+        "points": 2,
+        "actor": "User",
+        "name": "Obtener localizaciones",
+        "description": "Permite obtener el listado de las localizaciones disponibles",
+        "priority": "Baja"
+      },
+      {
+        "componente": "historia",
+        "group": "MS3",
+        "id": "US-10",
+        "key": "US10",
+        "project": "Cargo Tracking",
+        "__gohashid": 53312,
+        "dependencies": [
+          {
+            "id": "US-12"
+          }
+        ],
+        "points": 1,
+        "actor": "User",
+        "name": "Cambiar destino de carga",
+        "description": "Permite modificar el destino de una carga enviada",
+        "priority": "Baja"
+      },
+      {
+        "componente": "historia",
+        "group": "MS3",
+        "id": "US-9",
+        "key": "US9",
+        "project": "Cargo Tracking",
+        "__gohashid": 53313,
+        "dependencies": [
+          {
+            "id": "US-12"
+          }
+        ],
+        "points": 5,
+        "actor": "User",
+        "name": "Programar carga - crear especificación de ruta",
+        "description": "Crear el envío de la carga, se especifica la ruta ingresando una localización origen y destino y se establece una fecha límite de entrega",
+        "priority": "Baja"
+      },
+      {
+        "componente": "historia",
+        "group": "MS3",
+        "id": "US-3",
+        "key": "US3",
+        "project": "Cargo Tracking",
+        "__gohashid": 53314,
+        "dependencies": [
+          {
+            "id": "US-12"
+          }
+        ],
+        "points": 5,
+        "actor": "User",
+        "name": "Agregar movimiento del transportista",
+        "description": "Permite agregar un movimiento de transportista para un viaje creado, especifica en donde se encuentra el transportista en una fecha dada",
+        "priority": "Baja"
+      },
+      {
+        "componente": "historia",
+        "group": "MS3",
+        "id": "US-2",
+        "key": "US2",
+        "project": "Cargo Tracking",
+        "__gohashid": 53315,
+        "dependencies": [
+          {
+            "id": "US-12"
+          }
+        ],
+        "points": 3,
+        "actor": "User",
+        "name": "Gestionar evento de carga",
+        "description": "Permite registrar o crear un evento en una localización indicando la fecha cuando termina el evento",
+        "priority": "Baja"
+      },
+      {
+        "componente": "historia",
+        "group": "MS3",
+        "id": "US-1",
+        "key": "US1",
+        "project": "Cargo Tracking",
+        "__gohashid": 53316,
+        "dependencies": [
+          {
+            "id": "US-12"
+          },
+          {
+            "id": "US-3"
+          }
+        ],
+        "points": 3,
+        "actor": "User",
+        "name": "Crear viaje de carga",
+        "description": "Permite crear un viaje para una carga dada especificando los movimientos necesarios para llegar a su destino",
+        "priority": "Baja"
+      }
+    ]
+  }
+]
