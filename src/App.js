@@ -60,35 +60,38 @@ MS es un conjunto de microservicios MS = {ms1, ms2, …, msn}
 
 function recibe_parametro(props) {
   const query = new URLSearchParams(props.target.location.search);
-  var diagrama = query.get('diagrama')
+  const diagrama = query.get('diagrama');
+
+  console.log("Diagrama:", diagrama);
+
   if (diagrama !== null) {
     swal({
       title: "Loading stories",
       icon: "success",
-    })
+    });
+    console.log(diagrama)
     try {
-      fetch(diagrama)
-        .then(response => response.json())
-        .then(data => {
-          console.log(data)
-          json = data;
+          json = JSON.parse(diagrama);
           var schema = require('./schemas/microservices.json');
-          var esValido = validarJson(schema, data);
+          var esValido = validarJson(schema, json);
+
+          console.log("Validation Result:", esValido);
+
           if (esValido) {
-            nuevoDiagrama();
+            nuevoDiagrama(true);
             swal.close();
           }
-        });
-
-    } catch(err) {
+        }
+     catch (err) {
+      console.error("Try-Catch Error:", err);
       swal({
         title: "" + err,
         text: "Error",
         icon: "error",
-      })
+      });
     }
-  }
-}
+  }   
+ }
 
 function profundidadMax(nodos2, nombreMS) {
   var matriz = [[nombreMS]];
